@@ -1,0 +1,2010 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>SkillWave — Wingate National Swim Team</title>
+
+<!-- Make this behave like an installed app when added to the home screen -->
+<meta name="theme-color" content="#0A1F44">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="SkillWave">
+<link rel="icon" type="image/png" sizes="192x192" href="data:image/png;base64,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">
+<link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,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">
+
+<!-- Cloud database + realtime sync + coach/swimmer roles (Supabase) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --navy: #0A1F44; --navy-mid: #163A63; --blue: #2E8FE0;
+    --teal: #00C2B1; --gold: #F5B740; --silver: #B9C6D6; --bronze: #C98A52;
+    --coral: #FF6B4D;
+    --bg: #F1FAFA; --surface: #FFFFFF; --surface2: #E3F7F4;
+    --text: #0A1F44; --text-muted: #5C7A90; --border: #CFEEEA;
+    --radius: 12px; --radius-lg: 20px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 15px; line-height: 1.5; }
+  header { background: linear-gradient(120deg, var(--navy) 0%, var(--navy-mid) 100%); color: #fff; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; z-index: 100; }
+  header::after {
+    content: ''; position: absolute; top: 100%; left: 0; right: 0; height: 10px; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 10' preserveAspectRatio='none'%3E%3Cpath d='M0 4 C 10 9, 20 0, 30 4 S 50 9, 60 4 S 80 0, 90 4 S 110 9, 120 4 L120 0 L0 0 Z' fill='%23163A63'/%3E%3C/svg%3E");
+    background-size: 120px 10px; background-repeat: repeat-x; opacity: 0.9;
+  }
+  .logo { display: flex; align-items: center; gap: 10px; }
+  .logo h1 { font-size: 18px; font-weight: 800; color: #fff; letter-spacing: -0.01em; }
+  .logo span { font-size: 12px; color: var(--teal); font-weight: 600; }
+  .gender-toggle { display: flex; background: rgba(255,255,255,0.1); border-radius: 24px; padding: 3px; gap: 3px; }
+  .gender-btn { padding: 7px 20px; border: none; border-radius: 20px; cursor: pointer; font-size: 14px; font-weight: 700; background: transparent; color: rgba(255,255,255,0.65); transition: all 0.18s; }
+  .gender-btn.active { background: var(--teal); color: var(--navy); box-shadow: 0 2px 10px rgba(0,194,177,0.45); }
+  .cat-bar { background: var(--navy-mid); display: flex; justify-content: center; gap: 6px; padding: 12px 1rem 7px; flex-wrap: wrap; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .cat-btn { padding: 6px 16px; border: 1.5px solid rgba(255,255,255,0.22); border-radius: 20px; background: transparent; color: rgba(255,255,255,0.65); font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+  .cat-btn.active { background: var(--gold); color: var(--navy); border-color: var(--gold); box-shadow: 0 2px 10px rgba(245,183,64,0.4); }
+  .main { max-width: 960px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  .tabs { display: flex; border-bottom: 2px solid var(--border); margin-bottom: 1.5rem; }
+  .tab { padding: 10px 18px; border: none; background: transparent; cursor: pointer; font-size: 14px; font-weight: 700; color: var(--text-muted); border-bottom: 3px solid transparent; margin-bottom: -2px; display: flex; align-items: center; gap: 6px; transition: all 0.15s; white-space: nowrap; }
+  .tab.active { color: var(--teal); border-bottom-color: var(--teal); }
+  .tab:hover:not(.active) { color: var(--text); }
+  .panel { display: none; }
+  .panel.active { display: block; }
+  .home-title { font-size: 22px; font-weight: 800; text-align: center; margin: 1rem 0 1.5rem; color: var(--navy); }
+  .home-options { display: flex; flex-direction: column; gap: 12px; }
+  .home-card { display: flex; align-items: center; gap: 14px; background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 1.1rem 1.25rem; cursor: pointer; text-align: right; transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s; width: 100%; }
+  .home-card:hover { border-color: var(--teal); box-shadow: 0 8px 22px rgba(0,194,177,0.16); transform: translateY(-2px); }
+  .home-card:active { transform: translateY(0); }
+  .home-card-icon { font-size: 26px; flex-shrink: 0; width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; border-radius: 16px; background: var(--surface2); }
+  .home-card-text { display: flex; flex-direction: column; gap: 3px; flex: 1; }
+  .home-card-title { font-size: 16px; font-weight: 700; color: var(--text); }
+  .home-card-sub { font-size: 13px; color: var(--text-muted); }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; background: none; border: 1.5px solid var(--border); border-radius: 20px; padding: 7px 16px; font-size: 13px; font-weight: 700; color: var(--text-muted); cursor: pointer; margin-bottom: 1.25rem; transition: all 0.15s; }
+  .back-btn:hover { border-color: var(--teal); color: var(--teal); }
+  .skill-rank { font-size: 11px; color: var(--text-muted); margin-top: 5px; font-weight: 600; }
+  .cat-btn-inline { padding: 6px 14px; border: 1.5px solid var(--border); border-radius: 20px; background: transparent; color: var(--text-muted); font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.15s; }
+  .cat-btn-inline.active { background: var(--teal); color: #fff; border-color: var(--teal); box-shadow: 0 2px 8px rgba(0,194,177,0.35); }
+  .add-athlete-input { width: 100%; padding: 9px 12px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; margin-bottom: 10px; box-sizing: border-box; font-family: inherit; }
+  .add-athlete-label { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+  /* --- Connection banner --- */
+  .cloud-banner { padding: 10px 16px; font-size: 13px; font-weight: 600; text-align: center; display: flex; gap: 10px; align-items: center; justify-content: center; line-height: 1.4; }
+  .cloud-banner.local { background: #FDF3E7; color: #8A5A00; border-bottom: 1px solid #F0D9B5; }
+  .cloud-banner.error { background: #FBE9E7; color: #B23B2E; border-bottom: 1px solid #F3C6C0; }
+  .cloud-banner .banner-x { background: none; border: none; color: inherit; font-size: 16px; cursor: pointer; opacity: 0.7; padding: 0 4px; }
+  /* --- Role gating: hide edit controls for viewers (swimmers) --- */
+  body:not(.is-coach) .coach-only { display: none !important; }
+  /* --- Header auth button --- */
+  .auth-btn { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.12); border: 1.5px solid rgba(255,255,255,0.25); color: #fff; border-radius: 20px; padding: 6px 14px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; white-space: nowrap; }
+  .auth-btn:hover { background: rgba(255,255,255,0.22); }
+  .role-pill { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 12px; }
+  .role-pill.coach { background: var(--teal); color: var(--navy); }
+  .role-pill.viewer { background: rgba(255,255,255,0.18); color: #fff; }
+  /* --- Login modal --- */
+  .modal-backdrop { position: fixed; inset: 0; background: rgba(11,31,58,0.55); z-index: 5000; display: none; align-items: center; justify-content: center; padding: 20px; }
+  .modal-backdrop.open { display: flex; }
+  .modal-card { background: var(--surface); border-radius: var(--radius-lg); padding: 22px; width: 100%; max-width: 360px; box-shadow: 0 12px 40px rgba(11,31,58,0.35); }
+  .modal-card h2 { font-size: 18px; color: var(--navy); margin-bottom: 4px; }
+  .modal-card p.sub { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
+  .modal-card label { display: block; font-size: 12px; color: var(--text-muted); margin: 10px 0 4px; }
+  .modal-card input { width: 100%; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 15px; font-family: inherit; box-sizing: border-box; }
+  .modal-err { color: #C0392B; font-size: 13px; margin-top: 10px; min-height: 18px; }
+  .modal-actions { display: flex; gap: 8px; margin-top: 16px; }
+  .modal-actions .btn-primary { flex: 1; background: linear-gradient(135deg, var(--teal), #00A99B); color: #fff; border: none; border-radius: 12px; padding: 12px 0; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; box-shadow: 0 4px 14px rgba(0,194,177,0.35); }
+  .modal-actions .btn-primary:disabled { opacity: 0.6; cursor: default; }
+  .modal-actions .btn-ghost { background: none; border: 1.5px solid var(--border); border-radius: 8px; padding: 11px 16px; font-size: 14px; color: var(--text-muted); cursor: pointer; font-family: inherit; }
+  /* --- Cloud sync status badge --- */
+  .sync-badge { position: fixed; bottom: 12px; left: 12px; z-index: 400; font-size: 11px; font-weight: 600; padding: 5px 11px; border-radius: 14px; background: var(--surface); border: 1.5px solid var(--border); color: var(--text-muted); box-shadow: 0 2px 10px rgba(11,31,58,0.12); display: flex; align-items: center; gap: 6px; }
+  .sync-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--silver); }
+  .sync-badge.online .sync-dot { background: var(--teal); }
+  .sync-badge.offline .sync-dot { background: var(--gold); }
+  .record-overlay { position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; pointer-events: none; background: rgba(11,31,58,0.18); opacity: 1; transition: opacity 0.5s ease; }
+  .record-overlay.fade-out { opacity: 0; }
+  .record-banner { text-align: center; animation: recordPop 0.55s cubic-bezier(.34,1.56,.64,1); padding: 0 1.5rem; }
+  @keyframes recordPop { 0% { transform: scale(0.6); opacity: 0; } 60% { transform: scale(1.08); opacity: 1; } 100% { transform: scale(1); } }
+  .record-title { font-size: 28px; font-weight: 900; color: #fff; text-shadow: 0 2px 14px rgba(0,0,0,0.55), 0 0 30px rgba(245,183,64,0.6); letter-spacing: 0.2px; }
+  .record-sub { font-size: 19px; font-weight: 800; color: var(--gold); text-shadow: 0 2px 10px rgba(0,0,0,0.55); margin: 8px 0; }
+  .record-skill { font-size: 16px; font-weight: 700; color: #fff; background: linear-gradient(120deg, var(--teal), var(--coral)); display: inline-block; padding: 8px 20px; border-radius: 20px; margin-top: 4px; box-shadow: 0 6px 20px rgba(0,0,0,0.3); font-variant-numeric: tabular-nums; }
+  .card { background: var(--surface); border-radius: var(--radius-lg); border: 1px solid var(--border); padding: 1.25rem 1.5rem; margin-bottom: 1.25rem; box-shadow: 0 2px 14px rgba(10,31,68,0.04); }
+  .card-title { font-size: 13px; font-weight: 700; letter-spacing: 0.02em; color: var(--text-muted); margin-bottom: 1rem; }
+  .swimmer-search-wrap { position: relative; }
+  #swimmer-search-input {
+    width: 100%; padding: 14px 48px 14px 16px; border: 2px solid var(--border); border-radius: 14px;
+    font-size: 15px; background: var(--surface); color: var(--text); outline: none;
+    transition: border-color 0.18s, box-shadow 0.18s;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%235A7189' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 16px center;
+  }
+  #swimmer-search-input::placeholder { color: var(--text-muted); }
+  #swimmer-search-input:focus { border-color: var(--teal); box-shadow: 0 0 0 4px rgba(0,194,177,0.16); }
+  .swimmer-search-list {
+    position: absolute; top: calc(100% + 8px); left: 0; right: 0; background: var(--surface);
+    border: 1.5px solid var(--border); border-radius: 14px; max-height: 300px; overflow-y: auto; z-index: 50;
+    box-shadow: 0 12px 32px rgba(11,31,58,0.16); display: none; padding: 6px; opacity: 0; transform: translateY(-6px);
+    transition: opacity 0.15s, transform 0.15s;
+  }
+  .swimmer-search-list.open { display: block; opacity: 1; transform: translateY(0); }
+  .swimmer-search-item {
+    display: flex; align-items: center; gap: 10px; padding: 9px 10px; cursor: pointer; font-size: 14.5px;
+    font-weight: 600; border-radius: 10px; transition: background 0.12s;
+  }
+  .swimmer-search-item:hover, .swimmer-search-item.active { background: var(--surface2); }
+  .swimmer-search-avatar {
+    width: 34px; height: 34px; border-radius: 50%; background: var(--navy-mid); color: var(--teal);
+    display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0;
+  }
+  .swimmer-search-avatar.female { background: #3D2159; color: #E8A3F0; }
+  .swimmer-search-empty { padding: 18px 10px; font-size: 13.5px; color: var(--text-muted); text-align: center; }
+  /* --- Button-based swimmer picker (category -> names) --- */
+  .picker-cats { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .picker-names { display: flex; flex-wrap: wrap; gap: 8px; }
+  .name-btn { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px 6px 8px; border: 1.5px solid var(--border); border-radius: 24px; background: var(--surface); color: var(--text); font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all 0.15s; }
+  .name-btn:hover { border-color: var(--blue); }
+  .name-btn.active { background: var(--teal); color: var(--navy); border-color: var(--teal); box-shadow: 0 3px 10px rgba(0,194,177,0.35); }
+  .name-btn-avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--navy-mid); color: var(--teal); display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+  .name-btn-avatar.female { background: #3D2159; color: #E8A3F0; }
+  .name-btn.active .name-btn-avatar { background: rgba(10,31,68,0.18); color: var(--navy); }
+  .picker-empty { color: var(--text-muted); font-size: 13.5px; padding: 10px 2px; }
+  select { width: 100%; padding: 10px 14px 10px 36px; border: 1.5px solid var(--border); border-radius: var(--radius); font-size: 15px; background: var(--surface); color: var(--text); outline: none; transition: border-color 0.15s; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%235A7189' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: left 12px center; }
+  select:focus { border-color: var(--teal); }
+  .profile-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .avatar { width: 52px; height: 52px; border-radius: 50%; background: var(--navy-mid); display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: var(--teal); flex-shrink: 0; }
+  .avatar.female { background: #3D2159; color: #E8A3F0; }
+  .profile-name { font-size: 21px; font-weight: 800; }
+  .profile-sub { font-size: 13px; color: var(--text-muted); }
+  .total-badge { margin-right: auto; background: var(--navy); color: var(--gold); font-size: 14px; font-weight: 800; padding: 6px 16px; border-radius: 20px; font-variant-numeric: tabular-nums; }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+  .skill-item { background: var(--surface2); border-radius: var(--radius); padding: 12px 14px; border: 1px solid var(--border); transition: border-color 0.15s; }
+  .skill-item:has(.score-high) { border-color: rgba(0,194,177,0.4); }
+  .skill-name { font-size: 12px; font-weight: 700; color: var(--text-muted); margin-bottom: 4px; }
+  .skill-val { font-size: 18px; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .skill-score { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 12px; margin-top: 4px; display: inline-block; font-variant-numeric: tabular-nums; }
+  .score-high { background: #D6F5EF; color: #007A6B; }
+  .score-mid  { background: #FDECC8; color: #8A5A00; }
+  .score-low  { background: #FFE1D6; color: #C24A2E; }
+  .score-none { background: #E7EEF1; color: #64798A; }
+  .edit-btn { margin-top: 6px; font-size: 11px; background: none; border: 1px solid var(--border); border-radius: 6px; padding: 2px 8px; cursor: pointer; color: var(--text-muted); display: block; }
+  .edit-btn:hover { border-color: var(--blue); color: var(--blue); }
+  .edit-row { display: flex; gap: 6px; margin-top: 6px; }
+  .edit-row input { flex: 1; padding: 5px 8px; border: 1.5px solid var(--blue); border-radius: 6px; font-size: 13px; width: 0; }
+  .edit-row button { padding: 5px 10px; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; }
+  .btn-save { background: var(--blue); color: #fff; }
+  .btn-cancel { background: var(--surface2); color: var(--text-muted); }
+  .leaderboard-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .leaderboard-table th { text-align: right; padding: 8px 12px; font-size: 12.5px; font-weight: 700; color: var(--text-muted); border-bottom: 1.5px solid var(--border); }
+  .leaderboard-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .leaderboard-table tr:last-child td { border-bottom: none; }
+  .leaderboard-table tr:hover td { background: var(--surface2); }
+  .rank-cell { font-weight: 800; font-size: 15px; width: 50px; text-align: center; font-variant-numeric: tabular-nums; }
+  .rank-1 { color: #C98A00; } .rank-2 { color: #7A8CA0; } .rank-3 { color: var(--bronze); }
+  .scoring-table-wrap { overflow-x: auto; }
+  .scoring-table { width: 100%; border-collapse: collapse; font-size: 12px; min-width: 700px; }
+  .scoring-table th { background: var(--navy); color: #fff; padding: 9px 10px; text-align: center; white-space: nowrap; font-size: 11px; font-weight: 600; }
+  .scoring-table th:first-child { background: var(--navy-mid); min-width: 55px; }
+  .scoring-table td { padding: 8px 10px; text-align: center; border: 1px solid var(--border); font-variant-numeric: tabular-nums; }
+  .scoring-table td:first-child { font-weight: 700; background: var(--navy-mid); color: var(--gold); font-size: 15px; }
+  .scoring-table tr:nth-child(even) td:not(:first-child) { background: var(--surface2); }
+  .lb-tabs { display: flex; gap: 8px; margin-bottom: 1rem; }
+  .lb-tab { padding: 6px 16px; border: 1.5px solid var(--border); border-radius: 20px; background: var(--surface); cursor: pointer; font-size: 13px; font-weight: 600; color: var(--text-muted); }
+  .lb-tab.active { background: var(--teal); color: var(--navy); border-color: var(--teal); box-shadow: 0 2px 8px rgba(0,194,177,0.35); }
+  /* Skill selection buttons (leaderboard) */
+  .skill-btns { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+  .skill-btn { padding: 11px 18px; border: 1.5px solid var(--border); border-radius: 22px; background: var(--surface); color: var(--text); font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; transition: all 0.15s; }
+  .skill-btn:hover { border-color: var(--teal); color: var(--teal); }
+  .skill-btn.active { background: var(--teal); color: var(--navy); border-color: var(--teal); box-shadow: 0 3px 10px rgba(0,194,177,0.35); }
+  .skill-btn.overall { border-color: var(--gold); color: #8A5A00; }
+  .skill-btn.overall.active { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--navy); color: #fff; padding: 11px 22px; border-radius: 24px; font-size: 14px; font-weight: 700; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 999; box-shadow: 0 6px 20px rgba(10,31,68,0.3); }
+  .toast.show { opacity: 1; }
+  @media (max-width: 600px) {
+    header { padding: 0 0.75rem; }
+    .logo h1 { font-size: 14px; }
+    .gender-btn { padding: 6px 11px; font-size: 13px; }
+    .tab { padding: 9px 10px; font-size: 12px; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .main { padding: 1rem 0.75rem 3rem; }
+  }
+  /* --- Voice entry --- */
+  .voice-fab {
+    position: fixed; bottom: 16px; right: 16px; z-index: 400; width: 54px; height: 54px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--teal), #00A99B); border: none; color: #fff; font-size: 24px;
+    cursor: pointer; box-shadow: 0 6px 20px rgba(0,194,177,0.45); display: flex; align-items: center; justify-content: center;
+  }
+  .voice-mic-wrap { text-align: center; padding: 14px 0 6px; }
+  .voice-mic-btn {
+    width: 76px; height: 76px; border-radius: 50%; border: none; cursor: pointer; font-size: 30px;
+    background: var(--surface2); color: var(--navy); box-shadow: 0 2px 10px rgba(10,31,68,0.1);
+    transition: background 0.2s, box-shadow 0.2s;
+  }
+  .voice-mic-btn.listening {
+    background: linear-gradient(135deg, var(--teal), #00A99B); color: #fff;
+    animation: voicePulse 1.4s ease-out infinite;
+  }
+  @keyframes voicePulse {
+    0% { box-shadow: 0 0 0 0 rgba(0,194,177,0.55); }
+    70% { box-shadow: 0 0 0 16px rgba(0,194,177,0); }
+    100% { box-shadow: 0 0 0 0 rgba(0,194,177,0); }
+  }
+  .voice-status-text { margin-top: 10px; font-size: 13px; font-weight: 600; color: var(--text-muted); }
+  .voice-transcript { min-height: 22px; font-size: 15.5px; font-weight: 700; text-align: center; margin-bottom: 12px; color: var(--text); }
+  .voice-result-ok, .voice-result-info { border-radius: var(--radius); padding: 12px 14px; font-size: 13.5px; font-weight: 600; line-height: 1.5; }
+  .voice-result-ok { background: #D6F5EF; color: #007A6B; }
+  .voice-result-info { background: #FDECC8; color: #8A5A00; }
+  .voice-result-ok button, .voice-result-info button { font-family: inherit; }
+  .voice-fixer label { display: block; font-size: 12px; color: var(--text-muted); margin: 8px 0 3px; }
+  .voice-fixer select, .voice-fixer input { width: 100%; padding: 9px 12px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 15px; font-family: inherit; box-sizing: border-box; }
+  .voice-fixer .btn-primary { width: 100%; margin-top: 12px; }
+  @media (max-width: 600px) { .voice-fab { bottom: 78px; } }
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+
+<!-- Coach login modal -->
+<div class="modal-backdrop" id="login-modal">
+  <div class="modal-card">
+    <h2>כניסת מאמן</h2>
+    <p class="sub">התחברו כדי לעדכן תוצאות וזמנים. שחיינים צופים בלבד — אין צורך בהתחברות.</p>
+    <label for="login-email">אימייל</label>
+    <input type="email" id="login-email" autocomplete="username" placeholder="coach@team.com" onkeydown="if(event.key==='Enter')doLogin()">
+    <label for="login-password">סיסמה</label>
+    <input type="password" id="login-password" autocomplete="current-password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+    <div class="modal-err" id="login-err"></div>
+    <div class="modal-actions">
+      <button class="btn-primary" id="login-submit" onclick="doLogin()">התחבר</button>
+      <button class="btn-ghost" onclick="closeLoginModal()">ביטול</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit swimmer details modal (coaches only) -->
+<div class="modal-backdrop" id="details-modal">
+  <div class="modal-card">
+    <h2>עריכת פרטי שחיין/ית</h2>
+    <p class="sub">עדכון שם, מגדר, קטגוריה וסטטוס. שמור למאמנים בלבד.</p>
+    <label for="ed-name">שם מלא</label>
+    <input type="text" id="ed-name" autocomplete="off">
+    <label>מגדר</label>
+    <div style="display:flex;gap:8px">
+      <button type="button" class="cat-btn-inline" id="ed-gender-M" onclick="setEdGender('M')">בן</button>
+      <button type="button" class="cat-btn-inline" id="ed-gender-F" onclick="setEdGender('F')">בת</button>
+    </div>
+    <label>קטגוריה</label>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button type="button" class="cat-btn-inline" id="ed-cat-academy" onclick="setEdCat('academy')">🎓 אקדמיה</button>
+      <button type="button" class="cat-btn-inline" id="ed-cat-youth" onclick="setEdCat('youth')">⭐ נוער</button>
+      <button type="button" class="cat-btn-inline" id="ed-cat-senior" onclick="setEdCat('senior')">💪 בוגרים</button>
+    </div>
+    <label>סטטוס</label>
+    <div style="display:flex;gap:8px">
+      <button type="button" class="cat-btn-inline" id="ed-active-1" onclick="setEdActive(true)">✅ פעיל/ה</button>
+      <button type="button" class="cat-btn-inline" id="ed-active-0" onclick="setEdActive(false)">⏸️ לא פעיל/ה</button>
+    </div>
+    <p class="sub" style="margin:10px 0 0;font-size:12px">שחיין/ית שאינו פעיל/ה לא יופיע/תופיע ברשימת החיפוש, אך יישאר/תישאר בטבלאות.</p>
+    <div class="modal-err" id="details-err"></div>
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="saveAthleteDetails()">שמור שינויים</button>
+      <button class="btn-ghost" onclick="closeDetailsModal()">ביטול</button>
+    </div>
+  </div>
+</div>
+
+<!-- Voice-entry modal: "אורי ניסים 6.82 פוש אנד גלייד" (coaches only) -->
+<div class="modal-backdrop" id="voice-modal">
+  <div class="modal-card">
+    <h2>🎤 הזנה קולית</h2>
+    <p class="sub">אמרו שם שחיין/ית, זמן ושם הסקיל — למשל "אורי ניסים 6.82 פוש אנד גלייד". אם התוצאה מהירה מהשיא הקיים, היא תישמר אוטומטית.</p>
+    <div class="voice-mic-wrap">
+      <button type="button" class="voice-mic-btn" id="voice-mic-btn" onclick="toggleVoiceListening()">🎤</button>
+      <div id="voice-status-text" class="voice-status-text">לחצו והתחילו לדבר</div>
+    </div>
+    <div id="voice-transcript" class="voice-transcript"></div>
+    <div id="voice-parse-result"></div>
+    <div class="modal-actions">
+      <button class="btn-ghost" onclick="closeVoiceModal()">סגור</button>
+    </div>
+  </div>
+</div>
+
+<!-- Cloud sync status -->
+<div class="sync-badge" id="sync-badge" title="מצב סנכרון"><span class="sync-dot"></span><span id="sync-text">מקומי</span></div>
+
+<!-- Floating voice-entry launcher (coaches only) -->
+<button type="button" class="voice-fab coach-only" onclick="openVoiceModal()" title="הזנת תוצאה בקול">🎤</button>
+
+<header>
+  <div class="logo">
+    <span style="font-size:22px">🏊</span>
+    <div>
+      <h1>SkillWave</h1>
+      <span>Wingate · Team Israel Swimming</span>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px">
+    <div class="gender-toggle">
+      <button class="gender-btn active" onclick="setGender('M')">בנים</button>
+      <button class="gender-btn" onclick="setGender('F')">בנות</button>
+    </div>
+    <div id="auth-slot"></div>
+  </div>
+</header>
+<div id="cloud-banner" class="cloud-banner" style="display:none"></div>
+<div class="cat-bar">
+  <button class="cat-btn active" onclick="setCat('all')">🏊 הכל</button>
+  <button class="cat-btn" onclick="setCat('senior')">💪 בוגרים</button>
+  <button class="cat-btn" onclick="setCat('academy')">🎓 אקדמיה</button>
+  <button class="cat-btn" onclick="setCat('youth')">⭐ נוער</button>
+</div>
+
+<div class="main">
+  <!-- HOME SCREEN -->
+  <div class="panel active" id="panel-home">
+    <div class="home-title">מה תרצה לעשות?</div>
+    <div class="home-options">
+      <button class="home-card" onclick="showScreen('leaderboard')">
+        <span class="home-card-icon">🏆</span>
+        <span class="home-card-text">
+          <span class="home-card-title">טבלת דירוג שחיינים</span>
+          <span class="home-card-sub">דירוג לפי Skill או דירוג כללי</span>
+        </span>
+      </button>
+      <button class="home-card" onclick="showScreen('scoring')">
+        <span class="home-card-icon">📊</span>
+        <span class="home-card-text">
+          <span class="home-card-title">טבלת ניקוד הסקילים</span>
+          <span class="home-card-sub">ספי הניקוד לכל Skill ולכל ציון</span>
+        </span>
+      </button>
+      <button class="home-card coach-only" onclick="showScreen('profile')">
+        <span class="home-card-icon">✏️</span>
+        <span class="home-card-text">
+          <span class="home-card-title">הזנת תוצאה חדשה לשחיין</span>
+          <span class="home-card-sub">כרטיס שחיין, כל הסקילים והדירוג האישי</span>
+        </span>
+      </button>
+      <button class="home-card" onclick="showScreen('pbs')">
+        <span class="home-card-icon">🥇</span>
+        <span class="home-card-text">
+          <span class="home-card-title">מה השיא שלי בכל סקיל</span>
+          <span class="home-card-sub">הזמן והציון הכי טובים שנרשמו בכל Skill</span>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <!-- SCREEN: Profile / Enter Result -->
+  <div class="panel" id="panel-profile">
+    <button class="back-btn" onclick="showScreen('home')">🏠 חזרה לתפריט הראשי</button>
+    <div class="card">
+      <div class="card-title">בחר שחיין/ית</div>
+      <div class="picker-cats" id="picker-cats"></div>
+      <div class="picker-names" id="picker-names"></div>
+      <input type="hidden" id="swimmer-select" value="">
+    </div>
+    <div class="card coach-only" id="add-athlete-card">
+      <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+        <span>הוספת שחיין/ית חדש/ה</span>
+        <button type="button" class="back-btn" style="margin:0" onclick="toggleAddAthlete()" id="add-athlete-toggle">➕ הוסף שחיין/ית</button>
+      </div>
+      <div id="add-athlete-form" style="display:none;margin-top:10px">
+        <input type="text" id="new-athlete-name" class="add-athlete-input" placeholder="שם מלא">
+        <div style="margin-bottom:12px">
+          <div class="add-athlete-label">מגדר</div>
+          <div style="display:flex;gap:8px">
+            <button type="button" class="cat-btn-inline active" id="na-gender-M" onclick="setNewAthleteGender('M')">בן</button>
+            <button type="button" class="cat-btn-inline" id="na-gender-F" onclick="setNewAthleteGender('F')">בת</button>
+          </div>
+        </div>
+        <div style="margin-bottom:14px">
+          <div class="add-athlete-label">קטגוריה</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button type="button" class="cat-btn-inline active" id="na-cat-academy" onclick="setNewAthleteCat('academy')">🎓 אקדמיה</button>
+            <button type="button" class="cat-btn-inline" id="na-cat-youth" onclick="setNewAthleteCat('youth')">⭐ נוער - מועמדי אקדמיה</button>
+            <button type="button" class="cat-btn-inline" id="na-cat-senior" onclick="setNewAthleteCat('senior')">💪 בוגרים</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn-save" style="flex:1;padding:9px 0" onclick="createNewAthlete()">✓ צור שחיין/ית</button>
+          <button class="btn-cancel" style="padding:9px 16px" onclick="toggleAddAthlete()">✕ ביטול</button>
+        </div>
+      </div>
+    </div>
+    <div id="profile-area"></div>
+  </div>
+
+  <!-- SCREEN: Personal Bests -->
+  <div class="panel" id="panel-pbs">
+    <button class="back-btn" onclick="showScreen('home')">🏠 חזרה לתפריט הראשי</button>
+    <div class="card">
+      <div class="card-title">בחר שחיין/ית</div>
+      <div class="picker-cats" id="pbs-picker-cats"></div>
+      <div class="picker-names" id="pbs-picker-names"></div>
+      <input type="hidden" id="pbs-swimmer-select" value="">
+    </div>
+    <div id="pbs-area"></div>
+  </div>
+
+  <!-- SCREEN: Skill Leaderboard -->
+  <div class="panel" id="panel-leaderboard">
+    <button class="back-btn" onclick="showScreen('home')">🏠 חזרה לתפריט הראשי</button>
+    <div class="card">
+      <div class="card-title">בחר Skill</div>
+      <div class="skill-btns" id="skill-buttons"></div>
+      <input type="hidden" id="skill-select" value="">
+    </div>
+    <div id="leaderboard-area"></div>
+  </div>
+
+  <!-- SCREEN: Scoring Table -->
+  <div class="panel" id="panel-scoring">
+    <button class="back-btn" onclick="showScreen('home')">🏠 חזרה לתפריט הראשי</button>
+    <div class="card">
+      <div class="card-title" id="scoring-title">Scoring Table</div>
+      <div class="scoring-table-wrap">
+        <table class="scoring-table" id="scoring-table"></table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const SKILLS = [
+  { key:'s1', label:'10m Push & Glide' },
+  { key:'s2', label:'10m Dive & Glide' },
+  { key:'s3', label:'10m Flutter Kick' },
+  { key:'s4', label:'10m UW Push' },
+  { key:'s5', label:'10m UW Dive' },
+  { key:'s6', label:'15m Dive Free' },
+  { key:'s7', label:'Turn 5+10' },
+  { key:'s8', label:'10m Mid' },
+];
+
+const SCORING_M = {
+  s1:[4.45,4.88,5.31,5.74,6.17,6.6,7.03,7.46,7.89,8.32],
+  s2:[2.8,3.0,3.2,3.4,3.6,3.8,4.0,4.2,4.4,4.6],
+  s3:[3.59,3.71,3.83,3.95,4.07,4.19,4.31,4.43,4.55,4.67],
+  s4:[3.3,3.45,3.6,3.75,3.9,4.05,4.2,4.35,4.5,4.65],
+  s5:[2.6,2.75,2.9,3.05,3.2,3.35,3.5,3.65,3.8,3.95],
+  s6:[5.64,5.8,5.96,6.12,6.28,6.44,6.6,6.76,6.92,7.08],
+  s7:[6.6,6.74,6.88,7.02,7.16,7.3,7.44,7.58,7.72,7.86],
+  s8:[4.9,5.0,5.1,5.2,5.3,5.4,5.5,5.6,5.7,5.8],
+};
+const SCORING_F = {
+  s1:[5.2,5.5,5.8,6.1,6.4,6.7,7.0,7.3,7.6,7.9],
+  s2:[3.3,3.6,3.9,4.2,4.5,4.8,5.1,5.4,5.7,6.0],
+  s3:[4.4,4.52,4.64,4.76,4.88,5.0,5.12,5.24,5.36,5.48],
+  s4:[3.7,3.83,3.96,4.09,4.22,4.35,4.48,4.61,4.74,4.87],
+  s5:[3.1,3.23,3.36,3.49,3.62,3.75,3.88,4.01,4.14,4.27],
+  s6:[6.28,6.43,6.58,6.73,6.88,7.03,7.18,7.33,7.48,7.63],
+  s7:[7.6,7.75,7.9,8.05,8.2,8.35,8.5,8.65,8.8,8.95],
+  s8:[5.4,5.5,5.6,5.7,5.8,5.9,6.0,6.1,6.2,6.3],
+};
+
+// Compute score from time using thresholds (index 0 = score 10, index 9 = score 1)
+// Scores are interpolated to the nearest 0.1 between adjacent thresholds,
+// e.g. a time exactly halfway between the "8" and "7" cutoffs scores 7.5.
+function computeScore(time, sk, gender) {
+  if (!time || time <= 0) return 0;
+  const tbl = gender === 'M' ? SCORING_M : SCORING_F;
+  const t = tbl[sk];
+  if (time <= t[0]) return 10;
+  for (let i = 1; i < t.length; i++) {
+    if (time <= t[i]) {
+      const loTime = t[i-1], hiTime = t[i];   // loTime = cutoff for the higher score
+      const hiScore = 10 - (i-1), loScore = 10 - i;
+      const frac = (time - loTime) / (hiTime - loTime); // 0 at loTime, 1 at hiTime
+      const score = hiScore - frac; // interpolate down from hiScore to loScore
+      return Math.round(score * 10) / 10;
+    }
+  }
+  return 0;
+}
+
+// Recompute total from current scores (average of skills that have data, *10 to match scale)
+function recomputeTotal(a) {
+  const scores = SKILLS.map(s => a['sc'+s.key.slice(1)]).filter(sc => sc > 0);
+  if (!scores.length) return 0;
+  return parseFloat((scores.reduce((x,y)=>x+y,0)/scores.length).toFixed(1));
+}
+
+// The original seed data (and any results saved before decimal scoring existed) had
+// whole-number scores baked in. Recompute every score from its stored time so everyone
+// benefits from the 0.1-precision scoring immediately, without re-entering times.
+function recomputeAllScores() {
+  ATHLETES.forEach(a => {
+    SKILLS.forEach(s => {
+      const idx = s.key.slice(1);
+      const time = a[s.key];
+      if (time > 0) {
+        a['sc'+idx] = computeScore(time, s.key, a.g);
+      }
+    });
+    a.total = recomputeTotal(a);
+  });
+}
+
+const BASE_ATHLETES = [
+  // MALES
+  {name:'ROTEM, Gili',              g:'M', cat:'youth', active:true,   s1:5.35,sc1:7,  s2:3.29,sc2:7,  s3:3.74,sc3:8,  s4:3.64,sc4:7,  s5:2.93,sc5:7,  s6:6.06,sc6:7,  s7:7.37,sc7:4,  s8:5.33,sc8:5,  total:6.5},
+  {name:'DAGAN, Yoni',              g:'M', cat:'academy', active:true, s1:4.71,sc1:9,  s2:3.26,sc2:7,  s3:3.86,sc3:7,  s4:3.48,sc4:8,  s5:2.96,sc5:7,  s6:5.92,sc6:8,  s7:6.86,sc7:8,  s8:4.95,sc8:9,  total:7.9},
+  {name:'KOSTIN, Egor',             g:'M', cat:'academy', active:true, s1:5.1, sc1:8,  s2:3.41,sc2:6,  s3:3.94,sc3:7,  s4:3.78,sc4:6,  s5:3.24,sc5:5,  s6:6.15,sc6:6,  s7:7.2, sc7:5,  s8:5.05,sc8:8,  total:6.4},
+  {name:'YUSKOVICH LEV ARI, Inbar', g:'M', cat:'academy', active:true, s1:5.02,sc1:8,  s2:3.48,sc2:6,  s3:3.86,sc3:7,  s4:3.52,sc4:8,  s5:2.98,sc5:7,  s6:6.06,sc6:7,  s7:7.25,sc7:5,  s8:5.3, sc8:5,  total:6.6},
+  {name:'NISSIM, Ori',              g:'M', cat:'academy', active:true, s1:5.37,sc1:7,  s2:3.19,sc2:8,  s3:3.95,sc3:6,  s4:3.71,sc4:7,  s5:3.21,sc5:5,  s6:6.12,sc6:6,  s7:7.38,sc7:4,  s8:5.49,sc8:4,  total:5.9},
+  {name:'RABIN, Yehonatan',         g:'M', cat:'academy', active:true, s1:6.48,sc1:5,  s2:3.9, sc2:4,  s3:4.2, sc3:4,  s4:4.23,sc4:3,  s5:3.61,sc5:3,  s6:6.67,sc6:3,  s7:7.69,sc7:2,  s8:5.74,sc8:1,  total:3.1},
+  {name:'KISLUK, Daniel',           g:'M', cat:'academy', active:true, s1:5.67,sc1:7,  s2:3.63,sc2:5,  s3:4.19,sc3:4,  s4:3.79,sc4:6,  s5:3.1, sc5:6,  s6:6.13,sc6:6,  s7:7.48,sc7:3,  s8:5.23,sc8:6,  total:5.4},
+  {name:'Mike Mardar',              g:'M', cat:'senior', active:true, s1:4.2, sc1:10, s2:3.01,sc2:8,  s3:3.81,sc3:8,  s4:3.34,sc4:9,  s5:2.97,sc5:7,  s6:5.91,sc6:8,  s7:6.92,sc7:7,  s8:5.28,sc8:6,  total:7.9},
+  {name:'Yahahv Halalg',            g:'M', cat:'senior', active:true, s1:5.43,sc1:7,  s2:3.27,sc2:7,  s3:3.8, sc3:8,  s4:3.58,sc4:8,  s5:3.15,sc5:6,  s6:6.01,sc6:7,  s7:7.0, sc7:7,  s8:5.03,sc8:8,  total:7.3},
+  {name:'Lev Shtienberg',           g:'M', cat:'senior', active:true, s1:5.5, sc1:7,  s2:3.04,sc2:8,  s3:3.8, sc3:8,  s4:3.56,sc4:8,  s5:2.87,sc5:8,  s6:6.18,sc6:6,  s7:7.4, sc7:4,  s8:5.14,sc8:7,  total:7.0},
+  {name:'FADILA, Ahmed',            g:'M', cat:'senior', active:false, s1:5.41,sc1:7,  s2:3.32,sc2:7,  s3:3.81,sc3:8,  s4:3.74,sc4:7,  s5:3.09,sc5:6,  s6:5.93,sc6:8,  s7:7.02,sc7:6,  s8:5.27,sc8:6,  total:6.9},
+  {name:'GLIVINSKIY, Alexey',       g:'M', cat:'senior', active:true, s1:5.31,sc1:7,  s2:2.87,sc2:9,  s3:4.02,sc3:6,  s4:3.66,sc4:7,  s5:3.0, sc5:7,  s6:5.72,sc6:9,  s7:6.99,sc7:7,  s8:4.93,sc8:9,  total:7.6},
+  {name:'Omer Wiener',              g:'M', cat:'senior', active:true, s1:4.75,sc1:9,  s2:3.09,sc2:8,  s3:3.7, sc3:9,  s4:3.54,sc4:8,  s5:2.94,sc5:7,  s6:5.74,sc6:9,  s7:6.61,sc7:9,  s8:5.04,sc8:8,  total:8.4},
+  {name:'KARTAVI, Martin',          g:'M', cat:'senior', active:true, s1:5.54,sc1:7,  s2:3.19,sc2:8,  s3:3.94,sc3:7,  s4:3.7, sc4:7,  s5:3.1, sc5:6,  s6:5.74,sc6:9,  s7:6.82,sc7:8,  s8:4.97,sc8:9,  total:7.6},
+  {name:'SELA, Tom',                g:'M', cat:'senior', active:true, s1:6.22,sc1:5,  s2:3.28,sc2:7,  s3:4.05,sc3:6,  s4:3.89,sc4:6,  s5:3.37,sc5:4,  s6:6.14,sc6:6,  s7:7.29,sc7:5,  s8:4.91,sc8:9,  total:6.0},
+  {name:'VAISBURG, Shmuel',         g:'M', cat:'senior', active:true, s1:5.24,sc1:8,  s2:3.24,sc2:7,  s3:4.3, sc3:4,  s4:3.63,sc4:7,  s5:3.17,sc5:6,  s6:6.12,sc6:6,  s7:7.14,sc7:6,  s8:5.37,sc8:5,  total:6.1},
+  {name:'Aukan Goldin',             g:'M', cat:'senior', active:true, s1:5.08,sc1:8,  s2:3.3, sc2:7,  s3:3.94,sc3:7,  s4:3.7, sc4:7,  s5:3.2, sc5:5,  s6:6.21,sc6:6,  s7:7.28,sc7:5,  s8:5.1, sc8:7,  total:6.5},
+  {name:'Eshkol',                   g:'M', cat:'senior', active:true, s1:4.81,sc1:9,  s2:3.3, sc2:7,  s3:4.39,sc3:3,  s4:4.09,sc4:4,  s5:3.35,sc5:4,  s6:6.54,sc6:4,  s7:7.61,sc7:2,  s8:5.66,sc8:2,  total:4.4},
+  {name:'Eden Flores',              g:'M', cat:'senior', active:true, s1:6.72,sc1:4,  s2:3.96,sc2:4,  s3:3.93,sc3:7,  s4:3.75,sc4:6,  s5:3.81,sc5:1,  s6:6.74,sc6:3,  s7:7.86,sc7:1,  s8:null,sc8:0,  total:3.3},
+  {name:'Yonatan Ahdut',            g:'M', cat:'senior', active:true, s1:6.67,sc1:4,  s2:4.42,sc2:1,  s3:4.03,sc3:6,  s4:3.86,sc4:6,  s5:3.83,sc5:1,  s6:6.46,sc6:4,  s7:7.7, sc7:2,  s8:5.1, sc8:7,  total:3.9},
+  {name:'GRIUNTAL, Semen',          g:'M', cat:'senior', active:true, s1:4.68,sc1:9,  s2:2.91,sc2:9,  s3:3.65,sc3:9,  s4:3.31,sc4:9,  s5:2.91,sc5:7,  s6:5.73,sc6:9,  s7:6.75,sc7:8,  s8:5.02,sc8:8,  total:8.5},
+  {name:'Matan Rodity',             g:'M', cat:'senior', active:false, s1:6.74,sc1:4,  s2:4.1, sc2:3,  s3:4.5, sc3:2,  s4:4.18,sc4:4,  s5:3.65,sc5:2,  s6:6.63,sc6:3,  s7:7.63,sc7:2,  s8:5.49,sc8:4,  total:3.0},
+  {name:'Yakov Tumarkin',           g:'M', cat:'senior', active:false, s1:4.25,sc1:10, s2:3.15,sc2:8,  s3:3.72,sc3:8,  s4:3.4, sc4:9,  s5:2.83,sc5:8,  s6:5.79,sc6:9,  s7:7.06,sc7:6,  s8:5.25,sc8:6,  total:8.0},
+  {name:'Meiron Cheruti',           g:'M', cat:'senior', active:true, s1:4.84,sc1:9,  s2:2.94,sc2:9,  s3:3.76,sc3:8,  s4:3.46,sc4:8,  s5:2.84,sc5:8,  s6:5.6, sc6:10, s7:6.91,sc7:7,  s8:4.94,sc8:9,  total:8.5},
+  {name:'Dennis Loktev',            g:'M', cat:'senior', active:true, s1:5.43,sc1:7,  s2:3.09,sc2:8,  s3:3.87,sc3:7,  s4:3.74,sc4:7,  s5:3.01,sc5:7,  s6:5.8, sc6:8,  s7:6.94,sc7:7,  s8:4.99,sc8:9,  total:7.5},
+  {name:'David Gerchik',            g:'M', cat:'senior', active:true, s1:4.62,sc1:9,  s2:3.42,sc2:6,  s3:3.82,sc3:8,  s4:3.67,sc4:7,  s5:3.3, sc5:5,  s6:6.42,sc6:5,  s7:7.19,sc7:5,  s8:5.08,sc8:8,  total:6.6},
+  {name:'Boris Tibrovski',          g:'M', cat:'senior', active:false, s1:4.93,sc1:8,  s2:3.08,sc2:8,  s3:4.13,sc3:5,  s4:3.83,sc4:6,  s5:3.08,sc5:6,  s6:5.88,sc6:8,  s7:7.23,sc7:5,  s8:5.34,sc8:5,  total:6.4},
+  {name:'Gal Grumi',                g:'M', cat:'senior', active:false, s1:5.87,sc1:6,  s2:3.12,sc2:8,  s3:3.88,sc3:7,  s4:3.4, sc4:9,  s5:2.89,sc5:8,  s6:5.97,sc6:7,  s7:7.07,sc7:6,  s8:5.13,sc8:7,  total:7.3},
+  {name:'Daniel Namir',             g:'M', cat:'senior', active:false, s1:4.8, sc1:9,  s2:3.15,sc2:8,  s3:null,sc3:0,  s4:null,sc4:0,  s5:null,sc5:0,  s6:5.91,sc6:8,  s7:null,sc7:0,  s8:null,sc8:0,  total:3.1},
+  {name:'BEN SHITRIT, Eytan',       g:'M', cat:'senior', active:true, s1:4.58,sc1:9,  s2:3.26,sc2:7,  s3:3.65,sc3:9,  s4:3.51,sc4:8,  s5:3.12,sc5:6,  s6:6.03,sc6:7,  s7:7.03,sc7:6,  s8:5.28,sc8:6,  total:7.3},
+  {name:'PITSHUGIN, Kristian',      g:'M', cat:'senior', active:true, s1:5.18,sc1:8,  s2:3.21,sc2:7,  s3:3.87,sc3:7,  s4:3.61,sc4:7,  s5:2.91,sc5:7,  s6:5.83,sc6:8,  s7:6.95,sc7:7,  s8:5.18,sc8:7,  total:7.3},
+  {name:'Ido Gal',                  g:'M', cat:'senior', active:false, s1:7.15,sc1:3,  s2:3.72,sc2:5,  s3:null,sc3:0,  s4:4.26,sc4:3,  s5:3.38,sc5:4,  s6:null,sc6:0,  s7:null,sc7:0,  s8:null,sc8:0,  total:1.9},
+  {name:'Daniel Derbachov',         g:'M', cat:'senior', active:false, s1:5.28,sc1:8,  s2:3.33,sc2:7,  s3:4.0, sc3:6,  s4:3.61,sc4:7,  s5:3.01,sc5:7,  s6:6.01,sc6:7,  s7:7.16,sc7:5,  s8:5.17,sc8:7,  total:6.8},
+  {name:'Itay Rozenfeld',           g:'M', cat:'senior', active:false, s1:6.05,sc1:6,  s2:3.48,sc2:6,  s3:4.19,sc3:4,  s4:4.11,sc4:4,  s5:3.28,sc5:5,  s6:6.27,sc6:6,  s7:7.46,sc7:3,  s8:5.56,sc8:3,  total:4.6},
+  {name:'Inbar Dantzinger',         g:'M', cat:'senior', active:true, s1:4.76,sc1:9,  s2:2.94,sc2:9,  s3:3.9, sc3:7,  s4:3.49,sc4:8,  s5:2.9, sc5:7,  s6:5.79,sc6:9,  s7:6.98,sc7:7,  s8:5.06,sc8:8,  total:8.0},
+  {name:'Daniel Isofiv',            g:'M', cat:'senior', active:true, s1:5.17,sc1:8,  s2:3.09,sc2:8,  s3:3.99,sc3:6,  s4:3.71,sc4:7,  s5:2.93,sc5:7,  s6:6.01,sc6:7,  s7:7.07,sc7:6,  s8:5.02,sc8:8,  total:7.1},
+  {name:'Daniel Aeichel',           g:'M', cat:'senior', active:true, s1:4.83,sc1:9,  s2:3.17,sc2:8,  s3:3.86,sc3:7,  s4:3.64,sc4:7,  s5:3.17,sc5:6,  s6:5.95,sc6:8,  s7:7.05,sc7:6,  s8:5.15,sc8:7,  total:7.3},
+  {name:'Yoav Romano',              g:'M', cat:'senior', active:true, s1:5.14,sc1:8,  s2:3.26,sc2:7,  s3:3.8, sc3:8,  s4:3.55,sc4:8,  s5:3.19,sc5:6,  s6:5.78,sc6:9,  s7:6.89,sc7:7,  s8:5.37,sc8:5,  total:7.3},
+  {name:'MARAANA, Adam',            g:'M', cat:'senior', active:true, s1:5.79,sc1:6,  s2:3.08,sc2:8,  s3:4.14,sc3:5,  s4:3.99,sc4:5,  s5:3.13,sc5:6,  s6:6.09,sc6:7,  s7:7.02,sc7:6,  s8:4.95,sc8:9,  total:6.5},
+  {name:'Maor Gurlnik',             g:'M', cat:'senior', active:false, s1:5.77,sc1:6,  s2:3.29,sc2:7,  s3:4.0, sc3:6,  s4:4.0, sc4:5,  s5:3.26,sc5:5,  s6:6.09,sc6:7,  s7:7.81,sc7:1,  s8:5.26,sc8:6,  total:5.4},
+  {name:'Ziv Cohen',                g:'M', cat:'senior', active:false, s1:6.86,sc1:4,  s2:3.95,sc2:4,  s3:4.57,sc3:1,  s4:4.35,sc4:2,  s5:3.64,sc5:3,  s6:6.7, sc6:3,  s7:7.91,sc7:0,  s8:5.47,sc8:4,  total:2.6},
+  {name:'KEINAN, Rom',              g:'M', cat:'youth', active:true, s1:6.16,sc1:6,  s2:3.94,sc2:4,  s3:4.17,sc3:5,  s4:3.94,sc4:5,  s5:3.48,sc5:4,  s6:6.6, sc6:3,  s7:7.3, sc7:4,  s8:5.21,sc8:6,  total:4.6},
+  {name:'PAHT, Ben',                g:'M', cat:'youth', active:true, s1:6.15,sc1:6,  s2:3.37,sc2:7,  s3:4.32,sc3:3,  s4:4.4, sc4:2,  s5:3.25,sc5:5,  s6:6.09,sc6:7,  s7:7.22,sc7:5,  s8:5.02,sc8:8,  total:5.4},
+  {name:'ROTEM, Gili B',            g:'M', cat:'youth', active:true, s1:6.03,sc1:6,  s2:3.87,sc2:4,  s3:4.2, sc3:4,  s4:3.92,sc4:5,  s5:3.35,sc5:4,  s6:6.36,sc6:5,  s7:7.64,sc7:2,  s8:5.46,sc8:4,  total:4.3},
+  {name:'VORONKOV, Seon',           g:'M', cat:'senior', active:true, s1:7.4, sc1:3,  s2:3.79,sc2:5,  s3:4.19,sc3:4,  s4:4.02,sc4:5,  s5:3.51,sc5:3,  s6:6.58,sc6:4,  s7:7.62,sc7:2,  s8:5.41,sc8:4,  total:3.8},
+  {name:'Tomer Shuster',            g:'M', cat:'senior', active:true, s1:6.61,sc1:4,  s2:3.5, sc2:6,  s3:3.93,sc3:7,  s4:3.74,sc4:7,  s5:3.09,sc5:6,  s6:6.1, sc6:7,  s7:7.07,sc7:6,  s8:5.22,sc8:6,  total:6.1},
+  {name:'OGINETS, Yuval',           g:'M', cat:'senior', active:false, s1:7.88,sc1:2,  s2:3.99,sc2:4,  s3:4.62,sc3:1,  s4:4.5, sc4:1,  s5:3.66,sc5:2,  s6:6.3, sc6:5,  s7:7.52,sc7:3,  s8:5.37,sc8:5,  total:2.9},
+  {name:'Kregor Zirk',              g:'M', cat:'senior', active:true, s1:5.21,sc1:8,  s2:3.09,sc2:8,  s3:3.75,sc3:8,  s4:3.4, sc4:9,  s5:2.89,sc5:8,  s6:5.76,sc6:9,  s7:6.86,sc7:8,  s8:5.17,sc8:7,  total:8.1},
+  {name:'Armin Lelle',              g:'M', cat:'senior', active:true, s1:4.72,sc1:9,  s2:3.2, sc2:7,  s3:3.77,sc3:8,  s4:3.43,sc4:9,  s5:3.03,sc5:7,  s6:5.91,sc6:8,  s7:null,sc7:0,  s8:null,sc8:0,  total:6.0},
+  {name:'Yarden Jan',               g:'M', cat:'senior', active:false, s1:6.15,sc1:6,  s2:3.88,sc2:4,  s3:4.22,sc3:4,  s4:3.67,sc4:7,  s5:3.47,sc5:4,  s6:6.26,sc6:6,  s7:7.62,sc7:2,  s8:5.55,sc8:3,  total:4.5},
+  {name:'Daniel Rabinovich',        g:'M', cat:'senior', active:true, s1:7.25,sc1:3,  s2:3.84,sc2:4,  s3:4.55,sc3:1,  s4:4.19,sc4:4,  s5:3.47,sc5:4,  s6:6.35,sc6:5,  s7:7.45,sc7:3,  s8:5.28,sc8:6,  total:3.8},
+  {name:'Nir Hay',                  g:'M', cat:'senior', active:true, s1:5.72,sc1:7,  s2:null,sc2:0,  s3:4.39,sc3:3,  s4:4.02,sc4:5,  s5:null,sc5:0,  s6:null,sc6:0,  s7:7.18,sc7:5,  s8:5.13,sc8:7,  total:3.4},
+  {name:'Daniel Baruch',            g:'M', cat:'senior', active:false, s1:5.54,sc1:7,  s2:null,sc2:0,  s3:4.74,sc3:0,  s4:4.0, sc4:5,  s5:null,sc5:0,  s6:null,sc6:0,  s7:7.45,sc7:3,  s8:5.53,sc8:3,  total:2.3},
+  {name:'Eldad Zamir',              g:'M', cat:'senior', active:true, s1:6.42,sc1:5,  s2:3.42,sc2:6,  s3:4.99,sc3:0,  s4:4.73,sc4:0,  s5:3.38,sc5:4,  s6:null,sc6:0,  s7:8.46,sc7:0,  s8:6.06,sc8:0,  total:1.9},
+  {name:'Stefan Olmechki',          g:'M', cat:'senior', active:false, s1:null,sc1:0,  s2:null,sc2:0,  s3:null,sc3:0,  s4:null,sc4:0,  s5:null,sc5:0,  s6:null,sc6:0,  s7:null,sc7:0,  s8:null,sc8:0,  total:0.0},
+  {name:'Tom Kichev',               g:'M', cat:'senior', active:false, s1:5.33,sc1:7,  s2:3.11,sc2:8,  s3:4.27,sc3:4,  s4:4.01,sc4:5,  s5:3.16,sc5:6,  s6:6.01,sc6:7,  s7:7.52,sc7:3,  s8:5.5, sc8:3,  total:5.4},
+  {name:'Itay Hendler',             g:'M', cat:'senior', active:false, s1:6.66,sc1:4,  s2:3.65,sc2:5,  s3:4.61,sc3:1,  s4:4.16,sc4:4,  s5:3.64,sc5:3,  s6:6.5, sc6:4,  s7:7.8, sc7:1,  s8:5.12,sc8:7,  total:3.6},
+  {name:'PIASTRO, Leo',             g:'M', cat:'youth', active:true, s1:7.46,sc1:2,  s2:4.0, sc2:3,  s3:4.64,sc3:1,  s4:4.28,sc4:3,  s5:3.4, sc5:4,  s6:6.68,sc6:3,  s7:7.49,sc7:3,  s8:5.64,sc8:2,  total:2.6},
+  {name:'EREZ, Moran',              g:'M', cat:'senior', active:false, s1:5.61,sc1:7,  s2:3.38,sc2:7,  s3:4.01,sc3:6,  s4:3.77,sc4:6,  s5:3.21,sc5:5,  s6:6.31,sc6:5,  s7:7.6, sc7:2,  s8:5.46,sc8:4,  total:5.3},
+  {name:'SOVETOV, Daniel',          g:'M', cat:'senior', active:false, s1:5.38,sc1:7,  s2:3.44,sc2:6,  s3:4.58,sc3:1,  s4:4.34,sc4:3,  s5:3.45,sc5:4,  s6:6.52,sc6:4,  s7:7.71,sc7:2,  s8:5.66,sc8:2,  total:3.6},
+  {name:'MAKEDONSKI, Ron',          g:'M', cat:'senior', active:false, s1:7.17,sc1:3,  s2:3.9, sc2:4,  s3:4.54,sc3:2,  s4:4.09,sc4:4,  s5:3.43,sc5:4,  s6:6.47,sc6:4,  s7:7.66,sc7:2,  s8:5.58,sc8:3,  total:3.3},
+  {name:'DROR, Erez',               g:'M', cat:'senior', active:true, s1:5.45,sc1:7,  s2:2.86,sc2:9,  s3:4.12,sc3:5,  s4:3.56,sc4:8,  s5:2.71,sc5:9,  s6:5.7, sc6:9,  s7:6.98,sc7:7,  s8:5.16,sc8:7,  total:7.6},
+  // FEMALES
+  {name:'CEMHA, Ofir',              g:'F', cat:'academy', active:true, s1:6.62,sc1:5,  s2:4.29,sc2:6,  s3:4.12,sc3:10, s4:3.88,sc4:8,  s5:3.7, sc5:5,  s6:6.87,sc6:6,  s7:7.84,sc7:8,  s8:5.54,sc8:8,  total:7.0},
+  {name:'FROLOVA, Yelyzaveta',      g:'F', cat:'academy', active:true, s1:6.08,sc1:7,  s2:3.55,sc2:9,  s3:4.86,sc3:6,  s4:4.67,sc4:2,  s5:3.72,sc5:5,  s6:7.25,sc6:3,  s7:8.27,sc7:5,  s8:6.09,sc8:3,  total:5.0},
+  {name:'DYMSHITS, Ilanit',         g:'F', cat:'academy', active:true, s1:5.87,sc1:7,  s2:4.21,sc2:6,  s3:4.47,sc3:9,  s4:4.29,sc4:5,  s5:3.81,sc5:4,  s6:7.43,sc6:2,  s7:8.65,sc7:2,  s8:6.02,sc8:3,  total:4.8},
+  {name:'Hadar Karp',               g:'F', cat:'senior', active:false, s1:5.4, sc1:9,  s2:3.28,sc2:10, s3:4.4, sc3:9,  s4:3.89,sc4:8,  s5:3.21,sc5:9,  s6:6.33,sc6:9,  s7:7.83,sc7:8,  s8:5.74,sc8:6,  total:8.5},
+  {name:'Ophir Rakach',             g:'F', cat:'senior', active:false, s1:7.21,sc1:3,  s2:4.18,sc2:7,  s3:4.8, sc3:6,  s4:4.31,sc4:5,  s5:3.69,sc5:5,  s6:7.14,sc6:4,  s7:8.36,sc7:4,  s8:5.93,sc8:4,  total:4.8},
+  {name:'Eden Girloantza',          g:'F', cat:'senior', active:false, s1:6.4, sc1:5,  s2:3.99,sc2:7,  s3:5.01,sc3:4,  s4:4.64,sc4:2,  s5:3.97,sc5:3,  s6:7.58,sc6:1,  s7:8.79,sc7:2,  s8:6.19,sc8:2,  total:3.3},
+  {name:'Ofek Adir',                g:'F', cat:'senior', active:true, s1:5.69,sc1:8,  s2:4.13,sc2:7,  s3:4.82,sc3:6,  s4:4.36,sc4:4,  s5:3.88,sc5:3,  s6:7.14,sc6:4,  s7:8.16,sc7:6,  s8:5.97,sc8:4,  total:5.3},
+  {name:'LEVI, Ayala',              g:'F', cat:'youth', active:true, s1:11.16,sc1:0, s2:6.45,sc2:0,  s3:5.25,sc3:2,  s4:5.29,sc4:0,  s5:5.29,sc5:0,  s6:8.16,sc6:0,  s7:8.81,sc7:1,  s8:6.06,sc8:3,  total:0.8},
+  {name:'Anastasia Gorbenko',       g:'F', cat:'senior', active:true, s1:5.31,sc1:9,  s2:3.43,sc2:9,  s3:4.45,sc3:9,  s4:4.03,sc4:7,  s5:3.43,sc5:7,  s6:6.77,sc6:6,  s7:7.98,sc7:7,  s8:5.69,sc8:7,  total:7.6},
+  {name:'Noga Zilberbreg',          g:'F', cat:'senior', active:false, s1:7.02,sc1:3,  s2:4.02,sc2:7,  s3:4.69,sc3:7,  s4:4.55,sc4:3,  s5:3.8, sc5:4,  s6:6.99,sc6:5,  s7:8.39,sc7:4,  s8:null,sc8:0,  total:4.1},
+  {name:'Orian Gablan',             g:'F', cat:'senior', active:false, s1:6.41,sc1:5,  s2:4.38,sc2:6,  s3:4.9, sc3:5,  s4:4.42,sc4:4,  s5:4.04,sc5:2,  s6:7.66,sc6:0,  s7:8.55,sc7:3,  s8:6.1, sc8:2,  total:3.4},
+  {name:'GOLOVATI, Daria',          g:'F', cat:'senior', active:false, s1:6.63,sc1:5,  s2:4.06,sc2:7,  s3:4.47,sc3:9,  s4:4.14,sc4:6,  s5:3.57,sc5:6,  s6:6.61,sc6:7,  s7:7.98,sc7:7,  s8:5.66,sc8:7,  total:6.8},
+  {name:'Omer Shwarz',              g:'F', cat:'senior', active:false, s1:6.93,sc1:4,  s2:4.45,sc2:6,  s3:4.96,sc3:5,  s4:4.29,sc4:5,  s5:3.95,sc5:3,  s6:7.27,sc6:3,  s7:8.57,sc7:3,  s8:6.2, sc8:1,  total:3.8},
+  {name:'BERNOT, Revital',          g:'F', cat:'senior', active:false, s1:8.12,sc1:0,  s2:4.73,sc2:5,  s3:5.12,sc3:3,  s4:4.56,sc4:3,  s5:4.19,sc5:1,  s6:7.42,sc6:2,  s7:8.46,sc7:4,  s8:5.95,sc8:4,  total:2.8},
+  {name:'GLASMAN, Alma',            g:'F', cat:'senior', active:false, s1:6.4, sc1:5,  s2:4.0, sc2:7,  s3:4.7, sc3:7,  s4:4.4, sc4:4,  s5:3.5, sc5:6,  s6:6.7, sc6:7,  s7:8.6, sc7:3,  s8:5.7, sc8:6,  total:5.6},
+  {name:'GOLLAND, Shane',           g:'F', cat:'senior', active:true, s1:6.4, sc1:5,  s2:4.0, sc2:7,  s3:4.6, sc3:8,  s4:4.2, sc4:6,  s5:3.2, sc5:9,  s6:6.3, sc6:9,  s7:8.0, sc7:7,  s8:5.6, sc8:7,  total:7.3},
+  {name:'Siobhan Haughey',          g:'F', cat:'senior', active:false, s1:5.72,sc1:8,  s2:3.7, sc2:8,  s3:4.43,sc3:9,  s4:3.78,sc4:9,  s5:3.71,sc5:5,  s6:6.35,sc6:9,  s7:7.66,sc7:9,  s8:5.57,sc8:8,  total:8.1},
+  {name:'Simona KUBOVA',            g:'F', cat:'senior', active:false, s1:6.82,sc1:4,  s2:3.71,sc2:8,  s3:4.66,sc3:7,  s4:4.32,sc4:5,  s5:3.57,sc5:6,  s6:6.82,sc6:6,  s7:8.04,sc7:7,  s8:5.91,sc8:4,  total:5.9},
+  {name:'Meital Flikshtein',        g:'F', cat:'senior', active:false, s1:7.75,sc1:1,  s2:null,sc2:0,  s3:5.44,sc3:1,  s4:4.7, sc4:2,  s5:null,sc5:0,  s6:null,sc6:0,  s7:8.3, sc7:5,  s8:6.28,sc8:1,  total:1.3},
+  {name:'NEGIRA, Marcy Ann',        g:'F', cat:'senior', active:false, s1:null,sc1:0,  s2:null,sc2:0,  s3:null,sc3:0,  s4:3.97,sc4:7,  s5:null,sc5:0,  s6:null,sc6:0,  s7:null,sc7:0,  s8:null,sc8:0,  total:0.9},
+];
+
+// Deep-clone athletes so edits don't touch base
+let ATHLETES = JSON.parse(JSON.stringify(BASE_ATHLETES));
+
+// ============================================================================
+//  CLOUD SYNC + ROLES (Supabase)
+//  ---------------------------------------------------------------------------
+//  1) Create a free project at https://supabase.com
+//  2) Run the SQL from the setup guide in the Supabase SQL editor
+//  3) Paste your Project URL + API key below.
+//     In the Supabase dashboard: Settings -> API keys.
+//     Copy the "Publishable key" (looks like  sb_publishable_...).
+//     On older projects it may still be called the "anon public" key
+//     (a long token starting with  eyJ... ) — either one works here.
+//  The key is MEANT to be public — access is controlled by the database
+//  security rules (RLS), not by hiding the key. Until you fill these in, the
+//  app keeps working, but only locally on this one device.
+// ============================================================================
+const SUPABASE_URL      = 'https://cttnhmelksfakhfywdri.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_SL-sC4JjqNeo1eUsYQTllw_ZoUn1YS-';
+
+const STORAGE_KEY = 'swim_dashboard_overrides_v1'; // local fallback key
+const STATE_ID    = 'overrides';                    // row id in app_state table
+
+const cloudConfigured = /^https:\/\/.+\.supabase\.co/.test(SUPABASE_URL) &&
+                        !SUPABASE_ANON_KEY.startsWith('YOUR-');
+let supa = null;
+if (cloudConfigured && window.supabase) {
+  try {
+    supa = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+      auth: {
+        persistSession: true,     // keep the coach logged in across reloads / app restarts
+        autoRefreshToken: true,   // silently renew the session so it never expires mid-use
+        storageKey: 'skillwave_auth'
+      }
+    });
+  } catch (e) { console.warn('Supabase init failed:', e); }
+}
+
+let currentUser = null;   // logged-in coach, or null
+let isCoach     = false;  // true only for authenticated coaches
+
+// --- Persistence: shared state row in the cloud, with local fallback ---
+async function loadOverrides() {
+  if (supa) {
+    try {
+      const { data, error } = await supa.from('app_state').select('data').eq('id', STATE_ID).maybeSingle();
+      if (!error && data) return data.data;
+      if (error) console.warn('loadOverrides:', error.message);
+    } catch (e) { console.warn('loadOverrides:', e); }
+  }
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch (e) { return null; }
+}
+
+async function saveOverrides(overrides) {
+  // Keep a local safety copy either way.
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(overrides)); } catch (e) {}
+
+  if (supa) {
+    if (!isCoach) { showToast('⚠️ רק מאמנים יכולים לעדכן'); throw new Error('not a coach'); }
+    const row = {
+      id: STATE_ID,
+      data: overrides,
+      updated_at: new Date().toISOString(),
+      updated_by: currentUser ? currentUser.email : null
+    };
+    const { error } = await supa.from('app_state').upsert(row, { onConflict: 'id' });
+    if (error) { showToast('⚠️ שמירה בענן נכשלה'); throw error; }
+    // Realtime will push this change to every other open device automatically.
+  }
+}
+
+// --- Cloud sync status badge ---
+function setSyncStatus(state, text) {
+  const badge = document.getElementById('sync-badge');
+  const txt = document.getElementById('sync-text');
+  if (!badge) return;
+  badge.classList.remove('online','offline');
+  if (state) badge.classList.add(state);
+  if (txt) txt.textContent = text;
+}
+
+// --- Connection banner (tells the user plainly when NOT synced) ---
+function showBanner(type, msg) {
+  const el = document.getElementById('cloud-banner');
+  if (!el) return;
+  el.className = 'cloud-banner ' + type;
+  el.style.display = 'flex';
+  el.innerHTML = '<span>' + msg + '</span><button class="banner-x" onclick="hideBanner()" title="סגור">✕</button>';
+}
+function hideBanner() {
+  const el = document.getElementById('cloud-banner');
+  if (el) el.style.display = 'none';
+}
+
+// --- Realtime: apply edits pushed from a coach on another device ---
+function subscribeRealtime() {
+  if (!supa) return;
+  supa.channel('app_state_live')
+    .on('postgres_changes',
+      { event: '*', schema: 'public', table: 'app_state', filter: 'id=eq.' + STATE_ID },
+      (payload) => {
+        const row = payload.new || {};
+        // Skip our own change — we already rendered it locally.
+        if (currentUser && row.updated_by && row.updated_by === currentUser.email) return;
+        const newData = row.data;
+        if (!newData) return;
+        ATHLETES = JSON.parse(JSON.stringify(BASE_ATHLETES));
+        applyOverrides(newData);
+        recomputeAllScores();
+        refreshCurrentView();
+        showToast('🔄 עודכן על ידי המאמן');
+      })
+    .subscribe((status) => {
+      if (status === 'SUBSCRIBED') setSyncStatus('online', 'מסונכרן');
+    });
+}
+
+// --- Re-render whatever is on screen after a remote update ---
+function refreshCurrentView() {
+  try { populateSwimmerSelect(); } catch (e) {}
+  try { populateSkillSelect(); } catch (e) {}
+  try { renderScoringMatrix(); } catch (e) {}
+  try { renderLeaderboard(); } catch (e) {}
+  const sel = document.getElementById('swimmer-select');
+  if (sel && sel.value) { try { renderProfile(); } catch (e) {} }
+}
+
+// --- Roles / auth ---
+async function checkCoachRole(user) {
+  if (!supa || !user) return false;
+  try {
+    const { data, error } = await supa.from('coaches').select('user_id').eq('user_id', user.id).maybeSingle();
+    if (error) { console.warn('role check:', error.message); return false; }
+    return !!data;
+  } catch (e) { return false; }
+}
+
+async function applyRole(user) {
+  currentUser = user || null;
+  isCoach = await checkCoachRole(currentUser);
+  document.body.classList.toggle('is-coach', isCoach);
+  renderAuthSlot();
+  const sel = document.getElementById('swimmer-select');
+  if (sel && sel.value) { try { renderProfile(); } catch (e) {} }
+}
+
+function renderAuthSlot() {
+  const slot = document.getElementById('auth-slot');
+  if (!slot) return;
+  if (!supa) { slot.innerHTML = ''; return; }
+  if (isCoach) {
+    slot.innerHTML = '<button class="auth-btn" onclick="doLogout()"><span class="role-pill coach">מאמן</span> יציאה</button>';
+  } else if (currentUser) {
+    slot.innerHTML = '<button class="auth-btn" onclick="doLogout()"><span class="role-pill viewer">צופה</span> יציאה</button>';
+  } else {
+    slot.innerHTML = '<button class="auth-btn" onclick="openLoginModal()">🔑 כניסת מאמן</button>';
+  }
+}
+
+function openLoginModal() {
+  document.getElementById('login-err').textContent = '';
+  document.getElementById('login-modal').classList.add('open');
+  setTimeout(() => document.getElementById('login-email').focus(), 50);
+}
+function closeLoginModal() {
+  document.getElementById('login-modal').classList.remove('open');
+}
+
+async function doLogin() {
+  if (!supa) return;
+  const email = document.getElementById('login-email').value.trim();
+  const pass  = document.getElementById('login-password').value;
+  const errEl = document.getElementById('login-err');
+  const btn   = document.getElementById('login-submit');
+  errEl.textContent = '';
+  if (!email || !pass) { errEl.textContent = 'הזינו אימייל וסיסמה'; return; }
+  btn.disabled = true; btn.textContent = 'מתחבר...';
+  try {
+    const { data, error } = await supa.auth.signInWithPassword({ email, password: pass });
+    if (error) { errEl.textContent = 'התחברות נכשלה — בדקו אימייל וסיסמה'; return; }
+    await applyRole(data.user);
+    if (!isCoach) { errEl.textContent = 'המשתמש אינו רשום כמאמן. פנו למנהל המערכת.'; return; }
+    document.getElementById('login-password').value = '';
+    closeLoginModal();
+    showToast('✅ ברוך/ה הבא/ה, מאמן/ת');
+  } catch (e) {
+    errEl.textContent = 'שגיאה בהתחברות';
+  } finally {
+    btn.disabled = false; btn.textContent = 'התחבר';
+  }
+}
+
+async function doLogout() {
+  if (!supa) return;
+  try { await supa.auth.signOut(); } catch (e) {}
+  await applyRole(null);
+  showToast('התנתקת');
+}
+
+// --- Boot cloud layer: restore session, watch auth, subscribe to realtime ---
+async function initCloud() {
+  if (!supa) {
+    renderAuthSlot();
+    setSyncStatus('offline', 'מקומי בלבד');
+    showBanner('local', '⚠️ עדיין לא מחובר לענן — הנתונים נשמרים רק במכשיר הזה. יש להזין פרטי Supabase בקובץ (ראו הוראות).');
+    return;
+  }
+  setSyncStatus('offline', 'מתחבר...');
+
+  // Connection test: confirm the DB + table are reachable, else explain why.
+  try {
+    const { error } = await supa.from('app_state').select('id').limit(1);
+    if (error) {
+      setSyncStatus('offline', 'שגיאת חיבור');
+      showBanner('error', '⚠️ מחובר ל-Supabase אך יש שגיאה: ' + error.message + '. ודאו שהרצתם את סקריפט ה-SQL.');
+    } else {
+      hideBanner();
+    }
+  } catch (e) {
+    setSyncStatus('offline', 'שגיאת חיבור');
+    showBanner('error', '⚠️ לא ניתן להתחבר ל-Supabase. בדקו את כתובת ה-URL והמפתח.');
+  }
+
+  try {
+    const { data } = await supa.auth.getSession();
+    await applyRole(data && data.session ? data.session.user : null);
+  } catch (e) { await applyRole(null); }
+  supa.auth.onAuthStateChange((_event, session) => {
+    applyRole(session ? session.user : null);
+  });
+  subscribeRealtime();
+}
+
+// Fields (besides skills/scores/total/history) that a coach can edit and that must persist.
+const META_FIELDS = ['name', 'g', 'cat', 'active'];
+
+function applyOverrides(overrides) {
+  if (!overrides) return;
+  const edits = overrides.edits || overrides; // backward-compat with old flat-format saves
+  Object.keys(edits).forEach(key => {
+    // New format: keys are base-athlete indices ("0","1"...). Legacy: keys are names.
+    const a = /^\d+$/.test(key) ? ATHLETES[parseInt(key, 10)]
+                                : ATHLETES.find(x => x.name === key);
+    if (!a) return;
+    const ov = edits[key];
+    Object.keys(ov).forEach(k => { a[k] = ov[k]; });
+  });
+  if (overrides.newAthletes && Array.isArray(overrides.newAthletes)) {
+    overrides.newAthletes.forEach(na => {
+      if (!ATHLETES.find(x => x.name === na.name)) {
+        ATHLETES.push(JSON.parse(JSON.stringify(na)));
+      }
+    });
+  }
+}
+
+function collectOverrides() {
+  // Diff current ATHLETES against BASE_ATHLETES by index. Keying by index (not name)
+  // means renaming/gender/category changes persist correctly.
+  const edits = {};
+  for (let i = 0; i < BASE_ATHLETES.length; i++) {
+    const a = ATHLETES[i];
+    const base = BASE_ATHLETES[i];
+    if (!a) continue;
+    const diff = {};
+    SKILLS.forEach(s => {
+      const skIdx = s.key.slice(1);
+      if (a[s.key] !== base[s.key]) diff[s.key] = a[s.key];
+      if (a['sc'+skIdx] !== base['sc'+skIdx]) diff['sc'+skIdx] = a['sc'+skIdx];
+    });
+    META_FIELDS.forEach(k => { if (a[k] !== base[k]) diff[k] = a[k]; });
+    if (a.total !== base.total) diff.total = a.total;
+    if (a.history && Object.keys(a.history).length) diff.history = a.history;
+    if (Object.keys(diff).length) edits[i] = diff;
+  }
+  // Any athletes beyond BASE_ATHLETES.length were added at runtime; store them in full
+  const newAthletes = ATHLETES.slice(BASE_ATHLETES.length).map(a => JSON.parse(JSON.stringify(a)));
+  return { edits, newAthletes };
+}
+
+// Human-readable category label (matches the category bar)
+function catLabel(cat) {
+  return cat === 'senior'  ? '💪 בוגרים'
+       : cat === 'academy' ? '🎓 אקדמיה'
+       : cat === 'youth'   ? '⭐ נוער'
+       : (cat || '');
+}
+
+// --- Edit swimmer details (coaches only) ---
+let editingAthleteName = null;
+let edGender = 'M', edCat = 'academy', edActive = true;
+
+function openDetailsModal(name) {
+  if (supa && !isCoach) { showToast('⚠️ רק מאמנים יכולים לערוך פרטים'); return; }
+  const a = ATHLETES.find(x => x.name === name);
+  if (!a) return;
+  editingAthleteName = name;
+  edGender = a.g;
+  edCat = a.cat;
+  edActive = a.active !== false;
+  document.getElementById('ed-name').value = a.name;
+  document.getElementById('details-err').textContent = '';
+  syncEdButtons();
+  document.getElementById('details-modal').classList.add('open');
+}
+function closeDetailsModal() {
+  document.getElementById('details-modal').classList.remove('open');
+  editingAthleteName = null;
+}
+function setEdGender(g) { edGender = g; syncEdButtons(); }
+function setEdCat(c)    { edCat = c;    syncEdButtons(); }
+function setEdActive(v) { edActive = v; syncEdButtons(); }
+function syncEdButtons() {
+  document.getElementById('ed-gender-M').classList.toggle('active', edGender === 'M');
+  document.getElementById('ed-gender-F').classList.toggle('active', edGender === 'F');
+  ['academy','youth','senior'].forEach(c =>
+    document.getElementById('ed-cat-'+c).classList.toggle('active', edCat === c));
+  document.getElementById('ed-active-1').classList.toggle('active', edActive === true);
+  document.getElementById('ed-active-0').classList.toggle('active', edActive === false);
+}
+
+async function saveAthleteDetails() {
+  if (supa && !isCoach) { showToast('⚠️ רק מאמנים יכולים לערוך פרטים'); return; }
+  const a = ATHLETES.find(x => x.name === editingAthleteName);
+  if (!a) { closeDetailsModal(); return; }
+  const errEl = document.getElementById('details-err');
+  const newName = document.getElementById('ed-name').value.trim();
+  if (!newName) { errEl.textContent = 'השם לא יכול להיות ריק'; return; }
+  if (newName.toLowerCase() !== a.name.toLowerCase() &&
+      ATHLETES.some(x => x !== a && x.name.toLowerCase() === newName.toLowerCase())) {
+    errEl.textContent = 'כבר קיים/ת שחיין/ית בשם הזה'; return;
+  }
+
+  a.name = newName;
+  a.g = edGender;
+  a.cat = edCat;
+  a.active = edActive;
+
+  // Follow the swimmer's (possibly new) gender + category so they stay visible in the picker.
+  currentGender = a.g;
+  document.querySelectorAll('.gender-btn').forEach((b,i) =>
+    b.classList.toggle('active', (i===0 && a.g==='M') || (i===1 && a.g==='F')));
+  pickerCat = a.cat;
+
+  try {
+    await saveOverrides(collectOverrides());
+    showToast('✅ הפרטים עודכנו');
+  } catch (e) {
+    showToast('⚠️ עודכן אך לא נשמר');
+  }
+
+  closeDetailsModal();
+  renderPickerCats();
+  populateSwimmerSelect();
+  setSelectedSwimmer(a.name);
+  renderProfile(a.name);
+}
+
+let currentGender = 'M';
+let currentCat = 'all';
+
+function setGender(g) {
+  currentGender = g;
+  document.querySelectorAll('.gender-btn').forEach((b,i) =>
+    b.classList.toggle('active', (i===0&&g==='M')||(i===1&&g==='F')));
+  populateSwimmerSelect();
+  document.getElementById('profile-area').innerHTML = '';
+  document.getElementById('leaderboard-area').innerHTML = '';
+  setSelectedSwimmer('');
+  document.getElementById('skill-select').value = '';
+  populateSkillSelect();
+  renderScoringMatrix();
+  const pbsSel = document.getElementById('pbs-swimmer-select');
+  if (pbsSel) { pbsSel.value = ''; document.getElementById('pbs-area').innerHTML = ''; renderPBsPickerNames(); }
+}
+
+function setCat(cat) {
+  currentCat = cat;
+  document.querySelectorAll('.cat-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.includes(
+      cat==='all'?'הכל':cat==='senior'?'בוגרים':cat==='academy'?'אקדמיה':'נוער'
+    ));
+  });
+  populateSwimmerSelect();
+  document.getElementById('profile-area').innerHTML = '';
+  document.getElementById('leaderboard-area').innerHTML = '';
+  setSelectedSwimmer('');
+  document.getElementById('skill-select').value = '';
+  populateSkillSelect();
+  const pbsSel = document.getElementById('pbs-swimmer-select');
+  if (pbsSel) { pbsSel.value = ''; document.getElementById('pbs-area').innerHTML = ''; renderPBsPickerNames(); }
+}
+
+function showScreen(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  // The profile screen has its own category buttons, so hide the global one there.
+  const catBar = document.querySelector('.cat-bar');
+  if (catBar) catBar.style.display = (name === 'profile' || name === 'pbs') ? 'none' : 'flex';
+  if (name === 'profile') { renderPickerCats(); renderPickerNames(); }
+  if (name === 'pbs') { renderPBsPickerCats(); renderPBsPickerNames(); }
+  if (name === 'scoring') renderScoringMatrix();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function filtered() {
+  return ATHLETES.filter(a => a.g === currentGender && (currentCat === 'all' || a.cat === currentCat));
+}
+
+let swimmerListCache = [];
+
+function populateSwimmerSelect() {
+  swimmerListCache = filtered()
+    .filter(a => a.active)
+    .slice()
+    .sort((a,b) => a.name.localeCompare(b.name,'he'));
+  renderPickerNames();  // keep the button picker in sync with gender/category
+}
+
+// --- Button-based swimmer picker: pick a category, then tap a name ---
+let pickerCat = 'all';
+
+function renderPickerCats() {
+  const wrap = document.getElementById('picker-cats');
+  if (!wrap) return;
+  const cats = [
+    { key:'all',     label:'🏊 הכל' },
+    { key:'senior',  label:'💪 בוגרים' },
+    { key:'academy', label:'🎓 אקדמיה' },
+    { key:'youth',   label:'⭐ נוער' }
+  ];
+  wrap.innerHTML = cats.map(c =>
+    `<button type="button" class="cat-btn-inline${pickerCat===c.key?' active':''}" onclick="setPickerCat('${c.key}')">${c.label}</button>`
+  ).join('');
+}
+
+function setPickerCat(cat) {
+  pickerCat = cat;
+  renderPickerCats();
+  renderPickerNames();
+}
+
+function renderPickerNames() {
+  const wrap = document.getElementById('picker-names');
+  if (!wrap) return;
+  const list = ATHLETES
+    .filter(a => a.g === currentGender && (pickerCat === 'all' || a.cat === pickerCat) && a.active)
+    .slice()
+    .sort((a,b) => a.name.localeCompare(b.name,'he'));
+  if (!list.length) {
+    wrap.innerHTML = '<div class="picker-empty">אין שחיינים/ות פעילים/ות בקטגוריה הזו</div>';
+    return;
+  }
+  const selected = document.getElementById('swimmer-select').value;
+  wrap.innerHTML = list.map(a => {
+    const female = a.g === 'F' ? ' female' : '';
+    return `<button type="button" class="name-btn${selected===a.name?' active':''}" onclick="selectSwimmerFromPicker('${escapeAttr(a.name)}')">
+      <span class="name-btn-avatar${female}">${initials(a.name)}</span>${a.name}
+    </button>`;
+  }).join('');
+}
+
+function selectSwimmerFromPicker(name) {
+  setSelectedSwimmer(name);
+  renderPickerNames();   // refresh which name looks selected
+  renderProfile(name);
+}
+
+// --- Typeahead search for the swimmer picker (filters as you type, e.g. one letter) ---
+function filterSwimmerList() {
+  const input = document.getElementById('swimmer-search-input');
+  const list = document.getElementById('swimmer-search-list');
+  const q = input.value.trim().toLowerCase();
+
+  const matches = !q
+    ? swimmerListCache
+    : swimmerListCache.filter(a => {
+        const name = a.name.toLowerCase();
+        if (name.includes(q)) return true;
+        // also match if any "word" (split on space/comma) starts with the typed letters
+        return name.split(/[\s,]+/).some(w => w.startsWith(q));
+      });
+
+  if (!matches.length) {
+    list.innerHTML = '<div class="swimmer-search-empty">🔍 לא נמצא שחיין/ית תואמ/ת — נסו שם או אות אחרת</div>';
+  } else {
+    list.innerHTML = matches.map(a => {
+      const female = a.g === 'F' ? ' female' : '';
+      return `<div class="swimmer-search-item" onmousedown="event.preventDefault();selectSwimmerFromSearch('${escapeAttr(a.name)}')">
+        <div class="swimmer-search-avatar${female}">${initials(a.name)}</div>
+        <span>${a.name}</span>
+      </div>`;
+    }).join('');
+  }
+  list.classList.add('open');
+}
+
+function closeSwimmerList() {
+  const list = document.getElementById('swimmer-search-list');
+  if (list) list.classList.remove('open');
+}
+
+function setSelectedSwimmer(name) {
+  document.getElementById('swimmer-select').value = name || '';
+  const searchInput = document.getElementById('swimmer-search-input');
+  if (searchInput) searchInput.value = name || '';
+}
+
+// --- "My personal best per skill" screen: its own picker + read-only PB list ---
+let pbsPickerCat = 'all';
+
+function renderPBsPickerCats() {
+  const wrap = document.getElementById('pbs-picker-cats');
+  if (!wrap) return;
+  const cats = [
+    { key:'all',     label:'🏊 הכל' },
+    { key:'senior',  label:'💪 בוגרים' },
+    { key:'academy', label:'🎓 אקדמיה' },
+    { key:'youth',   label:'⭐ נוער' }
+  ];
+  wrap.innerHTML = cats.map(c =>
+    `<button type="button" class="cat-btn-inline${pbsPickerCat===c.key?' active':''}" onclick="setPBsPickerCat('${c.key}')">${c.label}</button>`
+  ).join('');
+}
+
+function setPBsPickerCat(cat) {
+  pbsPickerCat = cat;
+  renderPBsPickerCats();
+  renderPBsPickerNames();
+}
+
+function renderPBsPickerNames() {
+  const wrap = document.getElementById('pbs-picker-names');
+  if (!wrap) return;
+  const list = ATHLETES
+    .filter(a => a.g === currentGender && (pbsPickerCat === 'all' || a.cat === pbsPickerCat) && a.active)
+    .slice()
+    .sort((a,b) => a.name.localeCompare(b.name,'he'));
+  if (!list.length) {
+    wrap.innerHTML = '<div class="picker-empty">אין שחיינים/ות פעילים/ות בקטגוריה הזו</div>';
+    return;
+  }
+  const selected = document.getElementById('pbs-swimmer-select').value;
+  wrap.innerHTML = list.map(a => {
+    const female = a.g === 'F' ? ' female' : '';
+    return `<button type="button" class="name-btn${selected===a.name?' active':''}" onclick="selectSwimmerForPBs('${escapeAttr(a.name)}')">
+      <span class="name-btn-avatar${female}">${initials(a.name)}</span>${a.name}
+    </button>`;
+  }).join('');
+}
+
+function selectSwimmerForPBs(name) {
+  document.getElementById('pbs-swimmer-select').value = name || '';
+  renderPBsPickerNames();
+  renderPBs(name);
+}
+
+// Best (fastest) recorded time+score for one skill, using the full history if we have it.
+function personalBest(a, skKey) {
+  const hist = a.history && a.history[skKey];
+  if (hist && hist.length) {
+    return hist.reduce((best, h) => (h.time < best.time ? h : best), hist[0]);
+  }
+  const val = a[skKey];
+  if (val && val > 0) {
+    const skIdx = skKey.slice(1);
+    return { date: null, time: val, score: a['sc'+skIdx] };
+  }
+  return null;
+}
+
+function renderPBs(name) {
+  const area = document.getElementById('pbs-area');
+  if (!name) { area.innerHTML = ''; return; }
+  const a = ATHLETES.find(x => x.name === name);
+  if (!a) { area.innerHTML = ''; return; }
+
+  const rowsHtml = SKILLS.map(s => {
+    const best = personalBest(a, s.key);
+    const body = best
+      ? `<div class="skill-val">${best.time.toFixed(2)} שנ׳</div>
+         <span class="skill-score ${scoreClass(best.score)}">Score: ${best.score.toFixed(1)}/10</span>
+         ${best.date ? `<div class="skill-rank">שיא מתאריך ${best.date}</div>` : ''}`
+      : `<div class="skill-val" style="color:var(--text-muted);font-size:14px">00:00</div>
+         <span class="skill-score score-none">— אין תוצאה עדיין</span>`;
+    return `<div class="skill-item">
+      <div class="skill-name">${s.label}</div>
+      ${body}
+    </div>`;
+  }).join('');
+
+  const isFemale = a.g === 'F';
+  area.innerHTML = `<div class="card">
+    <div class="profile-header">
+      <div class="profile-avatar${isFemale ? ' female' : ''}">${initials(a.name)}</div>
+      <div class="profile-name">${a.name}</div>
+    </div>
+    <div class="card-title" style="margin-top:6px">🥇 השיא האישי בכל Skill</div>
+    ${rowsHtml}
+  </div>`;
+}
+
+function selectSwimmerFromSearch(name) {
+  setSelectedSwimmer(name);
+  closeSwimmerList();
+  renderProfile(name);
+}
+
+function populateSkillSelect() {
+  const wrap = document.getElementById('skill-buttons');
+  if (!wrap) return;
+  const current = document.getElementById('skill-select').value;
+  let html = `<button type="button" class="skill-btn overall${current==='_overall'?' active':''}" onclick="selectSkill('_overall')">⭐ דירוג כללי</button>`;
+  html += SKILLS.map(s =>
+    `<button type="button" class="skill-btn${current===s.key?' active':''}" onclick="selectSkill('${s.key}')">${s.label}</button>`
+  ).join('');
+  wrap.innerHTML = html;
+}
+
+function selectSkill(key) {
+  const cur = document.getElementById('skill-select').value;
+  // Tapping the active button again clears the selection.
+  document.getElementById('skill-select').value = (cur === key) ? '' : key;
+  populateSkillSelect();   // refresh which button looks active
+  renderLeaderboard();
+}
+
+function initials(name) {
+  return name.split(/[\s,]+/).filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('');
+}
+function skillRankInfo(a, s) {
+  // Rank among all swimmers of the same gender who have a recorded time for this skill
+  const pool = ATHLETES.filter(x => x.g === a.g && x[s.key] && x[s.key] > 0);
+  if (!pool.length) return null;
+  pool.sort((x, y) => x[s.key] - y[s.key]); // lower time = better
+  const rank = pool.findIndex(x => x.name === a.name) + 1;
+  return { rank, total: pool.length };
+}
+function scoreClass(sc) {
+  if (sc >= 8) return 'score-high';
+  if (sc >= 5) return 'score-mid';
+  if (sc >= 1) return 'score-low';
+  return 'score-none';
+}
+
+function escapeAttr(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// Build a small inline SVG line chart of score-over-time for one skill's history.
+// Gold dots mark a new personal best (fastest time so far); teal dots are regular attempts.
+function buildHistorySVG(history) {
+  const pts = history;
+  const w = Math.max(260, Math.min(560, pts.length * 70));
+  const h = 160;
+  const padL = 26, padR = 20, padT = 30, padB = 32;
+  const plotW = w - padL - padR;
+  const plotH = h - padT - padB;
+  const times = pts.map(p => p.time);
+  const minT = Math.min(...times);
+  const maxT = Math.max(...times);
+  const range = (maxT - minT) || 1;
+
+  const xAt = i => padL + (pts.length === 1 ? plotW / 2 : (i / (pts.length - 1)) * plotW);
+  // Faster time (lower value) plots higher up, so an improving trend visually climbs.
+  const yAt = t => padT + ((t - minT) / range) * plotH;
+
+  let bestSoFar = Infinity; // lower time = better
+  const dots = pts.map((p, i) => {
+    const isPB = p.time < bestSoFar;
+    if (p.time < bestSoFar) bestSoFar = p.time;
+    return { x: xAt(i), y: yAt(p.time), p, isPB };
+  });
+
+  const linePath = dots.map((d, i) => (i === 0 ? 'M' : 'L') + d.x.toFixed(1) + ',' + d.y.toFixed(1)).join(' ');
+
+  const circles = dots.map(d =>
+    `<circle cx="${d.x.toFixed(1)}" cy="${d.y.toFixed(1)}" r="${d.isPB ? 5.5 : 4.5}" style="fill:${d.isPB ? '#F5B740' : '#00C2B1'}" stroke="#fff" stroke-width="1.2"/>`
+  ).join('');
+
+  // Main label = the result (time); the score rides along in smaller, muted text right after it.
+  const resultLabels = dots.map(d =>
+    `<text x="${d.x.toFixed(1)}" y="${(d.y - 11).toFixed(1)}" text-anchor="middle">
+      <tspan font-size="11" font-weight="700" style="fill:var(--text)">${d.p.time.toFixed(2)}s</tspan>
+      <tspan font-size="8" dx="2" style="fill:var(--text-muted)">(${d.p.score.toFixed(1)})</tspan>
+    </text>`
+  ).join('');
+
+  const dateLabels = dots.map(d =>
+    `<text x="${d.x.toFixed(1)}" y="${h - 12}" font-size="9" text-anchor="middle" style="fill:var(--text-muted)">${escapeAttr(d.p.date)}</text>`
+  ).join('');
+
+  return `<svg viewBox="0 0 ${w} ${h}" width="100%" style="max-width:${w}px;display:block;margin:0 auto" dir="ltr">
+    <line x1="${padL}" y1="${padT + plotH}" x2="${padL + plotW}" y2="${padT + plotH}" style="stroke:var(--border)" stroke-width="1"/>
+    <path d="${linePath}" fill="none" style="stroke:#00C2B1" stroke-width="2"/>
+    ${circles}
+    ${resultLabels}
+    ${dateLabels}
+  </svg>
+  <div style="font-size:10.5px;color:var(--text-muted);text-align:center;margin-top:4px">🟡 שיא אישי חדש &nbsp; 🔵 ניסיון רגיל</div>`;
+}
+
+function toggleHistoryChart(sk) {
+  const el = document.getElementById('hist-' + sk);
+  if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+// Jump from any leaderboard row straight into that swimmer's editable profile
+function openProfile(name) {
+  const a = ATHLETES.find(x => x.name === name);
+  if (!a) return;
+  // Follow this swimmer's gender + category so the picker shows and highlights them.
+  currentGender = a.g;
+  document.querySelectorAll('.gender-btn').forEach((b,i) =>
+    b.classList.toggle('active', (i===0 && a.g==='M') || (i===1 && a.g==='F')));
+  pickerCat = a.cat;
+  setSelectedSwimmer(name);
+  showScreen('profile');   // hides the global cat-bar and renders the picker
+  renderProfile(name);
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function launchFireworks(container) {
+  const canvas = document.createElement('canvas');
+  canvas.style.position = 'fixed';
+  canvas.style.inset = '0';
+  canvas.style.width = '100%';
+  canvas.style.height = '100%';
+  canvas.style.pointerEvents = 'none';
+  container.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const colors = ['#F5B740', '#00C2B1', '#2E8FE0', '#FFFFFF', '#FF6B4D', '#B9C6D6'];
+  let particles = [];
+  let running = true;
+  let burstTimer = 0;
+
+  function spawnBurst(x, y) {
+    const count = 45;
+    for (let i = 0; i < count; i++) {
+      const angle = (Math.PI * 2 * i) / count + Math.random() * 0.25;
+      const speed = 2 + Math.random() * 4.5;
+      particles.push({
+        x, y,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        life: 55 + Math.random() * 30,
+        age: 0,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        size: 2 + Math.random() * 2.2
+      });
+    }
+  }
+
+  function frame() {
+    if (!running) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    burstTimer--;
+    if (burstTimer <= 0) {
+      spawnBurst(canvas.width * (0.15 + Math.random() * 0.7), canvas.height * (0.15 + Math.random() * 0.4));
+      burstTimer = 22 + Math.random() * 18;
+    }
+    particles.forEach(p => {
+      p.age++;
+      p.x += p.vx; p.y += p.vy; p.vy += 0.045;
+      const alpha = Math.max(0, 1 - p.age / p.life);
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    particles = particles.filter(p => p.age < p.life);
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(frame);
+  }
+  frame();
+
+  return () => { running = false; window.removeEventListener('resize', resize); canvas.remove(); };
+}
+
+function showRecordCelebration(name, skillLabel, timeVal) {
+  const overlay = document.createElement('div');
+  overlay.className = 'record-overlay';
+  overlay.innerHTML = `
+    <div class="record-banner">
+      <div class="record-title">${name}</div>
+      <div class="record-sub">🏆 NEW WINGATE RECORD! 🏆</div>
+      <div class="record-skill">${skillLabel}: ${timeVal.toFixed(2)}</div>
+    </div>`;
+  document.body.appendChild(overlay);
+  const stopFireworks = launchFireworks(overlay);
+  setTimeout(() => {
+    overlay.classList.add('fade-out');
+    setTimeout(() => { stopFireworks(); overlay.remove(); }, 500);
+  }, 3800);
+}
+
+function renderProfile(nameOverride) {
+  const sel = document.getElementById('swimmer-select');
+  const area = document.getElementById('profile-area');
+  if (nameOverride) {
+    sel.value = nameOverride;
+    const searchInput = document.getElementById('swimmer-search-input');
+    if (searchInput) searchInput.value = nameOverride;
+  }
+  if (!sel.value) { area.innerHTML = ''; return; }
+  const a = ATHLETES.find(x => x.name === sel.value);
+  if (!a) { area.innerHTML = ''; return; }
+
+  const skillsHtml = SKILLS.map(s => {
+    const skIdx = s.key.slice(1);
+    const val = a[s.key];
+    const sc  = a['sc'+skIdx];
+    const hasVal = val && val > 0;
+
+    const rankInfo = hasVal ? skillRankInfo(a, s) : null;
+    const rankHtml = rankInfo
+      ? `<div class="skill-rank">מדורג #${rankInfo.rank} מתוך ${rankInfo.total} (${a.g==='F'?'בנות':'בנים'})</div>`
+      : '';
+
+    const valDisplay = hasVal
+      ? `<div class="skill-val">${val.toFixed(2)} שנ׳</div>
+         <span class="skill-score ${scoreClass(sc)}">Score: ${sc.toFixed(1)}/10</span>
+         ${rankHtml}`
+      : `<div class="skill-val" style="color:var(--text-muted);font-size:14px">00:00</div>
+         <span class="skill-score score-none">—</span>`;
+
+    const histArr = a.history && a.history[s.key];
+    const hasHistory = histArr && histArr.length >= 2;
+    const historyHtml = hasHistory
+      ? `<button class="edit-btn" style="margin-top:6px;background:transparent;border:1.5px solid var(--teal);color:var(--teal)" onclick="toggleHistoryChart('${s.key}')">📈 גרף שיפור (${histArr.length} תוצאות)</button>
+         <div id="hist-${s.key}" style="display:none;margin-top:10px;padding:12px 4px 6px;background:var(--surface2);border-radius:10px">${buildHistorySVG(histArr)}</div>`
+      : '';
+
+    return `<div class="skill-item" id="si-${s.key}">
+      <div class="skill-name">${s.label}</div>
+      ${valDisplay}
+      <button class="edit-btn coach-only" onclick="showEdit('${a.name}','${s.key}')">✏️ עדכן תוצאה</button>
+      ${hasVal ? `<button class="edit-btn coach-only" style="border-color:var(--danger,#c0392b);color:var(--danger,#c0392b)" onclick="undoLastResult('${escapeAttr(a.name)}','${s.key}')">↩️ בטל תוצאה אחרונה</button>` : ''}
+      <div class="edit-row" id="edit-${s.key}" style="display:none">
+        <input type="number" step="0.01" min="0" id="inp-${s.key}" placeholder="זמן (שנ׳)">
+        <button class="btn-save" onclick="saveResult('${a.name}','${s.key}')">✓</button>
+        <button class="btn-cancel" onclick="hideEdit('${s.key}')">✕</button>
+      </div>
+      ${historyHtml}
+    </div>`;
+  }).join('');
+
+  const isFemale = a.g === 'F';
+  const nameBlock = isCoach
+    ? `<div class="profile-name" style="cursor:pointer" onclick="openDetailsModal('${escapeAttr(a.name)}')" title="לחץ לעריכת פרטים">${a.name} <span style="font-size:14px;color:var(--teal)">✏️</span></div>`
+    : `<div class="profile-name">${a.name}</div>`;
+  const statusTxt = a.active === false ? ' · ⏸️ לא פעיל/ה' : '';
+  area.innerHTML = `<div class="card">
+    <div class="profile-header">
+      <div class="avatar${isFemale?' female':''}">${initials(a.name)}</div>
+      <div>
+        ${nameBlock}
+        <div class="profile-sub">${isFemale?'שחיינית':'שחיין'} · ${catLabel(a.cat)}${statusTxt}</div>
+      </div>
+      <div class="total-badge" id="total-badge-${a.name.replace(/\s/g,'_')}">Total Score: ${a.total.toFixed(1)}</div>
+      <button class="coach-only" onclick="openDetailsModal('${escapeAttr(a.name)}')" title="ערוך פרטים" style="background:none;border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:11px;color:var(--text-muted);cursor:pointer">✏️ פרטים</button>
+      <button class="coach-only" onclick="resetAthlete('${a.name}')" title="אפס לנתונים מקוריים" style="background:none;border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:11px;color:var(--text-muted);cursor:pointer">↺ איפוס</button>
+    </div>
+    <div class="skills-grid">${skillsHtml}</div>
+  </div>`;
+}
+
+function showEdit(name, sk) {
+  const row = document.getElementById('edit-'+sk);
+  if (row) { row.style.display='flex'; document.getElementById('inp-'+sk).focus(); }
+}
+function hideEdit(sk) {
+  const row = document.getElementById('edit-'+sk);
+  if (row) row.style.display='none';
+}
+
+async function applyResult(name, sk, newTime) {
+  const a = ATHLETES.find(x => x.name === name);
+  if (!a) return;
+
+  // Check if this beats the current #1 time for this skill (same gender pool), before updating
+  const rivalBest = ATHLETES
+    .filter(x => x.g === a.g && x.name !== a.name && x[sk] && x[sk] > 0)
+    .reduce((min, x) => Math.min(min, x[sk]), Infinity);
+  const isNewRecord = rivalBest !== Infinity && newTime < rivalBest;
+
+  const skIdx = sk.slice(1);
+  const newScore = computeScore(newTime, sk, a.g);
+
+  // Keep a dated history of every result for this skill so we can chart improvement over time.
+  if (!a.history) a.history = {};
+  if (!a.history[sk]) a.history[sk] = [];
+  if (a.history[sk].length === 0 && a[sk] > 0) {
+    // First time we're tracking this skill's history — seed it with whatever was on record before this edit
+    a.history[sk].push({ date: 'לפני המעקב', time: a[sk], score: a['sc'+skIdx] });
+  }
+  a.history[sk].push({ date: new Date().toLocaleDateString('he-IL'), time: newTime, score: newScore });
+
+  a[sk] = newTime;
+  a['sc'+skIdx] = newScore;
+  a.total = recomputeTotal(a);
+
+  // Persist to storage so the update survives reloads
+  try {
+    await saveOverrides(collectOverrides());
+    showToast(`✅ נשמר: ${name} — ${SKILLS.find(s=>s.key===sk).label} → ${newTime.toFixed(2)} שנ׳`);
+  } catch (e) {
+    showToast(`⚠️ עודכן אך לא נשמר (${name})`);
+  }
+
+  renderProfile();
+  setSelectedSwimmer(name);
+
+  if (isNewRecord) {
+    showRecordCelebration(name, SKILLS.find(s=>s.key===sk).label, newTime);
+  }
+}
+
+async function saveResult(name, sk) {
+  const inp = document.getElementById('inp-'+sk);
+  const newTime = parseFloat(inp.value);
+  if (isNaN(newTime) || newTime <= 0) { showToast('⚠️ הכנס זמן תקין'); return; }
+  await applyResult(name, sk, newTime);
+}
+
+// Remove only the most recently entered result for one skill (mistaken entry),
+// restoring whatever was recorded before it — without touching any other skill/time.
+async function undoLastResult(name, sk) {
+  const a = ATHLETES.find(x => x.name === name);
+  if (!a || !a.history || !a.history[sk] || !a.history[sk].length) {
+    showToast('⚠️ אין תוצאה קודמת לבטל');
+    return;
+  }
+  const skill = SKILLS.find(s => s.key === sk);
+  const removed = a.history[sk][a.history[sk].length - 1];
+  if (!confirm(`לבטל את התוצאה האחרונה של ${name} ב-${skill.label} (${removed.time.toFixed(2)} שנ׳)?`)) return;
+
+  a.history[sk].pop();
+  const skIdx = sk.slice(1);
+  const prev = a.history[sk][a.history[sk].length - 1]; // may be undefined if none left
+
+  if (prev) {
+    a[sk] = prev.time;
+    a['sc'+skIdx] = prev.score;
+  } else {
+    a[sk] = 0;
+    a['sc'+skIdx] = 0;
+    delete a.history[sk]; // no results left at all for this skill
+  }
+  a.total = recomputeTotal(a);
+
+  try {
+    await saveOverrides(collectOverrides());
+    showToast(`↩️ בוטל: ${name} — ${skill.label}`);
+  } catch (e) {
+    showToast(`⚠️ בוטל מקומית אך לא נשמר (${name})`);
+  }
+
+  renderProfile();
+  setSelectedSwimmer(name);
+}
+
+// ============================================================
+// Voice entry — coach speaks "<name> <time> <skill>", we parse it,
+// and auto-save only when we're confident about all three parts
+// (a PB check still gates the save; ambiguous input asks the coach to confirm).
+// ============================================================
+let voiceRecognition = null;
+let voiceListening = false;
+
+const UW_MARKERS = ['תת ימי','תת מימי','תת-ימי','תת-מימי','מתחת למים','יו דאבליו','uw'];
+const SKILL_MATCHERS = {
+  s1: { req: ['פוש','push'] },                                   // 10m Push & Glide
+  s2: { req: ['דייב','dive','צלילה'], extra: ['גלייד','glide'] }, // 10m Dive & Glide
+  s3: { req: ['פלאטר','flutter','בעיט','קיק','kick'] },           // 10m Flutter Kick
+  s4: { req: ['פוש','push'], uw: true },                          // 10m UW Push
+  s5: { req: ['דייב','dive','צלילה'], uw: true },                 // 10m UW Dive
+  s6: { req: ['פריסטייל','חופשי','free'] },                       // 15m Dive Free
+  s7: { req: ['טרן','turn','פני','5+10','חמש ועשר'] },            // Turn 5+10
+  s8: { req: ['מיד','mid','אמצע'] },                              // 10m Mid
+};
+
+function matchSkill(text) {
+  const norm = text.toLowerCase();
+  const hasUW = UW_MARKERS.some(m => norm.includes(m));
+  let best = null, bestScore = 0, tie = false;
+  SKILLS.forEach(s => {
+    const m = SKILL_MATCHERS[s.key];
+    let score = 0;
+    m.req.forEach(k => { if (norm.includes(k)) score++; });
+    (m.extra || []).forEach(k => { if (norm.includes(k)) score += 0.5; });
+    score += m.uw ? (hasUW ? 2 : -3) : (hasUW ? -2 : 0);
+    if (score > bestScore) { best = s; bestScore = score; tie = false; }
+    else if (score === bestScore && score > 0) { tie = true; }
+  });
+  return (bestScore > 0 && !tie) ? best : null;
+}
+
+function matchAthlete(text) {
+  const words = text.replace(/[.,]/g, ' ').toLowerCase().split(/\s+/).filter(Boolean);
+  let best = null, bestScore = 0, tie = false;
+  ATHLETES.filter(a => a.active).forEach(a => {
+    const nameWords = a.name.toLowerCase().split(/\s+/);
+    let score = 0;
+    nameWords.forEach(nw => { if (words.includes(nw)) score++; });
+    if (score > bestScore) { best = a; bestScore = score; tie = false; }
+    else if (score === bestScore && score > 0 && best && a.name !== best.name) { tie = true; }
+  });
+  return (bestScore > 0 && !tie) ? best : null;
+}
+
+function extractTime(text) {
+  const m = text.match(/\d+(?:[.,]\d+)?/);
+  if (!m) return null;
+  const val = parseFloat(m[0].replace(',', '.'));
+  return (val > 0 && val < 60) ? val : null;
+}
+
+function openVoiceModal() {
+  document.getElementById('voice-modal').classList.add('open');
+  document.getElementById('voice-transcript').textContent = '';
+  document.getElementById('voice-parse-result').innerHTML = '';
+  document.getElementById('voice-status-text').textContent = 'לחצו והתחילו לדבר';
+  document.getElementById('voice-mic-btn').classList.remove('listening');
+}
+
+function closeVoiceModal() {
+  document.getElementById('voice-modal').classList.remove('open');
+  if (voiceRecognition) { try { voiceRecognition.abort(); } catch (e) {} }
+  voiceListening = false;
+}
+
+function toggleVoiceListening() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const statusText = document.getElementById('voice-status-text');
+  if (!SR) {
+    statusText.textContent = '⚠️ הדפדפן הזה לא תומך בהזנה קולית. נסו ב-Chrome.';
+    return;
+  }
+  if (voiceListening) { voiceRecognition && voiceRecognition.stop(); return; }
+
+  voiceRecognition = new SR();
+  voiceRecognition.lang = 'he-IL';
+  voiceRecognition.interimResults = true;
+  voiceRecognition.continuous = false;
+
+  const btn = document.getElementById('voice-mic-btn');
+  const transcriptEl = document.getElementById('voice-transcript');
+
+  voiceRecognition.onstart = () => {
+    voiceListening = true;
+    btn.classList.add('listening');
+    statusText.textContent = '🎙️ מקשיב...';
+    document.getElementById('voice-parse-result').innerHTML = '';
+  };
+  voiceRecognition.onresult = (e) => {
+    let interim = '', final = '';
+    for (let i = e.resultIndex; i < e.results.length; i++) {
+      const t = e.results[i][0].transcript;
+      if (e.results[i].isFinal) final += t; else interim += t;
+    }
+    transcriptEl.textContent = final || interim;
+    if (final) handleVoiceTranscript(final.trim());
+  };
+  voiceRecognition.onerror = (e) => {
+    statusText.textContent = e.error === 'no-speech' ? 'לא זוהה דיבור, נסו שוב' : ('⚠️ שגיאה: ' + e.error);
+  };
+  voiceRecognition.onend = () => {
+    voiceListening = false;
+    btn.classList.remove('listening');
+    if (statusText.textContent === '🎙️ מקשיב...') statusText.textContent = 'לחצו והתחילו לדבר';
+  };
+
+  try { voiceRecognition.start(); } catch (e) { statusText.textContent = '⚠️ לא ניתן להפעיל מיקרופון'; }
+}
+
+async function handleVoiceTranscript(text) {
+  const statusText = document.getElementById('voice-status-text');
+  const resultEl = document.getElementById('voice-parse-result');
+  const time = extractTime(text);
+  const skill = matchSkill(text);
+  const athlete = matchAthlete(text);
+
+  if (time && skill && athlete) {
+    const best = personalBest(athlete, skill.key);
+    if (!best || time < best.time) {
+      await applyResult(athlete.name, skill.key, time);
+      resultEl.innerHTML = `<div class="voice-result-ok">✅ עודכן: <b>${athlete.name}</b> — ${skill.label}: <b>${time.toFixed(2)}</b> שנ׳${best ? ` (שיפור מ-${best.time.toFixed(2)})` : ' (תוצאה ראשונה)'}<br>
+        <button class="btn-ghost" style="margin-top:8px" onclick="undoLastResult('${escapeAttr(athlete.name)}','${skill.key}')">↩️ בטל</button></div>`;
+      statusText.textContent = 'לחצו לתוצאה נוספת';
+    } else {
+      resultEl.innerHTML = `<div class="voice-result-info">ℹ️ לא עודכן — השיא הקיים של <b>${athlete.name}</b> ב-${skill.label} (${best.time.toFixed(2)}) מהיר יותר מ-${time.toFixed(2)}.<br>
+        <button class="btn-ghost" style="margin-top:8px" onclick="forceApplyVoice('${escapeAttr(athlete.name)}','${skill.key}',${time})">עדכן בכל זאת</button></div>`;
+      statusText.textContent = 'לחצו לתוצאה נוספת';
+    }
+  } else {
+    resultEl.innerHTML = buildVoiceFixer(text, time, skill, athlete);
+    statusText.textContent = 'לא זוהה במלואו — בדקו ותקנו למטה';
+  }
+}
+
+function buildVoiceFixer(text, time, skill, athlete) {
+  const athleteOptions = ATHLETES.filter(a => a.active).sort((a,b) => a.name.localeCompare(b.name,'he'))
+    .map(a => `<option value="${escapeAttr(a.name)}" ${athlete && athlete.name===a.name ? 'selected' : ''}>${a.name} (${a.g==='M'?'בן':'בת'})</option>`).join('');
+  const skillOptions = SKILLS.map(s => `<option value="${s.key}" ${skill && skill.key===s.key ? 'selected' : ''}>${s.label}</option>`).join('');
+  return `
+    <div class="voice-fixer">
+      <div style="font-size:12.5px;color:var(--text-muted)">שמעתי: "${escapeAttr(text)}"</div>
+      <label>שחיין/ית</label>
+      <select id="voice-fix-athlete">${athleteOptions}</select>
+      <label>Skill</label>
+      <select id="voice-fix-skill">${skillOptions}</select>
+      <label>זמן (שנ')</label>
+      <input type="number" step="0.01" min="0" id="voice-fix-time" value="${time !== null ? time : ''}">
+      <button class="btn-primary" onclick="confirmVoiceFix()">✓ עדכן תוצאה</button>
+    </div>`;
+}
+
+async function confirmVoiceFix() {
+  const name = document.getElementById('voice-fix-athlete').value;
+  const sk = document.getElementById('voice-fix-skill').value;
+  const time = parseFloat(document.getElementById('voice-fix-time').value);
+  if (!name || !sk || isNaN(time) || time <= 0) { showToast('⚠️ מלאו שחיין/ית, סקיל וזמן תקין'); return; }
+  await applyResult(name, sk, time);
+  document.getElementById('voice-parse-result').innerHTML =
+    `<div class="voice-result-ok">✅ עודכן: ${name} — ${SKILLS.find(s=>s.key===sk).label}: ${time.toFixed(2)} שנ׳</div>`;
+}
+
+async function forceApplyVoice(name, sk, time) {
+  await applyResult(name, sk, time);
+  document.getElementById('voice-parse-result').innerHTML = `<div class="voice-result-ok">✅ עודכן (עדכון ידני, לא שיפר שיא)</div>`;
+}
+
+let newAthleteGender = 'M';
+let newAthleteCat = 'academy';
+
+function toggleAddAthlete() {
+  const form = document.getElementById('add-athlete-form');
+  const isOpen = form.style.display !== 'none';
+  form.style.display = isOpen ? 'none' : 'block';
+  if (!isOpen) document.getElementById('new-athlete-name').focus();
+}
+
+function setNewAthleteGender(g) {
+  newAthleteGender = g;
+  document.getElementById('na-gender-M').classList.toggle('active', g === 'M');
+  document.getElementById('na-gender-F').classList.toggle('active', g === 'F');
+}
+
+function setNewAthleteCat(cat) {
+  newAthleteCat = cat;
+  ['academy','youth','senior'].forEach(c =>
+    document.getElementById('na-cat-'+c).classList.toggle('active', c === cat));
+}
+
+async function createNewAthlete() {
+  const nameInp = document.getElementById('new-athlete-name');
+  const name = nameInp.value.trim();
+  if (!name) { showToast('⚠️ הכנס שם שחיין/ית'); nameInp.focus(); return; }
+  if (ATHLETES.find(x => x.name.toLowerCase() === name.toLowerCase())) {
+    showToast('⚠️ שחיין/ית בשם הזה כבר קיים/ת'); return;
+  }
+
+  const newAthlete = { name, g: newAthleteGender, cat: newAthleteCat, active: true };
+  SKILLS.forEach(s => { const skIdx = s.key.slice(1); newAthlete[s.key] = 0; newAthlete['sc'+skIdx] = 0; });
+  newAthlete.total = 0;
+  ATHLETES.push(newAthlete);
+
+  try {
+    await saveOverrides(collectOverrides());
+    showToast(`✅ נוסף/ה: ${name}`);
+  } catch (e) {
+    showToast(`⚠️ נוסף/ה אך לא נשמר (${name})`);
+  }
+
+  // Reset the form
+  nameInp.value = '';
+  toggleAddAthlete();
+
+  // Switch filters to match the new athlete so they're visible, then select them
+  setGender(newAthleteGender);
+  pickerCat = newAthlete.cat;
+  renderPickerCats();
+  setSelectedSwimmer(name);
+  renderPickerNames();
+  renderProfile(name);
+}
+
+async function resetAthlete(name) {
+  const idx = ATHLETES.findIndex(x => x.name === name);
+  if (idx === -1) return;
+  if (idx < BASE_ATHLETES.length) {
+    ATHLETES[idx] = JSON.parse(JSON.stringify(BASE_ATHLETES[idx]));
+  } else {
+    // Runtime-added athlete has no original baseline — reset means clearing all results back to 00:00
+    const a = ATHLETES[idx];
+    SKILLS.forEach(s => { const skIdx = s.key.slice(1); a[s.key] = 0; a['sc'+skIdx] = 0; });
+    a.total = 0;
+    a.history = {};
+  }
+  await saveOverrides(collectOverrides());
+  showToast(`↺ אופס: ${name}`);
+  renderProfile();
+  setSelectedSwimmer(name);
+}
+
+function renderLeaderboard() {
+  const sel = document.getElementById('skill-select');
+  const area = document.getElementById('leaderboard-area');
+  if (!sel.value) { area.innerHTML = ''; return; }
+
+  // Overall ranking
+  if (sel.value === '_overall') {
+    const maxPossible = SKILLS.length * 10;
+    const rows = filtered()
+      .map(a => {
+        const scores = SKILLS.map(s=>a['sc'+s.key.slice(1)]).filter(sc=>sc>0);
+        const sum = parseFloat(scores.reduce((x,y)=>x+y,0).toFixed(1));
+        const avg = scores.length ? sum/scores.length : 0;
+        return {...a, _sum: sum, _avg: parseFloat(avg.toFixed(2)), _count: scores.length};
+      })
+      .filter(a => a._count > 0)
+      .sort((a,b) => b._sum - a._sum);
+
+    const medal = r => r===1?'🥇':r===2?'🥈':r===3?'🥉':'';
+    const rClass = r => r===1?'rank-1':r===2?'rank-2':r===3?'rank-3':'';
+
+    const tbody = rows.map((a,i) => {
+      const r = i+1;
+      const bar = Math.round((a._sum/maxPossible)*100);
+      const color = a._avg>=8?'#00C2B1':a._avg>=5?'#F5B740':'#FF6B4D';
+      return `<tr style="cursor:pointer" title="לחץ לצפייה בפרופיל ועריכת תוצאות" onclick="openProfile('${escapeAttr(a.name)}')">
+        <td class="rank-cell ${rClass(r)}" style="width:40px">${medal(r)||r}</td>
+        <td style="font-weight:600;font-size:13px">${a.name}</td>
+        <td style="width:150px">
+          <div style="display:flex;align-items:center;gap:6px">
+            <div style="width:70px;background:var(--border);border-radius:4px;height:7px;flex-shrink:0">
+              <div style="width:${bar}%;background:${color};height:7px;border-radius:4px"></div>
+            </div>
+            <span style="font-weight:700;font-size:14px;white-space:nowrap">${a._sum} <span style="font-weight:600;font-size:11px;color:var(--text-muted)">(${a._avg.toFixed(1)})</span></span>
+          </div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:2px">${a._count}/${SKILLS.length} skills</div>
+        </td>
+      </tr>`;
+    }).join('');
+
+    area.innerHTML = `<div class="card" style="padding:1rem">
+      <div class="card-title">Overall Ranking — Total Score (${currentGender==='M'?'בנים':'בנות'})</div>
+      <table class="leaderboard-table" style="table-layout:fixed;width:100%">
+        <thead><tr><th style="width:40px">Rank</th><th>Name</th><th style="width:150px">Score (Avg)</th></tr></thead>
+        <tbody>${tbody}</tbody>
+      </table>
+    </div>`;
+    return;
+  }
+  if (!sel.value) { area.innerHTML = ''; return; }
+  const sk = sel.value;
+  const scKey = 'sc' + sk.slice(1);
+
+  const rows = filtered().filter(a => a[sk] && a[sk] > 0).sort((a,b) => a[sk] - b[sk]);
+
+  if (!rows.length) {
+    area.innerHTML = `<div class="card" style="text-align:center;padding:3rem;color:var(--text-muted)">🏊 אין נתונים זמינים</div>`;
+    return;
+  }
+
+  const medal = r => r===1?'🥇':r===2?'🥈':r===3?'🥉':'';
+  const rClass = r => r===1?'rank-1':r===2?'rank-2':r===3?'rank-3':'';
+
+  const tbody = rows.map((a,i) => {
+    const r = i+1;
+    return `<tr style="cursor:pointer" title="לחץ לצפייה בפרופיל ועריכת תוצאות" onclick="openProfile('${escapeAttr(a.name)}')">
+      <td class="rank-cell ${rClass(r)}" style="width:40px">${medal(r)||r}</td>
+      <td style="font-weight:600;font-size:13px">${a.name}</td>
+      <td style="width:80px;font-variant-numeric:tabular-nums;white-space:nowrap">${a[sk].toFixed(2)}s</td>
+      <td style="width:70px"><span class="skill-score ${scoreClass(a[scKey])}">${a[scKey].toFixed(1)}/10</span></td>
+    </tr>`;
+  }).join('');
+
+  area.innerHTML = `<div class="card" style="padding:1rem">
+    <div class="card-title">${SKILLS.find(s=>s.key===sk).label}</div>
+    <table class="leaderboard-table" style="table-layout:fixed;width:100%">
+      <thead><tr><th style="width:40px">Rank</th><th>Name</th><th style="width:80px">Time</th><th style="width:70px">Score</th></tr></thead>
+      <tbody>${tbody}</tbody>
+    </table>
+  </div>`;
+}
+
+function renderOverall() {
+  const area = document.getElementById('overall-area');
+  const maxPossible = SKILLS.length * 10;
+  const rows = filtered()
+    .map(a => {
+      const scores = SKILLS.map(s=>a['sc'+s.key.slice(1)]).filter(sc=>sc>0);
+      const sum = parseFloat(scores.reduce((x,y)=>x+y,0).toFixed(1));
+      const avg = scores.length ? sum/scores.length : 0;
+      return {...a, _sum: sum, _avg: parseFloat(avg.toFixed(2)), _count: scores.length};
+    })
+    .filter(a => a._count > 0)
+    .sort((a,b) => b._sum - a._sum);
+
+  const medal = r => r===1?'🥇':r===2?'🥈':r===3?'🥉':'';
+  const rClass = r => r===1?'rank-1':r===2?'rank-2':r===3?'rank-3':'';
+
+  const tbody = rows.map((a,i) => {
+    const r = i+1;
+    const bar = Math.round((a._sum/maxPossible)*100);
+    return `<tr>
+      <td class="rank-cell ${rClass(r)}">${medal(r)||r}</td>
+      <td style="font-weight:600">${a.name}</td>
+      <td>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div style="flex:1;background:var(--border);border-radius:4px;height:8px;min-width:80px">
+            <div style="width:${bar}%;background:${a._avg>=8?'#00C2B1':a._avg>=5?'#F5B740':'#FF6B4D'};height:8px;border-radius:4px"></div>
+          </div>
+          <span style="font-weight:700;font-size:15px">${a._sum} <span style="font-weight:600;font-size:12px;color:var(--text-muted)">(${a._avg.toFixed(1)})</span></span>
+        </div>
+      </td>
+      <td style="color:var(--text-muted);font-size:12px">${a._count}/${SKILLS.length} skills</td>
+    </tr>`;
+  }).join('');
+
+  area.innerHTML = `<div class="card">
+    <div class="card-title">Overall Ranking — Total Score (${currentGender==='M'?'בנים':'בנות'})</div>
+    <table class="leaderboard-table">
+      <thead><tr><th>Rank</th><th>Name</th><th>Total (Avg)</th><th>Coverage</th></tr></thead>
+      <tbody>${tbody}</tbody>
+    </table>
+  </div>`;
+}
+
+function renderScoringMatrix() {
+  const tbl = document.getElementById('scoring-table');
+  const title = document.getElementById('scoring-title');
+  const SC = currentGender === 'M' ? SCORING_M : SCORING_F;
+  title.textContent = `Scoring Thresholds — ${currentGender==='M'?'Males (בנים)':'Females (בנות)'} (seconds)`;
+  const scores = [10,9,8,7,6,5,4,3,2,1];
+  const hdr = '<tr><th>Score</th>' + SKILLS.map(s=>`<th>${s.label}</th>`).join('') + '</tr>';
+  const body = scores.map((sc,i) =>
+    `<tr><td>${sc}</td>${SKILLS.map(s=>`<td>${SC[s.key][i].toFixed(2)}</td>`).join('')}</tr>`
+  ).join('');
+  tbl.innerHTML = `<thead>${hdr}</thead><tbody>${body}</tbody>`;
+}
+
+// Register a runtime web manifest (Android "Install app" / add-to-home-screen)
+function setupInstallManifest() {
+  const icon192 = "data:image/png;base64,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";
+  const icon512 = "data:image/png;base64,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";
+  const manifest = {
+    name: "SkillWave — Wingate National Swim Team",
+    short_name: "SkillWave",
+    start_url: ".",
+    display: "standalone",
+    background_color: "#0A1F44",
+    theme_color: "#0A1F44",
+    icons: [
+      { src: icon192, sizes: "192x192", type: "image/png", purpose: "any maskable" },
+      { src: icon512, sizes: "512x512", type: "image/png", purpose: "any maskable" }
+    ]
+  };
+  const blob = new Blob([JSON.stringify(manifest)], { type: "application/json" });
+  const link = document.createElement('link');
+  link.rel = 'manifest';
+  link.href = URL.createObjectURL(blob);
+  document.head.appendChild(link);
+}
+
+// Init
+async function boot() {
+  setupInstallManifest();
+  await initCloud();
+  const overrides = await loadOverrides();
+  applyOverrides(overrides);
+  recomputeAllScores();
+  populateSwimmerSelect();
+  populateSkillSelect();
+  renderScoringMatrix();
+}
+boot();
+</script>
+</body>
+</html>
