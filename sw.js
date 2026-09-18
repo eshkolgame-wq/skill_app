@@ -1,4 +1,4 @@
-const CACHE_NAME = 'skillwave-v2'; // בכל פעם שאתה עושה עדכון משמעותי בעתיד, פשוט תשנה ל-v3, v4 וכו'
+const CACHE_NAME = 'skillwave-v3'; // בכל פעם שאתה עושה עדכון משמעותי בעתיד, פשוט תשנה ל-v3, v4 וכו'
 
 const ASSETS = [
   './',
