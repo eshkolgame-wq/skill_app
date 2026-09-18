@@ -2006,7 +2006,7 @@ async function boot() {
   renderScoringMatrix();
 }
 boot();
-<script>
+
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('./sw.js')
@@ -2015,6 +2015,5 @@ boot();
     });
   }
 </script>  
-</script>
 </body>
 </html>
