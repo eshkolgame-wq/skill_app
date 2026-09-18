@@ -6,7 +6,7 @@ const urlsToCache = [
   './icon-512.png'
 ];
 
-// התקנת ה־Service Worker ושמירת הקבצים במטמון
+// שומרת את הקבצים במטמון בעת ההתקנה
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -16,8 +16,17 @@ self.addEventListener('install', event => {
   );
 });
 
-// שליפת קבצים מהמטמון בעת הצורך
+// שליפת קבצים מהמטמון או מהרשת
 self.addEventListener('fetch', event => {
+  const url = new URL(event.request.url);
+  
+  // אם הבקשה היא ל־Supabase (או לשרת חיצוני), תביא תמיד מהרשת ואל תשמור במטמון
+  if (url.hostname.includes('supabase.co')) {
+    event.respondWith(fetch(event.request));
+    return;
+  }
+
+  // לכל השאר - רגיל (מטמון ואז רשת)
   event.respondWith(
     caches.match(event.request)
       .then(response => {
