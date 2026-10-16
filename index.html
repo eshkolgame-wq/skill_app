@@ -330,15 +330,15 @@
   </div>
   <div style="display:flex;align-items:center;gap:10px">
     <div class="gender-toggle">
-      <button class="gender-btn active" onclick="setGender('M')">בנים</button>
-      <button class="gender-btn" onclick="setGender('F')">בנות</button>
+      <button class="gender-btn active" onclick="setGender('M')">Males</button>
+      <button class="gender-btn" onclick="setGender('F')">Females</button>
     </div>
     <div id="auth-slot"></div>
   </div>
 </header>
 <div id="cloud-banner" class="cloud-banner" style="display:none"></div>
 <div class="cat-bar">
-  <button class="cat-btn active" onclick="setCat('all')">🏊 הכל</button>
+  <button class="cat-btn active" onclick="setCat('all')">🏊 All</button>
   <button class="cat-btn" onclick="setCat('senior')">💪 Senior</button>
   <button class="cat-btn" onclick="setCat('academy')">🎓 Academy</button>
   <button class="cat-btn" onclick="setCat('youth')">⭐ Youth</button>
@@ -353,28 +353,28 @@
         <span class="home-card-icon">🏆</span>
         <span class="home-card-text">
           <span class="home-card-title">Swimmer Leaderboard</span>
-          <span class="home-card-sub">דירוג לפי Skill, קטגוריה או דירוג כללי</span>
+          <span class="home-card-sub">Rank by skill, category, or overall score</span>
         </span>
       </button>
       <button class="home-card" onclick="showScreen('scoring')">
         <span class="home-card-icon">📊</span>
         <span class="home-card-text">
           <span class="home-card-title">Skill Scoring Table</span>
-          <span class="home-card-sub">ספי הניקוד לכל Skill ולכל ציון</span>
+          <span class="home-card-sub">Score thresholds for each skill and rating</span>
         </span>
       </button>
       <button class="home-card coach-only" onclick="showScreen('profile')">
         <span class="home-card-icon">✏️</span>
         <span class="home-card-text">
           <span class="home-card-title">Enter a New Swimmer Result</span>
-          <span class="home-card-sub">כרטיס שחיין, כל הסקילים והדירוג האישי</span>
+          <span class="home-card-sub">Swimmer profile, all skills, and individual ranking</span>
         </span>
       </button>
       <button class="home-card swimmer-only" onclick="showScreen('pbs')">
         <span class="home-card-icon">🥇</span>
         <span class="home-card-text">
           <span class="home-card-title">My Best in Each Skill</span>
-          <span class="home-card-sub">הזמן והציון הכי טובים שנרשמו בכל Skill</span>
+          <span class="home-card-sub">The best time and score recorded for each skill</span>
         </span>
       </button>
     </div>
@@ -843,7 +843,7 @@ async function initCloud() {
   if (!supa) {
     renderAuthSlot();
     setSyncStatus('offline', 'Local only');
-    showBanner('local', '⚠️ עדיין לא מחובר לענן — הנתונים נשמרים רק במכשיר הזה. יש להזין פרטי Supabase בקובץ (ראו הוראות).');
+    showBanner('local', '⚠️ Not connected to the cloud — data is saved only on this device. Add your Supabase credentials to the file (see instructions).');
     return;
   }
   setSyncStatus('offline', 'Signing in...');
@@ -853,13 +853,13 @@ async function initCloud() {
     const { error } = await supa.from('app_state').select('id').limit(1);
     if (error) {
       setSyncStatus('offline', 'Connection error');
-      showBanner('error', '⚠️ מחובר ל-Supabase אך יש שגיאה: ' + error.message + '. ודאו שהרצתם את סקריפט ה-SQL.');
+      showBanner('error', '⚠️ Connected to Supabase, but an error occurred: ' + error.message + '. Make sure you have run the SQL script.');
     } else {
       hideBanner();
     }
   } catch (e) {
     setSyncStatus('offline', 'Connection error');
-    showBanner('error', '⚠️ לא ניתן להתחבר ל-Supabase. בדקו את כתובת ה-URL והמפתח.');
+    showBanner('error', '⚠️ Could not connect to Supabase. Check the URL and API key.');
   }
 
   try {
@@ -932,7 +932,7 @@ let editingAthleteName = null;
 let edGender = 'M', edCat = 'academy', edActive = true;
 
 function openDetailsModal(name) {
-  if (supa && !isCoach) { showToast('⚠️ רק מאמנים יכולים לערוך פרטים'); return; }
+  if (supa && !isCoach) { showToast('⚠️ Only coaches can edit swimmer details'); return; }
   const a = ATHLETES.find(x => x.name === name);
   if (!a) return;
   editingAthleteName = name;
@@ -961,7 +961,7 @@ function syncEdButtons() {
 }
 
 async function saveAthleteDetails() {
-  if (supa && !isCoach) { showToast('⚠️ רק מאמנים יכולים לערוך פרטים'); return; }
+  if (supa && !isCoach) { showToast('⚠️ Only coaches can edit swimmer details'); return; }
   const a = ATHLETES.find(x => x.name === editingAthleteName);
   if (!a) { closeDetailsModal(); return; }
   const errEl = document.getElementById('details-err');
@@ -1696,7 +1696,7 @@ function openVoiceModal() {
   document.getElementById('voice-modal').classList.add('open');
   document.getElementById('voice-transcript').textContent = '';
   document.getElementById('voice-parse-result').innerHTML = '';
-  document.getElementById('voice-status-text').textContent = 'לחצו והתחילו לדבר';
+  document.getElementById('voice-status-text').textContent = 'Tap and start speaking';
   document.getElementById('voice-mic-btn').classList.remove('listening');
 }
 
@@ -1710,7 +1710,7 @@ function toggleVoiceListening() {
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   const statusText = document.getElementById('voice-status-text');
   if (!SR) {
-    statusText.textContent = '⚠️ הדפדפן הזה לא תומך בהזנה קולית. נסו ב-Chrome.';
+    statusText.textContent = '⚠️ This browser does not support voice entry. Try Chrome.';
     return;
   }
   if (voiceListening) { voiceRecognition && voiceRecognition.stop(); return; }
@@ -1744,7 +1744,7 @@ function toggleVoiceListening() {
   voiceRecognition.onend = () => {
     voiceListening = false;
     btn.classList.remove('listening');
-    if (statusText.textContent === '🎙️ Listening...') statusText.textContent = 'לחצו והתחילו לדבר';
+    if (statusText.textContent === '🎙️ Listening...') statusText.textContent = 'Tap and start speaking';
   };
 
   try { voiceRecognition.start(); } catch (e) { statusText.textContent = '⚠️ Could not start the microphone'; }
@@ -1762,16 +1762,16 @@ async function handleVoiceTranscript(text) {
     if (!best || time < best.time) {
       await applyResult(athlete.name, skill.key, time);
       resultEl.innerHTML = `<div class="voice-result-ok">✅ Updated: <b>${athlete.name}</b> — ${skill.label}: <b>${time.toFixed(2)}</b> sec${best ? ` (improved from ${best.time.toFixed(2)})` : ' (first result)'}<br>
-        <button class="btn-ghost" style="margin-top:8px" onclick="undoLastResult('${escapeAttr(athlete.name)}','${skill.key}')">↩️ בטל</button></div>`;
+        <button class="btn-ghost" style="margin-top:8px" onclick="undoLastResult('${escapeAttr(athlete.name)}','${skill.key}')">↩️ Undo</button></div>`;
       statusText.textContent = 'Tap to enter another result';
     } else {
-      resultEl.innerHTML = `<div class="voice-result-info">ℹ️ לא עודכן — השיא הקיים של <b>${athlete.name}</b> in ${skill.label} (${best.time.toFixed(2)}) מהיר יותר מ-${time.toFixed(2)}.<br>
+      resultEl.innerHTML = `<div class="voice-result-info">ℹ️ Not updated — the current best for <b>${athlete.name}</b> in ${skill.label} (${best.time.toFixed(2)}) is faster than ${time.toFixed(2)}.<br>
         <button class="btn-ghost" style="margin-top:8px" onclick="forceApplyVoice('${escapeAttr(athlete.name)}','${skill.key}',${time})">Update Anyway</button></div>`;
       statusText.textContent = 'Tap to enter another result';
     }
   } else {
     resultEl.innerHTML = buildVoiceFixer(text, time, skill, athlete);
-    statusText.textContent = 'לא זוהה במלואו — בדקו ותקנו למטה';
+    statusText.textContent = 'Not fully recognized — review and correct below';
   }
 }
 
@@ -1796,7 +1796,7 @@ async function confirmVoiceFix() {
   const name = document.getElementById('voice-fix-athlete').value;
   const sk = document.getElementById('voice-fix-skill').value;
   const time = parseFloat(document.getElementById('voice-fix-time').value);
-  if (!name || !sk || isNaN(time) || time <= 0) { showToast('⚠️ מלאו Swimmer, סקיל וזמן תקין'); return; }
+  if (!name || !sk || isNaN(time) || time <= 0) { showToast('⚠️ Enter a swimmer, skill, and valid time'); return; }
   await applyResult(name, sk, time);
   document.getElementById('voice-parse-result').innerHTML =
     `<div class="voice-result-ok">✅ Updated: ${name} — ${SKILLS.find(s=>s.key===sk).label}: ${time.toFixed(2)} sec</div>`;
@@ -1832,9 +1832,9 @@ function setNewAthleteCat(cat) {
 async function createNewAthlete() {
   const nameInp = document.getElementById('new-athlete-name');
   const name = nameInp.value.trim();
-  if (!name) { showToast('⚠️ הכנס שם Swimmer'); nameInp.focus(); return; }
+  if (!name) { showToast('⚠️ Enter a swimmer name'); nameInp.focus(); return; }
   if (ATHLETES.find(x => x.name.toLowerCase() === name.toLowerCase())) {
-    showToast('⚠️ Swimmer בשם הזה כבר קיים/ת'); return;
+    showToast('⚠️ A swimmer with this name already exists'); return;
   }
 
   const newAthlete = { name, g: newAthleteGender, cat: newAthleteCat, active: true };
@@ -1964,7 +1964,7 @@ function renderLeaderboard() {
         <thead><tr><th style="width:40px">Rank</th><th>Name</th><th style="width:90px">Score</th></tr></thead>
         <tbody>${tbody}</tbody>
       </table>
-      <div style="font-size:12px;color:var(--text-muted);margin-top:10px">🔻 המדורגים בתחתית הטבלה הם החלשים ביותר בקטגוריה זו</div>
+      <div style="font-size:12px;color:var(--text-muted);margin-top:10px">🔻 Swimmers at the bottom of the table have the lowest scores in this category</div>
     </div>`;
     return;
   }
