@@ -1200,7 +1200,10 @@ function renderComparison() {
 }
 
 function compareScore(a, sk) {
-  const idx = sk.slice(1);
+  // SKILLS entries are objects such as { key: 's1', label: '...' }.
+  // Read the key from the object before looking up the corresponding score field.
+  const key = typeof sk === 'string' ? sk : sk.key;
+  const idx = String(key || '').slice(1);
   const score = Number(a['sc' + idx]);
   return Number.isFinite(score) ? score : 0;
 }
