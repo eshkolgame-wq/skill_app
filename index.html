@@ -388,7 +388,7 @@
           <span class="home-card-sub">Rank by skill, category, or overall score</span>
         </span>
       </button>
-      <button class="home-card" onclick="showScreen('compare')">
+      <button class="home-card coach-only" onclick="showScreen('compare')">
         <span class="home-card-icon">⚖️</span>
         <span class="home-card-text">
           <span class="home-card-title">Swimmer Comparison</span>
@@ -424,8 +424,9 @@
     <button class="back-btn" onclick="showScreen('home')">🏠 Back to Main Menu</button>
     <div class="card">
       <div class="card-title">Select a Swimmer</div>
-      <div class="picker-cats" id="picker-cats"></div>
-      <div class="picker-names" id="picker-names"></div>
+      <label class="compare-label" for="profile-swimmer-search">Search by swimmer name</label>
+      <input id="profile-swimmer-search" class="compare-search" type="search" placeholder="Type a swimmer name..." autocomplete="off" oninput="renderProfileSwimmerSearch(this.value)">
+      <div id="profile-swimmer-search-results" class="compare-search-results"></div>
       <input type="hidden" id="swimmer-select" value="">
     </div>
     <div class="card coach-only" id="add-athlete-card">
@@ -1092,12 +1093,20 @@ function setCat(cat) {
 }
 
 function showScreen(name) {
+  if (name === 'compare' && !isCoach) {
+    showToast('⚠️ Swimmer Comparison is available to coaches only');
+    return;
+  }
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.getElementById('panel-' + name).classList.add('active');
   // The profile screen has its own category buttons, so hide the global one there.
   const catBar = document.querySelector('.cat-bar');
   if (catBar) catBar.style.display = (name === 'profile' || name === 'pbs') ? 'none' : 'flex';
-  if (name === 'profile') { renderPickerCats(); renderPickerNames(); }
+  if (name === 'profile') {
+    const search = document.getElementById('profile-swimmer-search');
+    if (search) search.value = '';
+    renderProfileSwimmerSearch('');
+  }
   if (name === 'pbs') {
     const search = document.getElementById('pbs-search-input');
     if (search) { search.value = ''; renderPBsSearchResults(''); }
@@ -1252,6 +1261,26 @@ function populateSwimmerSelect() {
 // --- Button-based swimmer picker: pick a category, then tap a name ---
 let pickerCat = 'all';
 
+function renderProfileSwimmerSearch(query) {
+  const wrap = document.getElementById('profile-swimmer-search-results');
+  if (!wrap) return;
+  const term = (query || '').trim().toLocaleLowerCase();
+  if (!term) {
+    wrap.innerHTML = '<div class="picker-empty">Start typing a name to find a swimmer.</div>';
+    return;
+  }
+  const matches = ATHLETES
+    .filter(a => a.active !== false && a.name.toLocaleLowerCase().includes(term))
+    .slice().sort((a,b) => a.name.localeCompare(b.name));
+  if (!matches.length) {
+    wrap.innerHTML = '<div class="picker-empty">No swimmers found. Check the spelling and try again.</div>';
+    return;
+  }
+  wrap.innerHTML = matches.slice(0, 12).map(a =>
+    `<button type="button" class="compare-search-result" onclick="selectSwimmerFromPicker('${escapeAttr(a.name)}')">＋ ${escapeAttr(a.name)}</button>`
+  ).join('');
+}
+
 function renderPickerCats() {
   const wrap = document.getElementById('picker-cats');
   if (!wrap) return;
@@ -1294,7 +1323,10 @@ function renderPickerNames() {
 
 function selectSwimmerFromPicker(name) {
   setSelectedSwimmer(name);
-  renderPickerNames();   // refresh which name looks selected
+  const search = document.getElementById('profile-swimmer-search');
+  const results = document.getElementById('profile-swimmer-search-results');
+  if (search) search.value = name;
+  if (results) results.innerHTML = '';
   renderProfile(name);
 }
 
@@ -1598,7 +1630,7 @@ function renderProfile(nameOverride) {
   const area = document.getElementById('profile-area');
   if (nameOverride) {
     sel.value = nameOverride;
-    const searchInput = document.getElementById('swimmer-search-input');
+    const searchInput = document.getElementById('profile-swimmer-search');
     if (searchInput) searchInput.value = nameOverride;
   }
   if (!sel.value) { area.innerHTML = ''; return; }
