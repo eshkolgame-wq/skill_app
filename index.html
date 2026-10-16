@@ -150,6 +150,12 @@
   .name-btn-avatar.female { background: #3D2159; color: #E8A3F0; }
   .name-btn.active .name-btn-avatar { background: rgba(10,31,68,0.18); color: var(--navy); }
   .picker-empty { color: var(--text-muted); font-size: 13.5px; padding: 10px 2px; }
+  .pbs-search-input { width:100%; box-sizing:border-box; padding:14px 16px; border:2px solid var(--border); border-radius:12px; background:var(--surface); color:var(--text); font:inherit; font-size:16px; outline:none; }
+  .pbs-search-input:focus { border-color:var(--teal); box-shadow:0 0 0 4px rgba(0,194,177,0.14); }
+  .pbs-search-results { display:flex; flex-direction:column; gap:6px; margin-top:12px; }
+  .pbs-search-result { display:flex; align-items:center; gap:10px; width:100%; padding:10px 12px; border:1px solid var(--border); border-radius:10px; background:var(--surface); color:var(--text); font:inherit; text-align:left; cursor:pointer; }
+  .pbs-search-result:hover { border-color:var(--teal); background:var(--surface2); }
+  .pbs-search-meta { margin-left:auto; color:var(--text-muted); font-size:12px; }
   select { width: 100%; padding: 10px 14px 10px 36px; border: 1.5px solid var(--border); border-radius: var(--radius); font-size: 15px; background: var(--surface); color: var(--text); outline: none; transition: border-color 0.15s; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%235A7189' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: left 12px center; }
   select:focus { border-color: var(--teal); }
   .profile-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
@@ -420,16 +426,15 @@
     <div id="profile-area"></div>
   </div>
 
-  <!-- SCREEN: Personal Bests -->
+  <!-- SCREEN: My Best in Each Skill -->
   <div class="panel" id="panel-pbs">
     <button class="back-btn" onclick="showScreen('home')">🏠 Back to Main Menu</button>
     <div class="card">
-      <div class="card-title">Select a Swimmer</div>
-      <div class="picker-cats" id="pbs-picker-cats"></div>
-      <div class="picker-names" id="pbs-picker-names"></div>
-      <input type="hidden" id="pbs-swimmer-select" value="">
+      <div class="card-title">🥇 My Best in Each Skill</div>
+      <p style="margin:0 0 14px;color:var(--text-muted);font-size:14px">Search for your name to open your full skills profile.</p>
+      <input id="pbs-search-input" class="pbs-search-input" type="search" placeholder="Search swimmer name..." autocomplete="off" oninput="renderPBsSearchResults(this.value)">
+      <div id="pbs-search-results" class="pbs-search-results"></div>
     </div>
-    <div id="pbs-area"></div>
   </div>
 
   <!-- SCREEN: Skill Leaderboard -->
@@ -1011,8 +1016,6 @@ function setGender(g) {
   document.getElementById('skill-select').value = '';
   populateSkillSelect();
   renderScoringMatrix();
-  const pbsSel = document.getElementById('pbs-swimmer-select');
-  if (pbsSel) { pbsSel.value = ''; document.getElementById('pbs-area').innerHTML = ''; renderPBsPickerNames(); }
 }
 
 function setCat(cat) {
@@ -1028,8 +1031,6 @@ function setCat(cat) {
   setSelectedSwimmer('');
   document.getElementById('skill-select').value = '';
   populateSkillSelect();
-  const pbsSel = document.getElementById('pbs-swimmer-select');
-  if (pbsSel) { pbsSel.value = ''; document.getElementById('pbs-area').innerHTML = ''; renderPBsPickerNames(); }
 }
 
 function showScreen(name) {
@@ -1039,7 +1040,10 @@ function showScreen(name) {
   const catBar = document.querySelector('.cat-bar');
   if (catBar) catBar.style.display = (name === 'profile' || name === 'pbs') ? 'none' : 'flex';
   if (name === 'profile') { renderPickerCats(); renderPickerNames(); }
-  if (name === 'pbs') { renderPBsPickerCats(); renderPBsPickerNames(); }
+  if (name === 'pbs') {
+    const search = document.getElementById('pbs-search-input');
+    if (search) { search.value = ''; renderPBsSearchResults(''); }
+  }
   if (name === 'scoring') renderScoringMatrix();
   window.scrollTo({top: 0, behavior: 'smooth'});
 }
@@ -1147,98 +1151,31 @@ function setSelectedSwimmer(name) {
   if (searchInput) searchInput.value = name || '';
 }
 
-// --- "My personal best per skill" screen: its own picker + read-only PB list ---
-let pbsPickerCat = 'all';
-
-function renderPBsPickerCats() {
-  const wrap = document.getElementById('pbs-picker-cats');
+// --- "My Best in Each Skill": search a swimmer and open their full profile ---
+function renderPBsSearchResults(query) {
+  const wrap = document.getElementById('pbs-search-results');
   if (!wrap) return;
-  const cats = [
-    { key:'all',     label:'🏊 All' },
-    { key:'senior',  label:'💪 Senior' },
-    { key:'academy', label:'🎓 Academy' },
-    { key:'youth',   label:'⭐ Youth' }
-  ];
-  wrap.innerHTML = cats.map(c =>
-    `<button type="button" class="cat-btn-inline${pbsPickerCat===c.key?' active':''}" onclick="setPBsPickerCat('${c.key}')">${c.label}</button>`
-  ).join('');
-}
-
-function setPBsPickerCat(cat) {
-  pbsPickerCat = cat;
-  renderPBsPickerCats();
-  renderPBsPickerNames();
-}
-
-function renderPBsPickerNames() {
-  const wrap = document.getElementById('pbs-picker-names');
-  if (!wrap) return;
-  const list = ATHLETES
-    .filter(a => a.g === currentGender && (pbsPickerCat === 'all' || a.cat === pbsPickerCat) && a.active)
-    .slice()
-    .sort((a,b) => a.name.localeCompare(b.name,'he'));
-  if (!list.length) {
-    wrap.innerHTML = '<div class="picker-empty">No active swimmers in this category</div>';
+  const term = (query || '').trim().toLocaleLowerCase();
+  if (!term) {
+    wrap.innerHTML = '<div class="picker-empty">Start typing your name to find your profile.</div>';
     return;
   }
-  const selected = document.getElementById('pbs-swimmer-select').value;
-  wrap.innerHTML = list.map(a => {
+  const list = ATHLETES
+    .filter(a => a.active !== false && a.name.toLocaleLowerCase().includes(term))
+    .slice()
+    .sort((a,b) => a.name.localeCompare(b.name));
+  if (!list.length) {
+    wrap.innerHTML = '<div class="picker-empty">No swimmers found. Check the spelling and try again.</div>';
+    return;
+  }
+  wrap.innerHTML = list.slice(0, 30).map(a => {
     const female = a.g === 'F' ? ' female' : '';
-    return `<button type="button" class="name-btn${selected===a.name?' active':''}" onclick="selectSwimmerForPBs('${escapeAttr(a.name)}')">
-      <span class="name-btn-avatar${female}">${initials(a.name)}</span>${a.name}
+    return `<button type="button" class="pbs-search-result" onclick="openProfile('${escapeAttr(a.name)}')">
+      <span class="name-btn-avatar${female}">${initials(a.name)}</span>
+      <span>${a.name}</span>
+      <span class="pbs-search-meta">${catLabel(a.cat).replace(/^[^A-Za-z]+/, '')}</span>
     </button>`;
   }).join('');
-}
-
-function selectSwimmerForPBs(name) {
-  document.getElementById('pbs-swimmer-select').value = name || '';
-  renderPBsPickerNames();
-  renderPBs(name);
-}
-
-// Best (fastest) recorded time+score for one skill, using the full history if we have it.
-function personalBest(a, skKey) {
-  const hist = a.history && a.history[skKey];
-  if (hist && hist.length) {
-    return hist.reduce((best, h) => (h.time < best.time ? h : best), hist[0]);
-  }
-  const val = a[skKey];
-  if (val && val > 0) {
-    const skIdx = skKey.slice(1);
-    return { date: null, time: val, score: a['sc'+skIdx] };
-  }
-  return null;
-}
-
-function renderPBs(name) {
-  const area = document.getElementById('pbs-area');
-  if (!name) { area.innerHTML = ''; return; }
-  const a = ATHLETES.find(x => x.name === name);
-  if (!a) { area.innerHTML = ''; return; }
-
-  const rowsHtml = SKILLS.map(s => {
-    const best = personalBest(a, s.key);
-    const body = best
-      ? `<div class="skill-val">${best.time.toFixed(2)} sec</div>
-         <span class="skill-score ${scoreClass(best.score)}">Score: ${best.score.toFixed(1)}/10</span>
-         ${best.date ? `<div class="skill-rank">Best on ${best.date}</div>` : ''}`
-      : `<div class="skill-val" style="color:var(--text-muted);font-size:14px">00:00</div>
-         <span class="skill-score score-none">— No result yet</span>`;
-    return `<div class="skill-item">
-      <div class="skill-name">${s.label}</div>
-      ${body}
-    </div>`;
-  }).join('');
-
-  const isFemale = a.g === 'F';
-  area.innerHTML = `<div class="card">
-    <div class="profile-header">
-      <div class="profile-avatar${isFemale ? ' female' : ''}">${initials(a.name)}</div>
-      <div class="profile-name">${a.name}</div>
-    </div>
-    <div class="card-title" style="margin-top:6px">🥇 Personal Best in Each Skill</div>
-    ${rowsHtml}
-  </div>`;
 }
 
 function selectSwimmerFromSearch(name) {
