@@ -78,6 +78,7 @@
   .cloud-banner .banner-x { background: none; border: none; color: inherit; font-size: 16px; cursor: pointer; opacity: 0.7; padding: 0 4px; }
   /* --- Role gating: hide edit controls for viewers (swimmers) --- */
   body:not(.is-coach) .coach-only { display: none !important; }
+  body.is-coach .swimmer-only { display: none !important; }
   /* --- Header auth button --- */
   .auth-btn { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.12); border: 1.5px solid rgba(255,255,255,0.25); color: #fff; border-radius: 20px; padding: 6px 14px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; white-space: nowrap; }
   .auth-btn:hover { background: rgba(255,255,255,0.22); }
@@ -369,7 +370,7 @@
           <span class="home-card-sub">כרטיס שחיין, כל הסקילים והדירוג האישי</span>
         </span>
       </button>
-      <button class="home-card" onclick="showScreen('pbs')">
+      <button class="home-card swimmer-only" onclick="showScreen('pbs')">
         <span class="home-card-icon">🥇</span>
         <span class="home-card-text">
           <span class="home-card-title">מה השיא שלי בכל סקיל</span>
