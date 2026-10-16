@@ -251,16 +251,16 @@
 <!-- Coach login modal -->
 <div class="modal-backdrop" id="login-modal">
   <div class="modal-card">
-    <h2>כניסת מאמן</h2>
-    <p class="sub">התחברו כדי לעדכן תוצאות וזמנים. שחיינים צופים בלבד — אין צורך בהתחברות.</p>
-    <label for="login-email">אימייל</label>
+    <h2>Coach Login</h2>
+    <p class="sub">Sign in to update results and times. Swimmers can view the app without signing in.</p>
+    <label for="login-email">Email</label>
     <input type="email" id="login-email" autocomplete="username" placeholder="coach@team.com" onkeydown="if(event.key==='Enter')doLogin()">
-    <label for="login-password">סיסמה</label>
+    <label for="login-password">Password</label>
     <input type="password" id="login-password" autocomplete="current-password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
     <div class="modal-err" id="login-err"></div>
     <div class="modal-actions">
-      <button class="btn-primary" id="login-submit" onclick="doLogin()">התחבר</button>
-      <button class="btn-ghost" onclick="closeLoginModal()">ביטול</button>
+      <button class="btn-primary" id="login-submit" onclick="doLogin()">Sign In</button>
+      <button class="btn-ghost" onclick="closeLoginModal()">Cancel</button>
     </div>
   </div>
 </div>
@@ -268,31 +268,31 @@
 <!-- Edit swimmer details modal (coaches only) -->
 <div class="modal-backdrop" id="details-modal">
   <div class="modal-card">
-    <h2>עריכת פרטי שחיין/ית</h2>
-    <p class="sub">עדכון שם, מגדר, קטגוריה וסטטוס. שמור למאמנים בלבד.</p>
-    <label for="ed-name">שם מלא</label>
+    <h2>Edit Swimmer Details</h2>
+    <p class="sub">Update name, gender, category, and status. For coaches only.</p>
+    <label for="ed-name">Full Name</label>
     <input type="text" id="ed-name" autocomplete="off">
-    <label>מגדר</label>
+    <label>Gender</label>
     <div style="display:flex;gap:8px">
-      <button type="button" class="cat-btn-inline" id="ed-gender-M" onclick="setEdGender('M')">בן</button>
-      <button type="button" class="cat-btn-inline" id="ed-gender-F" onclick="setEdGender('F')">בת</button>
+      <button type="button" class="cat-btn-inline" id="ed-gender-M" onclick="setEdGender('M')">Male</button>
+      <button type="button" class="cat-btn-inline" id="ed-gender-F" onclick="setEdGender('F')">Female</button>
     </div>
-    <label>קטגוריה</label>
+    <label>Category</label>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button type="button" class="cat-btn-inline" id="ed-cat-academy" onclick="setEdCat('academy')">🎓 אקדמיה</button>
-      <button type="button" class="cat-btn-inline" id="ed-cat-youth" onclick="setEdCat('youth')">⭐ נוער</button>
-      <button type="button" class="cat-btn-inline" id="ed-cat-senior" onclick="setEdCat('senior')">💪 בוגרים</button>
+      <button type="button" class="cat-btn-inline" id="ed-cat-academy" onclick="setEdCat('academy')">🎓 Academy</button>
+      <button type="button" class="cat-btn-inline" id="ed-cat-youth" onclick="setEdCat('youth')">⭐ Youth</button>
+      <button type="button" class="cat-btn-inline" id="ed-cat-senior" onclick="setEdCat('senior')">💪 Senior</button>
     </div>
-    <label>סטטוס</label>
+    <label>Status</label>
     <div style="display:flex;gap:8px">
-      <button type="button" class="cat-btn-inline" id="ed-active-1" onclick="setEdActive(true)">✅ פעיל/ה</button>
-      <button type="button" class="cat-btn-inline" id="ed-active-0" onclick="setEdActive(false)">⏸️ לא פעיל/ה</button>
+      <button type="button" class="cat-btn-inline" id="ed-active-1" onclick="setEdActive(true)">✅ Active</button>
+      <button type="button" class="cat-btn-inline" id="ed-active-0" onclick="setEdActive(false)">⏸️ Inactive</button>
     </div>
-    <p class="sub" style="margin:10px 0 0;font-size:12px">שחיין/ית שאינו פעיל/ה לא יופיע/תופיע ברשימת החיפוש, אך יישאר/תישאר בטבלאות.</p>
+    <p class="sub" style="margin:10px 0 0;font-size:12px">Inactive swimmers are hidden from search results but remain in the tables.</p>
     <div class="modal-err" id="details-err"></div>
     <div class="modal-actions">
-      <button class="btn-primary" onclick="saveAthleteDetails()">שמור שינויים</button>
-      <button class="btn-ghost" onclick="closeDetailsModal()">ביטול</button>
+      <button class="btn-primary" onclick="saveAthleteDetails()">Save Changes</button>
+      <button class="btn-ghost" onclick="closeDetailsModal()">Cancel</button>
     </div>
   </div>
 </div>
@@ -300,25 +300,25 @@
 <!-- Voice-entry modal: "אורי ניסים 6.82 פוש אנד גלייד" (coaches only) -->
 <div class="modal-backdrop" id="voice-modal">
   <div class="modal-card">
-    <h2>🎤 הזנה קולית</h2>
-    <p class="sub">אמרו שם שחיין/ית, זמן ושם הסקיל — למשל "אורי ניסים 6.82 פוש אנד גלייד". אם התוצאה מהירה מהשיא הקיים, היא תישמר אוטומטית.</p>
+    <h2>🎤 Voice Entry</h2>
+    <p class="sub">Say a swimmer’s name, time, and skill — for example, “Alex Smith 6.82 Push and Glide”. Faster-than-current-best results are saved automatically.</p>
     <div class="voice-mic-wrap">
       <button type="button" class="voice-mic-btn" id="voice-mic-btn" onclick="toggleVoiceListening()">🎤</button>
-      <div id="voice-status-text" class="voice-status-text">לחצו והתחילו לדבר</div>
+      <div id="voice-status-text" class="voice-status-text">Tap and start speaking</div>
     </div>
     <div id="voice-transcript" class="voice-transcript"></div>
     <div id="voice-parse-result"></div>
     <div class="modal-actions">
-      <button class="btn-ghost" onclick="closeVoiceModal()">סגור</button>
+      <button class="btn-ghost" onclick="closeVoiceModal()">Close</button>
     </div>
   </div>
 </div>
 
 <!-- Cloud sync status -->
-<div class="sync-badge" id="sync-badge" title="מצב סנכרון"><span class="sync-dot"></span><span id="sync-text">מקומי</span></div>
+<div class="sync-badge" id="sync-badge" title="Sync status"><span class="sync-dot"></span><span id="sync-text">Local</span></div>
 
 <!-- Floating voice-entry launcher (coaches only) -->
-<button type="button" class="voice-fab coach-only" onclick="openVoiceModal()" title="הזנת תוצאה בקול">🎤</button>
+<button type="button" class="voice-fab coach-only" onclick="openVoiceModal()" title="Enter a result by voice">🎤</button>
 
 <header>
   <div class="logo">
@@ -339,41 +339,41 @@
 <div id="cloud-banner" class="cloud-banner" style="display:none"></div>
 <div class="cat-bar">
   <button class="cat-btn active" onclick="setCat('all')">🏊 הכל</button>
-  <button class="cat-btn" onclick="setCat('senior')">💪 בוגרים</button>
-  <button class="cat-btn" onclick="setCat('academy')">🎓 אקדמיה</button>
-  <button class="cat-btn" onclick="setCat('youth')">⭐ נוער</button>
+  <button class="cat-btn" onclick="setCat('senior')">💪 Senior</button>
+  <button class="cat-btn" onclick="setCat('academy')">🎓 Academy</button>
+  <button class="cat-btn" onclick="setCat('youth')">⭐ Youth</button>
 </div>
 
 <div class="main">
   <!-- HOME SCREEN -->
   <div class="panel active" id="panel-home">
-    <div class="home-title">מה תרצה לעשות?</div>
+    <div class="home-title">What would you like to do?</div>
     <div class="home-options">
       <button class="home-card" onclick="showScreen('leaderboard')">
         <span class="home-card-icon">🏆</span>
         <span class="home-card-text">
-          <span class="home-card-title">טבלת דירוג שחיינים</span>
+          <span class="home-card-title">Swimmer Leaderboard</span>
           <span class="home-card-sub">דירוג לפי Skill, קטגוריה או דירוג כללי</span>
         </span>
       </button>
       <button class="home-card" onclick="showScreen('scoring')">
         <span class="home-card-icon">📊</span>
         <span class="home-card-text">
-          <span class="home-card-title">טבלת ניקוד הסקילים</span>
+          <span class="home-card-title">Skill Scoring Table</span>
           <span class="home-card-sub">ספי הניקוד לכל Skill ולכל ציון</span>
         </span>
       </button>
       <button class="home-card coach-only" onclick="showScreen('profile')">
         <span class="home-card-icon">✏️</span>
         <span class="home-card-text">
-          <span class="home-card-title">הזנת תוצאה חדשה לשחיין</span>
+          <span class="home-card-title">Enter a New Swimmer Result</span>
           <span class="home-card-sub">כרטיס שחיין, כל הסקילים והדירוג האישי</span>
         </span>
       </button>
       <button class="home-card swimmer-only" onclick="showScreen('pbs')">
         <span class="home-card-icon">🥇</span>
         <span class="home-card-text">
-          <span class="home-card-title">מה השיא שלי בכל סקיל</span>
+          <span class="home-card-title">My Best in Each Skill</span>
           <span class="home-card-sub">הזמן והציון הכי טובים שנרשמו בכל Skill</span>
         </span>
       </button>
@@ -382,38 +382,38 @@
 
   <!-- SCREEN: Profile / Enter Result -->
   <div class="panel" id="panel-profile">
-    <button class="back-btn" onclick="showScreen('home')">🏠 חזרה לתפריט הראשי</button>
+    <button class="back-btn" onclick="showScreen('home')">🏠 Back to Main Menu</button>
     <div class="card">
-      <div class="card-title">בחר שחיין/ית</div>
+      <div class="card-title">Select a Swimmer</div>
       <div class="picker-cats" id="picker-cats"></div>
       <div class="picker-names" id="picker-names"></div>
       <input type="hidden" id="swimmer-select" value="">
     </div>
     <div class="card coach-only" id="add-athlete-card">
       <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;gap:10px">
-        <span>הוספת שחיין/ית חדש/ה</span>
-        <button type="button" class="back-btn" style="margin:0" onclick="toggleAddAthlete()" id="add-athlete-toggle">➕ הוסף שחיין/ית</button>
+        <span>Add a New Swimmer</span>
+        <button type="button" class="back-btn" style="margin:0" onclick="toggleAddAthlete()" id="add-athlete-toggle">➕ Add Swimmer</button>
       </div>
       <div id="add-athlete-form" style="display:none;margin-top:10px">
-        <input type="text" id="new-athlete-name" class="add-athlete-input" placeholder="שם מלא">
+        <input type="text" id="new-athlete-name" class="add-athlete-input" placeholder="Full Name">
         <div style="margin-bottom:12px">
-          <div class="add-athlete-label">מגדר</div>
+          <div class="add-athlete-label">Gender</div>
           <div style="display:flex;gap:8px">
-            <button type="button" class="cat-btn-inline active" id="na-gender-M" onclick="setNewAthleteGender('M')">בן</button>
-            <button type="button" class="cat-btn-inline" id="na-gender-F" onclick="setNewAthleteGender('F')">בת</button>
+            <button type="button" class="cat-btn-inline active" id="na-gender-M" onclick="setNewAthleteGender('M')">Male</button>
+            <button type="button" class="cat-btn-inline" id="na-gender-F" onclick="setNewAthleteGender('F')">Female</button>
           </div>
         </div>
         <div style="margin-bottom:14px">
-          <div class="add-athlete-label">קטגוריה</div>
+          <div class="add-athlete-label">Category</div>
           <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <button type="button" class="cat-btn-inline active" id="na-cat-academy" onclick="setNewAthleteCat('academy')">🎓 אקדמיה</button>
-            <button type="button" class="cat-btn-inline" id="na-cat-youth" onclick="setNewAthleteCat('youth')">⭐ נוער - מועמדי אקדמיה</button>
-            <button type="button" class="cat-btn-inline" id="na-cat-senior" onclick="setNewAthleteCat('senior')">💪 בוגרים</button>
+            <button type="button" class="cat-btn-inline active" id="na-cat-academy" onclick="setNewAthleteCat('academy')">🎓 Academy</button>
+            <button type="button" class="cat-btn-inline" id="na-cat-youth" onclick="setNewAthleteCat('youth')">⭐ Youth — Academy Candidates</button>
+            <button type="button" class="cat-btn-inline" id="na-cat-senior" onclick="setNewAthleteCat('senior')">💪 Senior</button>
           </div>
         </div>
         <div style="display:flex;gap:8px">
-          <button class="btn-save" style="flex:1;padding:9px 0" onclick="createNewAthlete()">✓ צור שחיין/ית</button>
-          <button class="btn-cancel" style="padding:9px 16px" onclick="toggleAddAthlete()">✕ ביטול</button>
+          <button class="btn-save" style="flex:1;padding:9px 0" onclick="createNewAthlete()">✓ Create Swimmer</button>
+          <button class="btn-cancel" style="padding:9px 16px" onclick="toggleAddAthlete()">✕ Cancel</button>
         </div>
       </div>
     </div>
@@ -422,9 +422,9 @@
 
   <!-- SCREEN: Personal Bests -->
   <div class="panel" id="panel-pbs">
-    <button class="back-btn" onclick="showScreen('home')">🏠 חזרה לתפריט הראשי</button>
+    <button class="back-btn" onclick="showScreen('home')">🏠 Back to Main Menu</button>
     <div class="card">
-      <div class="card-title">בחר שחיין/ית</div>
+      <div class="card-title">Select a Swimmer</div>
       <div class="picker-cats" id="pbs-picker-cats"></div>
       <div class="picker-names" id="pbs-picker-names"></div>
       <input type="hidden" id="pbs-swimmer-select" value="">
@@ -434,9 +434,9 @@
 
   <!-- SCREEN: Skill Leaderboard -->
   <div class="panel" id="panel-leaderboard">
-    <button class="back-btn" onclick="showScreen('home')">🏠 חזרה לתפריט הראשי</button>
+    <button class="back-btn" onclick="showScreen('home')">🏠 Back to Main Menu</button>
     <div class="card">
-      <div class="card-title">בחר Skill או קטגוריה</div>
+      <div class="card-title">Select a Skill or Category</div>
       <div class="skill-btns" id="skill-buttons"></div>
       <input type="hidden" id="skill-select" value="">
     </div>
@@ -445,7 +445,7 @@
 
   <!-- SCREEN: Scoring Table -->
   <div class="panel" id="panel-scoring">
-    <button class="back-btn" onclick="showScreen('home')">🏠 חזרה לתפריט הראשי</button>
+    <button class="back-btn" onclick="showScreen('home')">🏠 Back to Main Menu</button>
     <div class="card">
       <div class="card-title" id="scoring-title">Scoring Table</div>
       <div class="scoring-table-wrap">
@@ -470,11 +470,11 @@ const SKILLS = [
 // Category grouping for coaches: which skills feed into each broader ability.
 // A skill can belong to more than one category (e.g. "Push & Glide" is both push and glide).
 const CATEGORIES = [
-  { key:'dive',  label:'🤽 זינוק',   skills:['s2','s5','s6'] }, // everything with "Dive" in it
-  { key:'push',  label:'💪 דחיפה',   skills:['s1','s4','s3'] }, // everything with "Push" + Flutter Kick
-  { key:'swim',  label:'🏊 שחייה',   skills:['s8','s7'] },      // 10m Mid + Turn 5+10
-  { key:'glide', label:'🌊 גלישה',   skills:['s1','s2'] },      // everything with "Glide" in it
-  { key:'uw',    label:'🫧 תת-ימי',  skills:['s4','s5'] },      // underwater skills
+  { key:'dive',  label:'🤽 Dive',   skills:['s2','s5','s6'] }, // everything with "Dive" in it
+  { key:'push',  label:'💪 Push',   skills:['s1','s4','s3'] }, // everything with "Push" + Flutter Kick
+  { key:'swim',  label:'🏊 Swimming',   skills:['s8','s7'] },      // 10m Mid + Turn 5+10
+  { key:'glide', label:'🌊 Glide',   skills:['s1','s2'] },      // everything with "Glide" in it
+  { key:'uw',    label:'🫧 Underwater',  skills:['s4','s5'] },      // underwater skills
 ];
 
 const SCORING_M = {
@@ -697,7 +697,7 @@ async function saveOverrides(overrides) {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(overrides)); } catch (e) {}
 
   if (supa) {
-    if (!isCoach) { showToast('⚠️ רק מאמנים יכולים לעדכן'); throw new Error('not a coach'); }
+    if (!isCoach) { showToast('⚠️ Only coaches can update results'); throw new Error('not a coach'); }
     const row = {
       id: STATE_ID,
       data: overrides,
@@ -705,7 +705,7 @@ async function saveOverrides(overrides) {
       updated_by: currentUser ? currentUser.email : null
     };
     const { error } = await supa.from('app_state').upsert(row, { onConflict: 'id' });
-    if (error) { showToast('⚠️ שמירה בענן נכשלה'); throw error; }
+    if (error) { showToast('⚠️ Cloud save failed'); throw error; }
     // Realtime will push this change to every other open device automatically.
   }
 }
@@ -726,7 +726,7 @@ function showBanner(type, msg) {
   if (!el) return;
   el.className = 'cloud-banner ' + type;
   el.style.display = 'flex';
-  el.innerHTML = '<span>' + msg + '</span><button class="banner-x" onclick="hideBanner()" title="סגור">✕</button>';
+  el.innerHTML = '<span>' + msg + '</span><button class="banner-x" onclick="hideBanner()" title="Close">✕</button>';
 }
 function hideBanner() {
   const el = document.getElementById('cloud-banner');
@@ -749,10 +749,10 @@ function subscribeRealtime() {
         applyOverrides(newData);
         recomputeAllScores();
         refreshCurrentView();
-        showToast('🔄 עודכן על ידי המאמן');
+        showToast('🔄 Updated by coach');
       })
     .subscribe((status) => {
-      if (status === 'SUBSCRIBED') setSyncStatus('online', 'מסונכרן');
+      if (status === 'SUBSCRIBED') setSyncStatus('online', 'Synced');
     });
 }
 
@@ -790,11 +790,11 @@ function renderAuthSlot() {
   if (!slot) return;
   if (!supa) { slot.innerHTML = ''; return; }
   if (isCoach) {
-    slot.innerHTML = '<button class="auth-btn" onclick="doLogout()"><span class="role-pill coach">מאמן</span> יציאה</button>';
+    slot.innerHTML = '<button class="auth-btn" onclick="doLogout()"><span class="role-pill coach">Coach</span> Sign Out</button>';
   } else if (currentUser) {
-    slot.innerHTML = '<button class="auth-btn" onclick="doLogout()"><span class="role-pill viewer">צופה</span> יציאה</button>';
+    slot.innerHTML = '<button class="auth-btn" onclick="doLogout()"><span class="role-pill viewer">Viewer</span> Sign Out</button>';
   } else {
-    slot.innerHTML = '<button class="auth-btn" onclick="openLoginModal()">🔑 כניסת מאמן</button>';
+    slot.innerHTML = '<button class="auth-btn" onclick="openLoginModal()">🔑 Coach Login</button>';
   }
 }
 
@@ -814,20 +814,20 @@ async function doLogin() {
   const errEl = document.getElementById('login-err');
   const btn   = document.getElementById('login-submit');
   errEl.textContent = '';
-  if (!email || !pass) { errEl.textContent = 'הזינו אימייל וסיסמה'; return; }
-  btn.disabled = true; btn.textContent = 'מתחבר...';
+  if (!email || !pass) { errEl.textContent = 'Enter your email and password'; return; }
+  btn.disabled = true; btn.textContent = 'Signing in...';
   try {
     const { data, error } = await supa.auth.signInWithPassword({ email, password: pass });
-    if (error) { errEl.textContent = 'התחברות נכשלה — בדקו אימייל וסיסמה'; return; }
+    if (error) { errEl.textContent = 'Sign-in failed — check your email and password'; return; }
     await applyRole(data.user);
-    if (!isCoach) { errEl.textContent = 'המשתמש אינו רשום כמאמן. פנו למנהל המערכת.'; return; }
+    if (!isCoach) { errEl.textContent = 'This account is not registered as a coach. Contact the system administrator.'; return; }
     document.getElementById('login-password').value = '';
     closeLoginModal();
-    showToast('✅ ברוך/ה הבא/ה, מאמן/ת');
+    showToast('✅ Welcome, Coach');
   } catch (e) {
-    errEl.textContent = 'שגיאה בהתחברות';
+    errEl.textContent = 'Sign-in error';
   } finally {
-    btn.disabled = false; btn.textContent = 'התחבר';
+    btn.disabled = false; btn.textContent = 'Sign In';
   }
 }
 
@@ -835,30 +835,30 @@ async function doLogout() {
   if (!supa) return;
   try { await supa.auth.signOut(); } catch (e) {}
   await applyRole(null);
-  showToast('התנתקת');
+  showToast('Signed out');
 }
 
 // --- Boot cloud layer: restore session, watch auth, subscribe to realtime ---
 async function initCloud() {
   if (!supa) {
     renderAuthSlot();
-    setSyncStatus('offline', 'מקומי בלבד');
+    setSyncStatus('offline', 'Local only');
     showBanner('local', '⚠️ עדיין לא מחובר לענן — הנתונים נשמרים רק במכשיר הזה. יש להזין פרטי Supabase בקובץ (ראו הוראות).');
     return;
   }
-  setSyncStatus('offline', 'מתחבר...');
+  setSyncStatus('offline', 'Signing in...');
 
   // Connection test: confirm the DB + table are reachable, else explain why.
   try {
     const { error } = await supa.from('app_state').select('id').limit(1);
     if (error) {
-      setSyncStatus('offline', 'שגיאת חיבור');
+      setSyncStatus('offline', 'Connection error');
       showBanner('error', '⚠️ מחובר ל-Supabase אך יש שגיאה: ' + error.message + '. ודאו שהרצתם את סקריפט ה-SQL.');
     } else {
       hideBanner();
     }
   } catch (e) {
-    setSyncStatus('offline', 'שגיאת חיבור');
+    setSyncStatus('offline', 'Connection error');
     showBanner('error', '⚠️ לא ניתן להתחבר ל-Supabase. בדקו את כתובת ה-URL והמפתח.');
   }
 
@@ -966,10 +966,10 @@ async function saveAthleteDetails() {
   if (!a) { closeDetailsModal(); return; }
   const errEl = document.getElementById('details-err');
   const newName = document.getElementById('ed-name').value.trim();
-  if (!newName) { errEl.textContent = 'השם לא יכול להיות ריק'; return; }
+  if (!newName) { errEl.textContent = 'Name cannot be empty'; return; }
   if (newName.toLowerCase() !== a.name.toLowerCase() &&
       ATHLETES.some(x => x !== a && x.name.toLowerCase() === newName.toLowerCase())) {
-    errEl.textContent = 'כבר קיים/ת שחיין/ית בשם הזה'; return;
+    errEl.textContent = 'A swimmer with this name already exists'; return;
   }
 
   a.name = newName;
@@ -985,9 +985,9 @@ async function saveAthleteDetails() {
 
   try {
     await saveOverrides(collectOverrides());
-    showToast('✅ הפרטים עודכנו');
+    showToast('✅ Details updated');
   } catch (e) {
-    showToast('⚠️ עודכן אך לא נשמר');
+    showToast('⚠️ Updated but not saved');
   }
 
   closeDetailsModal();
@@ -1019,7 +1019,7 @@ function setCat(cat) {
   currentCat = cat;
   document.querySelectorAll('.cat-btn').forEach(b => {
     b.classList.toggle('active', b.textContent.includes(
-      cat==='all'?'הכל':cat==='senior'?'בוגרים':cat==='academy'?'אקדמיה':'נוער'
+      cat==='all'?'All':cat==='senior'?'Senior':cat==='academy'?'Academy':'Youth'
     ));
   });
   populateSwimmerSelect();
@@ -1065,10 +1065,10 @@ function renderPickerCats() {
   const wrap = document.getElementById('picker-cats');
   if (!wrap) return;
   const cats = [
-    { key:'all',     label:'🏊 הכל' },
-    { key:'senior',  label:'💪 בוגרים' },
-    { key:'academy', label:'🎓 אקדמיה' },
-    { key:'youth',   label:'⭐ נוער' }
+    { key:'all',     label:'🏊 All' },
+    { key:'senior',  label:'💪 Senior' },
+    { key:'academy', label:'🎓 Academy' },
+    { key:'youth',   label:'⭐ Youth' }
   ];
   wrap.innerHTML = cats.map(c =>
     `<button type="button" class="cat-btn-inline${pickerCat===c.key?' active':''}" onclick="setPickerCat('${c.key}')">${c.label}</button>`
@@ -1089,7 +1089,7 @@ function renderPickerNames() {
     .slice()
     .sort((a,b) => a.name.localeCompare(b.name,'he'));
   if (!list.length) {
-    wrap.innerHTML = '<div class="picker-empty">אין שחיינים/ות פעילים/ות בקטגוריה הזו</div>';
+    wrap.innerHTML = '<div class="picker-empty">No active swimmers in this category</div>';
     return;
   }
   const selected = document.getElementById('swimmer-select').value;
@@ -1123,7 +1123,7 @@ function filterSwimmerList() {
       });
 
   if (!matches.length) {
-    list.innerHTML = '<div class="swimmer-search-empty">🔍 לא נמצא שחיין/ית תואמ/ת — נסו שם או אות אחרת</div>';
+    list.innerHTML = '<div class="swimmer-search-empty">🔍 No matching swimmer found — try another name or letter</div>';
   } else {
     list.innerHTML = matches.map(a => {
       const female = a.g === 'F' ? ' female' : '';
@@ -1154,10 +1154,10 @@ function renderPBsPickerCats() {
   const wrap = document.getElementById('pbs-picker-cats');
   if (!wrap) return;
   const cats = [
-    { key:'all',     label:'🏊 הכל' },
-    { key:'senior',  label:'💪 בוגרים' },
-    { key:'academy', label:'🎓 אקדמיה' },
-    { key:'youth',   label:'⭐ נוער' }
+    { key:'all',     label:'🏊 All' },
+    { key:'senior',  label:'💪 Senior' },
+    { key:'academy', label:'🎓 Academy' },
+    { key:'youth',   label:'⭐ Youth' }
   ];
   wrap.innerHTML = cats.map(c =>
     `<button type="button" class="cat-btn-inline${pbsPickerCat===c.key?' active':''}" onclick="setPBsPickerCat('${c.key}')">${c.label}</button>`
@@ -1178,7 +1178,7 @@ function renderPBsPickerNames() {
     .slice()
     .sort((a,b) => a.name.localeCompare(b.name,'he'));
   if (!list.length) {
-    wrap.innerHTML = '<div class="picker-empty">אין שחיינים/ות פעילים/ות בקטגוריה הזו</div>';
+    wrap.innerHTML = '<div class="picker-empty">No active swimmers in this category</div>';
     return;
   }
   const selected = document.getElementById('pbs-swimmer-select').value;
@@ -1219,11 +1219,11 @@ function renderPBs(name) {
   const rowsHtml = SKILLS.map(s => {
     const best = personalBest(a, s.key);
     const body = best
-      ? `<div class="skill-val">${best.time.toFixed(2)} שנ׳</div>
+      ? `<div class="skill-val">${best.time.toFixed(2)} sec</div>
          <span class="skill-score ${scoreClass(best.score)}">Score: ${best.score.toFixed(1)}/10</span>
-         ${best.date ? `<div class="skill-rank">שיא מתאריך ${best.date}</div>` : ''}`
+         ${best.date ? `<div class="skill-rank">Best on ${best.date}</div>` : ''}`
       : `<div class="skill-val" style="color:var(--text-muted);font-size:14px">00:00</div>
-         <span class="skill-score score-none">— אין תוצאה עדיין</span>`;
+         <span class="skill-score score-none">— No result yet</span>`;
     return `<div class="skill-item">
       <div class="skill-name">${s.label}</div>
       ${body}
@@ -1236,7 +1236,7 @@ function renderPBs(name) {
       <div class="profile-avatar${isFemale ? ' female' : ''}">${initials(a.name)}</div>
       <div class="profile-name">${a.name}</div>
     </div>
-    <div class="card-title" style="margin-top:6px">🥇 השיא האישי בכל Skill</div>
+    <div class="card-title" style="margin-top:6px">🥇 Personal Best in Each Skill</div>
     ${rowsHtml}
   </div>`;
 }
@@ -1251,7 +1251,7 @@ function populateSkillSelect() {
   const wrap = document.getElementById('skill-buttons');
   if (!wrap) return;
   const current = document.getElementById('skill-select').value;
-  let html = `<button type="button" class="skill-btn overall${current==='_overall'?' active':''}" onclick="selectSkill('_overall')">⭐ דירוג כללי</button>`;
+  let html = `<button type="button" class="skill-btn overall${current==='_overall'?' active':''}" onclick="selectSkill('_overall')">⭐ Overall Ranking</button>`;
   html += CATEGORIES.map(c =>
     `<button type="button" class="skill-btn category${current==='cat:'+c.key?' active':''}" onclick="selectSkill('cat:${c.key}')">${c.label}</button>`
   ).join('');
@@ -1342,7 +1342,7 @@ function buildHistorySVG(history) {
     ${resultLabels}
     ${dateLabels}
   </svg>
-  <div style="font-size:10.5px;color:var(--text-muted);text-align:center;margin-top:4px">🟡 שיא אישי חדש &nbsp; 🔵 ניסיון רגיל</div>`;
+  <div style="font-size:10.5px;color:var(--text-muted);text-align:center;margin-top:4px">🟡 New personal best &nbsp; 🔵 Regular attempt</div>`;
 }
 
 function toggleHistoryChart(sk) {
@@ -1457,15 +1457,15 @@ function categoryBreakdownHtml(a) {
   const minScore = valid.length ? Math.min(...valid.map(i => i.score)) : null;
   const chips = items.map(i => {
     const isWeak = valid.length > 1 && i.score !== null && i.score === minScore;
-    const scoreTxt = i.score !== null ? `${i.score.toFixed(1)}/10` : 'אין נתונים';
+    const scoreTxt = i.score !== null ? `${i.score.toFixed(1)}/10` : 'No data';
     const cls = i.score !== null ? scoreClass(i.score) : 'score-none';
     return `<div class="skill-item" style="${isWeak ? 'border-color:var(--coral);box-shadow:0 0 0 1.5px var(--coral)' : ''}">
-      <div class="skill-name">${i.cat.label}${isWeak ? ' ⚠️ הכי חלש' : ''}</div>
+      <div class="skill-name">${i.cat.label}${isWeak ? ' ⚠️ Weakest' : ''}</div>
       <span class="skill-score ${cls}">${scoreTxt}</span>
       <div class="skill-rank">${i.cat.skills.map(sk => SKILLS.find(s=>s.key===sk).label).join(' · ')}</div>
     </div>`;
   }).join('');
-  return `<div class="card-title" style="margin-top:1.5rem">📂 ניתוח לפי קטגוריות</div>
+  return `<div class="card-title" style="margin-top:1.5rem">📂 Analysis by Category</div>
     <div class="skills-grid">${chips}</div>`;
 }
 
@@ -1489,11 +1489,11 @@ function renderProfile(nameOverride) {
 
     const rankInfo = hasVal ? skillRankInfo(a, s) : null;
     const rankHtml = rankInfo
-      ? `<div class="skill-rank">מדורג #${rankInfo.rank} מתוך ${rankInfo.total} (${a.g==='F'?'בנות':'בנים'})</div>`
+      ? `<div class="skill-rank">Ranked #${rankInfo.rank} of ${rankInfo.total} (${a.g==='F'?'Females':'Males'})</div>`
       : '';
 
     const valDisplay = hasVal
-      ? `<div class="skill-val">${val.toFixed(2)} שנ׳</div>
+      ? `<div class="skill-val">${val.toFixed(2)} sec</div>
          <span class="skill-score ${scoreClass(sc)}">Score: ${sc.toFixed(1)}/10</span>
          ${rankHtml}`
       : `<div class="skill-val" style="color:var(--text-muted);font-size:14px">00:00</div>
@@ -1502,17 +1502,17 @@ function renderProfile(nameOverride) {
     const histArr = a.history && a.history[s.key];
     const hasHistory = histArr && histArr.length >= 2;
     const historyHtml = hasHistory
-      ? `<button class="edit-btn" style="margin-top:6px;background:transparent;border:1.5px solid var(--teal);color:var(--teal)" onclick="toggleHistoryChart('${s.key}')">📈 גרף שיפור (${histArr.length} תוצאות)</button>
+      ? `<button class="edit-btn" style="margin-top:6px;background:transparent;border:1.5px solid var(--teal);color:var(--teal)" onclick="toggleHistoryChart('${s.key}')">📈 Progress Chart (${histArr.length} results)</button>
          <div id="hist-${s.key}" style="display:none;margin-top:10px;padding:12px 4px 6px;background:var(--surface2);border-radius:10px">${buildHistorySVG(histArr)}</div>`
       : '';
 
     return `<div class="skill-item" id="si-${s.key}">
       <div class="skill-name">${s.label}</div>
       ${valDisplay}
-      <button class="edit-btn coach-only" onclick="showEdit('${a.name}','${s.key}')">✏️ עדכן תוצאה</button>
-      ${hasVal ? `<button class="edit-btn coach-only" style="border-color:var(--danger,#c0392b);color:var(--danger,#c0392b)" onclick="undoLastResult('${escapeAttr(a.name)}','${s.key}')">↩️ בטל תוצאה אחרונה</button>` : ''}
+      <button class="edit-btn coach-only" onclick="showEdit('${a.name}','${s.key}')">✏️ Update Result</button>
+      ${hasVal ? `<button class="edit-btn coach-only" style="border-color:var(--danger,#c0392b);color:var(--danger,#c0392b)" onclick="undoLastResult('${escapeAttr(a.name)}','${s.key}')">↩️ Undo Last Result</button>` : ''}
       <div class="edit-row" id="edit-${s.key}" style="display:none">
-        <input type="number" step="0.01" min="0" id="inp-${s.key}" placeholder="זמן (שנ׳)">
+        <input type="number" step="0.01" min="0" id="inp-${s.key}" placeholder="Time (sec)">
         <button class="btn-save" onclick="saveResult('${a.name}','${s.key}')">✓</button>
         <button class="btn-cancel" onclick="hideEdit('${s.key}')">✕</button>
       </div>
@@ -1522,19 +1522,19 @@ function renderProfile(nameOverride) {
 
   const isFemale = a.g === 'F';
   const nameBlock = isCoach
-    ? `<div class="profile-name" style="cursor:pointer" onclick="openDetailsModal('${escapeAttr(a.name)}')" title="לחץ לעריכת פרטים">${a.name} <span style="font-size:14px;color:var(--teal)">✏️</span></div>`
+    ? `<div class="profile-name" style="cursor:pointer" onclick="openDetailsModal('${escapeAttr(a.name)}')" title="Click to edit details">${a.name} <span style="font-size:14px;color:var(--teal)">✏️</span></div>`
     : `<div class="profile-name">${a.name}</div>`;
-  const statusTxt = a.active === false ? ' · ⏸️ לא פעיל/ה' : '';
+  const statusTxt = a.active === false ? ' · ⏸️ Inactive' : '';
   area.innerHTML = `<div class="card">
     <div class="profile-header">
       <div class="avatar${isFemale?' female':''}">${initials(a.name)}</div>
       <div>
         ${nameBlock}
-        <div class="profile-sub">${isFemale?'שחיינית':'שחיין'} · ${catLabel(a.cat)}${statusTxt}</div>
+        <div class="profile-sub">${isFemale?'Female swimmer':'Male swimmer'} · ${catLabel(a.cat)}${statusTxt}</div>
       </div>
       <div class="total-badge" id="total-badge-${a.name.replace(/\s/g,'_')}">Total Score: ${a.total.toFixed(1)}</div>
-      <button class="coach-only" onclick="openDetailsModal('${escapeAttr(a.name)}')" title="ערוך פרטים" style="background:none;border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:11px;color:var(--text-muted);cursor:pointer">✏️ פרטים</button>
-      <button class="coach-only" onclick="resetAthlete('${a.name}')" title="אפס לנתונים מקוריים" style="background:none;border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:11px;color:var(--text-muted);cursor:pointer">↺ איפוס</button>
+      <button class="coach-only" onclick="openDetailsModal('${escapeAttr(a.name)}')" title="Edit details" style="background:none;border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:11px;color:var(--text-muted);cursor:pointer">✏️ Details</button>
+      <button class="coach-only" onclick="resetAthlete('${a.name}')" title="Reset to original data" style="background:none;border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:11px;color:var(--text-muted);cursor:pointer">↺ Reset</button>
     </div>
     <div class="skills-grid">${skillsHtml}</div>
     ${categoryBreakdownHtml(a)}
@@ -1568,7 +1568,7 @@ async function applyResult(name, sk, newTime) {
   if (!a.history[sk]) a.history[sk] = [];
   if (a.history[sk].length === 0 && a[sk] > 0) {
     // First time we're tracking this skill's history — seed it with whatever was on record before this edit
-    a.history[sk].push({ date: 'לפני המעקב', time: a[sk], score: a['sc'+skIdx] });
+    a.history[sk].push({ date: 'Before tracking', time: a[sk], score: a['sc'+skIdx] });
   }
   a.history[sk].push({ date: new Date().toLocaleDateString('he-IL'), time: newTime, score: newScore });
 
@@ -1579,9 +1579,9 @@ async function applyResult(name, sk, newTime) {
   // Persist to storage so the update survives reloads
   try {
     await saveOverrides(collectOverrides());
-    showToast(`✅ נשמר: ${name} — ${SKILLS.find(s=>s.key===sk).label} → ${newTime.toFixed(2)} שנ׳`);
+    showToast(`✅ Saved: ${name} — ${SKILLS.find(s=>s.key===sk).label} → ${newTime.toFixed(2)} sec`);
   } catch (e) {
-    showToast(`⚠️ עודכן אך לא נשמר (${name})`);
+    showToast(`⚠️ Updated but not saved (${name})`);
   }
 
   renderProfile();
@@ -1595,7 +1595,7 @@ async function applyResult(name, sk, newTime) {
 async function saveResult(name, sk) {
   const inp = document.getElementById('inp-'+sk);
   const newTime = parseFloat(inp.value);
-  if (isNaN(newTime) || newTime <= 0) { showToast('⚠️ הכנס זמן תקין'); return; }
+  if (isNaN(newTime) || newTime <= 0) { showToast('⚠️ Enter a valid time'); return; }
   await applyResult(name, sk, newTime);
 }
 
@@ -1604,12 +1604,12 @@ async function saveResult(name, sk) {
 async function undoLastResult(name, sk) {
   const a = ATHLETES.find(x => x.name === name);
   if (!a || !a.history || !a.history[sk] || !a.history[sk].length) {
-    showToast('⚠️ אין תוצאה קודמת לבטל');
+    showToast('⚠️ No previous result to undo');
     return;
   }
   const skill = SKILLS.find(s => s.key === sk);
   const removed = a.history[sk][a.history[sk].length - 1];
-  if (!confirm(`לבטל את התוצאה האחרונה של ${name} ב-${skill.label} (${removed.time.toFixed(2)} שנ׳)?`)) return;
+  if (!confirm(`Undo the latest result for ${name} in ${skill.label} (${removed.time.toFixed(2)} sec)?`)) return;
 
   a.history[sk].pop();
   const skIdx = sk.slice(1);
@@ -1627,9 +1627,9 @@ async function undoLastResult(name, sk) {
 
   try {
     await saveOverrides(collectOverrides());
-    showToast(`↩️ בוטל: ${name} — ${skill.label}`);
+    showToast(`↩️ Undone: ${name} — ${skill.label}`);
   } catch (e) {
-    showToast(`⚠️ בוטל מקומית אך לא נשמר (${name})`);
+    showToast(`⚠️ Undone locally but not saved (${name})`);
   }
 
   renderProfile();
@@ -1726,7 +1726,7 @@ function toggleVoiceListening() {
   voiceRecognition.onstart = () => {
     voiceListening = true;
     btn.classList.add('listening');
-    statusText.textContent = '🎙️ מקשיב...';
+    statusText.textContent = '🎙️ Listening...';
     document.getElementById('voice-parse-result').innerHTML = '';
   };
   voiceRecognition.onresult = (e) => {
@@ -1739,15 +1739,15 @@ function toggleVoiceListening() {
     if (final) handleVoiceTranscript(final.trim());
   };
   voiceRecognition.onerror = (e) => {
-    statusText.textContent = e.error === 'no-speech' ? 'לא זוהה דיבור, נסו שוב' : ('⚠️ שגיאה: ' + e.error);
+    statusText.textContent = e.error === 'no-speech' ? 'No speech detected. Try again' : ('⚠️ Error: ' + e.error);
   };
   voiceRecognition.onend = () => {
     voiceListening = false;
     btn.classList.remove('listening');
-    if (statusText.textContent === '🎙️ מקשיב...') statusText.textContent = 'לחצו והתחילו לדבר';
+    if (statusText.textContent === '🎙️ Listening...') statusText.textContent = 'לחצו והתחילו לדבר';
   };
 
-  try { voiceRecognition.start(); } catch (e) { statusText.textContent = '⚠️ לא ניתן להפעיל מיקרופון'; }
+  try { voiceRecognition.start(); } catch (e) { statusText.textContent = '⚠️ Could not start the microphone'; }
 }
 
 async function handleVoiceTranscript(text) {
@@ -1761,13 +1761,13 @@ async function handleVoiceTranscript(text) {
     const best = personalBest(athlete, skill.key);
     if (!best || time < best.time) {
       await applyResult(athlete.name, skill.key, time);
-      resultEl.innerHTML = `<div class="voice-result-ok">✅ עודכן: <b>${athlete.name}</b> — ${skill.label}: <b>${time.toFixed(2)}</b> שנ׳${best ? ` (שיפור מ-${best.time.toFixed(2)})` : ' (תוצאה ראשונה)'}<br>
+      resultEl.innerHTML = `<div class="voice-result-ok">✅ Updated: <b>${athlete.name}</b> — ${skill.label}: <b>${time.toFixed(2)}</b> sec${best ? ` (improved from ${best.time.toFixed(2)})` : ' (first result)'}<br>
         <button class="btn-ghost" style="margin-top:8px" onclick="undoLastResult('${escapeAttr(athlete.name)}','${skill.key}')">↩️ בטל</button></div>`;
-      statusText.textContent = 'לחצו לתוצאה נוספת';
+      statusText.textContent = 'Tap to enter another result';
     } else {
-      resultEl.innerHTML = `<div class="voice-result-info">ℹ️ לא עודכן — השיא הקיים של <b>${athlete.name}</b> ב-${skill.label} (${best.time.toFixed(2)}) מהיר יותר מ-${time.toFixed(2)}.<br>
-        <button class="btn-ghost" style="margin-top:8px" onclick="forceApplyVoice('${escapeAttr(athlete.name)}','${skill.key}',${time})">עדכן בכל זאת</button></div>`;
-      statusText.textContent = 'לחצו לתוצאה נוספת';
+      resultEl.innerHTML = `<div class="voice-result-info">ℹ️ לא עודכן — השיא הקיים של <b>${athlete.name}</b> in ${skill.label} (${best.time.toFixed(2)}) מהיר יותר מ-${time.toFixed(2)}.<br>
+        <button class="btn-ghost" style="margin-top:8px" onclick="forceApplyVoice('${escapeAttr(athlete.name)}','${skill.key}',${time})">Update Anyway</button></div>`;
+      statusText.textContent = 'Tap to enter another result';
     }
   } else {
     resultEl.innerHTML = buildVoiceFixer(text, time, skill, athlete);
@@ -1777,18 +1777,18 @@ async function handleVoiceTranscript(text) {
 
 function buildVoiceFixer(text, time, skill, athlete) {
   const athleteOptions = ATHLETES.filter(a => a.active).sort((a,b) => a.name.localeCompare(b.name,'he'))
-    .map(a => `<option value="${escapeAttr(a.name)}" ${athlete && athlete.name===a.name ? 'selected' : ''}>${a.name} (${a.g==='M'?'בן':'בת'})</option>`).join('');
+    .map(a => `<option value="${escapeAttr(a.name)}" ${athlete && athlete.name===a.name ? 'selected' : ''}>${a.name} (${a.g==='M'?'Male':'Female'})</option>`).join('');
   const skillOptions = SKILLS.map(s => `<option value="${s.key}" ${skill && skill.key===s.key ? 'selected' : ''}>${s.label}</option>`).join('');
   return `
     <div class="voice-fixer">
-      <div style="font-size:12.5px;color:var(--text-muted)">שמעתי: "${escapeAttr(text)}"</div>
-      <label>שחיין/ית</label>
+      <div style="font-size:12.5px;color:var(--text-muted)">Heard: "${escapeAttr(text)}"</div>
+      <label>Swimmer</label>
       <select id="voice-fix-athlete">${athleteOptions}</select>
       <label>Skill</label>
       <select id="voice-fix-skill">${skillOptions}</select>
-      <label>זמן (שנ')</label>
+      <label>Time (sec)</label>
       <input type="number" step="0.01" min="0" id="voice-fix-time" value="${time !== null ? time : ''}">
-      <button class="btn-primary" onclick="confirmVoiceFix()">✓ עדכן תוצאה</button>
+      <button class="btn-primary" onclick="confirmVoiceFix()">✓ Update Result</button>
     </div>`;
 }
 
@@ -1796,15 +1796,15 @@ async function confirmVoiceFix() {
   const name = document.getElementById('voice-fix-athlete').value;
   const sk = document.getElementById('voice-fix-skill').value;
   const time = parseFloat(document.getElementById('voice-fix-time').value);
-  if (!name || !sk || isNaN(time) || time <= 0) { showToast('⚠️ מלאו שחיין/ית, סקיל וזמן תקין'); return; }
+  if (!name || !sk || isNaN(time) || time <= 0) { showToast('⚠️ מלאו Swimmer, סקיל וזמן תקין'); return; }
   await applyResult(name, sk, time);
   document.getElementById('voice-parse-result').innerHTML =
-    `<div class="voice-result-ok">✅ עודכן: ${name} — ${SKILLS.find(s=>s.key===sk).label}: ${time.toFixed(2)} שנ׳</div>`;
+    `<div class="voice-result-ok">✅ Updated: ${name} — ${SKILLS.find(s=>s.key===sk).label}: ${time.toFixed(2)} sec</div>`;
 }
 
 async function forceApplyVoice(name, sk, time) {
   await applyResult(name, sk, time);
-  document.getElementById('voice-parse-result').innerHTML = `<div class="voice-result-ok">✅ עודכן (עדכון ידני, לא שיפר שיא)</div>`;
+  document.getElementById('voice-parse-result').innerHTML = `<div class="voice-result-ok">✅ עודכן (manual update; personal best unchanged)</div>`;
 }
 
 let newAthleteGender = 'M';
@@ -1832,9 +1832,9 @@ function setNewAthleteCat(cat) {
 async function createNewAthlete() {
   const nameInp = document.getElementById('new-athlete-name');
   const name = nameInp.value.trim();
-  if (!name) { showToast('⚠️ הכנס שם שחיין/ית'); nameInp.focus(); return; }
+  if (!name) { showToast('⚠️ הכנס שם Swimmer'); nameInp.focus(); return; }
   if (ATHLETES.find(x => x.name.toLowerCase() === name.toLowerCase())) {
-    showToast('⚠️ שחיין/ית בשם הזה כבר קיים/ת'); return;
+    showToast('⚠️ Swimmer בשם הזה כבר קיים/ת'); return;
   }
 
   const newAthlete = { name, g: newAthleteGender, cat: newAthleteCat, active: true };
@@ -1844,9 +1844,9 @@ async function createNewAthlete() {
 
   try {
     await saveOverrides(collectOverrides());
-    showToast(`✅ נוסף/ה: ${name}`);
+    showToast(`✅ Added: ${name}`);
   } catch (e) {
-    showToast(`⚠️ נוסף/ה אך לא נשמר (${name})`);
+    showToast(`⚠️ Added but not saved (${name})`);
   }
 
   // Reset the form
@@ -1875,7 +1875,7 @@ async function resetAthlete(name) {
     a.history = {};
   }
   await saveOverrides(collectOverrides());
-  showToast(`↺ אופס: ${name}`);
+  showToast(`↺ Reset: ${name}`);
   renderProfile();
   setSelectedSwimmer(name);
 }
@@ -1905,7 +1905,7 @@ function renderLeaderboard() {
       const r = i+1;
       const bar = Math.round((a._sum/maxPossible)*100);
       const color = a._avg>=8?'#00C2B1':a._avg>=5?'#F5B740':'#FF6B4D';
-      return `<tr style="cursor:pointer" title="לחץ לצפייה בפרופיל ועריכת תוצאות" onclick="openProfile('${escapeAttr(a.name)}')">
+      return `<tr style="cursor:pointer" title="Click to view profile and edit results" onclick="openProfile('${escapeAttr(a.name)}')">
         <td class="rank-cell ${rClass(r)}" style="width:40px">${medal(r)||r}</td>
         <td style="font-weight:600;font-size:13px">${a.name}</td>
         <td style="width:150px">
@@ -1921,7 +1921,7 @@ function renderLeaderboard() {
     }).join('');
 
     area.innerHTML = `<div class="card" style="padding:1rem">
-      <div class="card-title">Overall Ranking — Total Score (${currentGender==='M'?'בנים':'בנות'})</div>
+      <div class="card-title">Overall Ranking — Total Score (${currentGender==='M'?'Males':'Females'})</div>
       <table class="leaderboard-table" style="table-layout:fixed;width:100%">
         <thead><tr><th style="width:40px">Rank</th><th>Name</th><th style="width:150px">Score (Avg)</th></tr></thead>
         <tbody>${tbody}</tbody>
@@ -1942,7 +1942,7 @@ function renderLeaderboard() {
       .sort((x,y) => y.score - x.score);
 
     if (!rows.length) {
-      area.innerHTML = `<div class="card" style="text-align:center;padding:3rem;color:var(--text-muted)">🏊 אין נתונים זמינים</div>`;
+      area.innerHTML = `<div class="card" style="text-align:center;padding:3rem;color:var(--text-muted)">🏊 No data available</div>`;
       return;
     }
 
@@ -1951,7 +1951,7 @@ function renderLeaderboard() {
 
     const tbody = rows.map((row,i) => {
       const r = i+1;
-      return `<tr style="cursor:pointer" title="לחץ לצפייה בפרופיל ועריכת תוצאות" onclick="openProfile('${escapeAttr(row.a.name)}')">
+      return `<tr style="cursor:pointer" title="Click to view profile and edit results" onclick="openProfile('${escapeAttr(row.a.name)}')">
         <td class="rank-cell ${rClass(r)}" style="width:40px">${medal(r)||r}</td>
         <td style="font-weight:600;font-size:13px">${row.a.name}</td>
         <td style="width:90px"><span class="skill-score ${scoreClass(row.score)}">${row.score.toFixed(1)}/10</span></td>
@@ -1975,7 +1975,7 @@ function renderLeaderboard() {
   const rows = filtered().filter(a => a[sk] && a[sk] > 0).sort((a,b) => a[sk] - b[sk]);
 
   if (!rows.length) {
-    area.innerHTML = `<div class="card" style="text-align:center;padding:3rem;color:var(--text-muted)">🏊 אין נתונים זמינים</div>`;
+    area.innerHTML = `<div class="card" style="text-align:center;padding:3rem;color:var(--text-muted)">🏊 No data available</div>`;
     return;
   }
 
@@ -1984,7 +1984,7 @@ function renderLeaderboard() {
 
   const tbody = rows.map((a,i) => {
     const r = i+1;
-    return `<tr style="cursor:pointer" title="לחץ לצפייה בפרופיל ועריכת תוצאות" onclick="openProfile('${escapeAttr(a.name)}')">
+    return `<tr style="cursor:pointer" title="Click to view profile and edit results" onclick="openProfile('${escapeAttr(a.name)}')">
       <td class="rank-cell ${rClass(r)}" style="width:40px">${medal(r)||r}</td>
       <td style="font-weight:600;font-size:13px">${a.name}</td>
       <td style="width:80px;font-variant-numeric:tabular-nums;white-space:nowrap">${a[sk].toFixed(2)}s</td>
@@ -2005,7 +2005,7 @@ function renderScoringMatrix() {
   const tbl = document.getElementById('scoring-table');
   const title = document.getElementById('scoring-title');
   const SC = currentGender === 'M' ? SCORING_M : SCORING_F;
-  title.textContent = `Scoring Thresholds — ${currentGender==='M'?'Males (בנים)':'Females (בנות)'} (seconds)`;
+  title.textContent = `Scoring Thresholds — ${currentGender==='M'?'Males':'Females'} (seconds)`;
   const scores = [10,9,8,7,6,5,4,3,2,1];
   const hdr = '<tr><th>Score</th>' + SKILLS.map(s=>`<th>${s.label}</th>`).join('') + '</tr>';
   const body = scores.map((sc,i) =>
