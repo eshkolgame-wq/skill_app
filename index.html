@@ -79,6 +79,8 @@
   /* --- Role gating: hide edit controls for viewers (swimmers) --- */
   body:not(.is-coach) .coach-only { display: none !important; }
   body.is-coach .swimmer-only { display: none !important; }
+  .scoring-info-btn { width:30px; height:30px; flex:0 0 30px; display:inline-flex; align-items:center; justify-content:center; border:1px solid rgba(255,255,255,0.3); border-radius:50%; background:rgba(255,255,255,0.12); color:#fff; font:700 17px/1 inherit; cursor:pointer; }
+  .scoring-info-btn:hover, .scoring-info-btn:focus-visible { background:var(--teal); color:var(--navy); outline:none; }
   /* --- Header auth button --- */
   .auth-btn { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.12); border: 1.5px solid rgba(255,255,255,0.25); color: #fff; border-radius: 20px; padding: 6px 14px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; white-space: nowrap; }
   .auth-btn:hover { background: rgba(255,255,255,0.22); }
@@ -310,6 +312,7 @@
     </div>
   </div>
   <div style="display:flex;align-items:center;gap:10px">
+    <button class="scoring-info-btn" onclick="showScreen('scoring')" aria-label="Open scoring thresholds" title="Scoring thresholds">ⓘ</button>
     <div class="gender-toggle">
       <button class="gender-btn active" onclick="setGender('M')">Males</button>
       <button class="gender-btn" onclick="setGender('F')">Females</button>
@@ -342,13 +345,6 @@
         <span class="home-card-text">
           <span class="home-card-title">Swimmer Comparison</span>
           <span class="home-card-sub">Compare swimmers by one skill or across all skills</span>
-        </span>
-      </button>
-      <button class="home-card" onclick="showScreen('scoring')">
-        <span class="home-card-icon">📊</span>
-        <span class="home-card-text">
-          <span class="home-card-title">Skill Scoring Table</span>
-          <span class="home-card-sub">Score thresholds for each skill and rating</span>
         </span>
       </button>
       <button class="home-card coach-only" onclick="showScreen('profile')">
