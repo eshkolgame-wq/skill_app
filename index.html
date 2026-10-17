@@ -1091,7 +1091,7 @@ function renderCompareSearch(query) {
     return;
   }
   const matches = ATHLETES
-    .filter(a => a.active !== false && a.name.toLocaleLowerCase().includes(term) && !compareSelectedNames.includes(a.name))
+    .filter(a => a.name.toLocaleLowerCase().includes(term) && !compareSelectedNames.includes(a.name))
     .slice().sort((a,b) => a.name.localeCompare(b.name));
   if (!matches.length) {
     wrap.innerHTML = '<div class="picker-empty">No available matches. The swimmer may already be selected.</div>';
