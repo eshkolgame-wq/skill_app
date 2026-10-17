@@ -378,6 +378,7 @@
       </div>
       <div id="add-athlete-form" style="display:none;margin-top:10px">
         <input type="text" id="new-athlete-name" class="add-athlete-input" placeholder="Full Name">
+        <input type="number" id="new-athlete-birth-year" class="add-athlete-input" placeholder="Birth Year (optional)" min="1900" max="2026" step="1" aria-label="Birth year">
         <div style="margin-bottom:12px">
           <div class="add-athlete-label">Gender</div>
           <div style="display:flex;gap:8px">
@@ -1758,8 +1759,14 @@ async function createNewAthlete() {
   if (ATHLETES.find(x => x.name.toLowerCase() === name.toLowerCase())) {
     showToast('⚠️ A swimmer with this name already exists'); return;
   }
+  const birthYearInput = document.getElementById('new-athlete-birth-year');
+  const birthYearText = birthYearInput.value.trim();
+  const birthYear = birthYearText ? Number(birthYearText) : null;
+  if (birthYearText && (!Number.isInteger(birthYear) || birthYear < 1900 || birthYear > 2026)) {
+    showToast('⚠️ Enter a valid birth year (1900–2026)'); birthYearInput.focus(); return;
+  }
 
-  const newAthlete = { name, g: newAthleteGender, cat: 'academy', region: newAthleteRegion, active: true };
+  const newAthlete = { name, g: newAthleteGender, cat: 'academy', region: newAthleteRegion, birthYear, active: true };
   SKILLS.forEach(s => { const skIdx = s.key.slice(1); newAthlete[s.key] = 0; newAthlete['sc'+skIdx] = 0; });
   newAthlete.total = 0;
   ATHLETES.push(newAthlete);
@@ -1773,6 +1780,7 @@ async function createNewAthlete() {
 
   // Reset the form
   nameInp.value = '';
+  document.getElementById('new-athlete-birth-year').value = '';
   toggleAddAthlete();
 
   // Switch filters to match the new athlete so they're visible, then select them
