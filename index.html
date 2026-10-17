@@ -280,11 +280,10 @@
       <button type="button" class="cat-btn-inline" id="ed-gender-M" onclick="setEdGender('M')">Male</button>
       <button type="button" class="cat-btn-inline" id="ed-gender-F" onclick="setEdGender('F')">Female</button>
     </div>
-    <label>Category</label>
+    <label>Region</label>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button type="button" class="cat-btn-inline" id="ed-cat-academy" onclick="setEdCat('academy')">🎓 Academy</button>
-      <button type="button" class="cat-btn-inline" id="ed-cat-youth" onclick="setEdCat('youth')">⭐ Youth</button>
-      <button type="button" class="cat-btn-inline" id="ed-cat-senior" onclick="setEdCat('senior')">💪 Senior</button>
+      <button type="button" class="cat-btn-inline" id="ed-region-Israel" onclick="setEdRegion('Israel')">🇮🇱 Israel</button>
+      <button type="button" class="cat-btn-inline" id="ed-region-Europe" onclick="setEdRegion('Europe')">🇪🇺 Europe</button>
     </div>
     <label>Status</label>
     <div style="display:flex;gap:8px">
@@ -322,10 +321,8 @@
 </header>
 <div id="cloud-banner" class="cloud-banner" style="display:none"></div>
 <div class="cat-bar">
-  <button class="cat-btn active" onclick="setCat('all')">🏊 All</button>
-  <button class="cat-btn" onclick="setCat('senior')">💪 Senior</button>
-  <button class="cat-btn" onclick="setCat('academy')">🎓 Academy</button>
-  <button class="cat-btn" onclick="setCat('youth')">⭐ Youth</button>
+  <button class="cat-btn active" onclick="setCat('Israel')">🇮🇱 Israel</button>
+  <button class="cat-btn" onclick="setCat('Europe')">🇪🇺 Europe</button>
 </div>
 
 <div class="main">
@@ -389,11 +386,10 @@
           </div>
         </div>
         <div style="margin-bottom:14px">
-          <div class="add-athlete-label">Category</div>
+          <div class="add-athlete-label">Region</div>
           <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <button type="button" class="cat-btn-inline active" id="na-cat-academy" onclick="setNewAthleteCat('academy')">🎓 Academy</button>
-            <button type="button" class="cat-btn-inline" id="na-cat-youth" onclick="setNewAthleteCat('youth')">⭐ Youth — Academy Candidates</button>
-            <button type="button" class="cat-btn-inline" id="na-cat-senior" onclick="setNewAthleteCat('senior')">💪 Senior</button>
+            <button type="button" class="cat-btn-inline active" id="na-region-Israel" onclick="setNewAthleteRegion('Israel')">🇮🇱 Israel</button>
+            <button type="button" class="cat-btn-inline" id="na-region-Europe" onclick="setNewAthleteRegion('Europe')">🇪🇺 Europe</button>
           </div>
         </div>
         <div style="display:flex;gap:8px">
@@ -882,7 +878,7 @@ async function initCloud() {
 }
 
 // Fields (besides skills/scores/total/history) that a coach can edit and that must persist.
-const META_FIELDS = ['name', 'g', 'cat', 'active'];
+const META_FIELDS = ['name', 'g', 'cat', 'active', 'region'];
 
 function applyOverrides(overrides) {
   if (!overrides) return;
@@ -938,7 +934,7 @@ function catLabel(cat) {
 
 // --- Edit swimmer details (coaches only) ---
 let editingAthleteName = null;
-let edGender = 'M', edCat = 'academy', edActive = true;
+let edGender = 'M', edRegion = 'Israel', edActive = true;
 
 function openDetailsModal(name) {
   if (supa && !isCoach) { showToast('⚠️ Only coaches can edit swimmer details'); return; }
@@ -946,7 +942,7 @@ function openDetailsModal(name) {
   if (!a) return;
   editingAthleteName = name;
   edGender = a.g;
-  edCat = a.cat;
+  edRegion = a.region || 'Israel';
   edActive = a.active !== false;
   document.getElementById('ed-name').value = a.name;
   document.getElementById('details-err').textContent = '';
@@ -958,13 +954,13 @@ function closeDetailsModal() {
   editingAthleteName = null;
 }
 function setEdGender(g) { edGender = g; syncEdButtons(); }
-function setEdCat(c)    { edCat = c;    syncEdButtons(); }
+function setEdRegion(r) { edRegion = r; syncEdButtons(); }
 function setEdActive(v) { edActive = v; syncEdButtons(); }
 function syncEdButtons() {
   document.getElementById('ed-gender-M').classList.toggle('active', edGender === 'M');
   document.getElementById('ed-gender-F').classList.toggle('active', edGender === 'F');
-  ['academy','youth','senior'].forEach(c =>
-    document.getElementById('ed-cat-'+c).classList.toggle('active', edCat === c));
+  ['Israel','Europe'].forEach(r =>
+    document.getElementById('ed-region-'+r).classList.toggle('active', edRegion === r));
   document.getElementById('ed-active-1').classList.toggle('active', edActive === true);
   document.getElementById('ed-active-0').classList.toggle('active', edActive === false);
 }
@@ -983,14 +979,14 @@ async function saveAthleteDetails() {
 
   a.name = newName;
   a.g = edGender;
-  a.cat = edCat;
+  a.region = edRegion;
   a.active = edActive;
 
   // Follow the swimmer's (possibly new) gender + category so they stay visible in the picker.
   currentGender = a.g;
   document.querySelectorAll('.gender-btn').forEach((b,i) =>
     b.classList.toggle('active', (i===0 && a.g==='M') || (i===1 && a.g==='F')));
-  pickerCat = a.cat;
+  pickerCat = a.region || 'Israel';
 
   try {
     await saveOverrides(collectOverrides());
@@ -1007,7 +1003,7 @@ async function saveAthleteDetails() {
 }
 
 let currentGender = 'M';
-let currentCat = 'all';
+let currentCat = 'Israel';
 
 function setGender(g) {
   currentGender = g;
@@ -1022,12 +1018,10 @@ function setGender(g) {
   renderScoringMatrix();
 }
 
-function setCat(cat) {
-  currentCat = cat;
+function setCat(region) {
+  currentCat = region;
   document.querySelectorAll('.cat-btn').forEach(b => {
-    b.classList.toggle('active', b.textContent.includes(
-      cat==='all'?'All':cat==='senior'?'Senior':cat==='academy'?'Academy':'Youth'
-    ));
+    b.classList.toggle('active', b.textContent.includes(region));
   });
   populateSwimmerSelect();
   document.getElementById('profile-area').innerHTML = '';
@@ -1190,7 +1184,7 @@ function renderAllSkillsComparison(output, swimmers) {
   output.innerHTML='<div class="card"><div class="card-title">All Skills — Score Comparison</div><p class="compare-help">Vertical axis: score out of 10. Each coloured line represents a swimmer across the skills; higher points mean higher scores.</p><div class="compare-legend">'+legend+'</div><div class="compare-graph-wrap"><svg class="compare-chart compare-xy-chart" style="width:'+W+'px" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Line chart comparing swimmer scores across all skills"><line x1="'+L+'" y1="'+T+'" x2="'+L+'" y2="'+(T+ph)+'" stroke="var(--text-muted)" stroke-width="1.2"/><line x1="'+L+'" y1="'+(T+ph)+'" x2="'+(W-R)+'" y2="'+(T+ph)+'" stroke="var(--text-muted)" stroke-width="1.2"/>'+grid+labels+series+'<text x="15" y="'+(T+ph/2)+'" transform="rotate(-90 15 '+(T+ph/2)+')" text-anchor="middle" font-size="12" fill="var(--text-muted)">Score / 10</text></svg></div></div><div class="card"><div class="card-title">All Skills — Comparison Table</div><div class="compare-table-wrap"><table class="compare-table"><thead><tr><th>Skill</th>'+head+'</tr></thead><tbody>'+body+'</tbody></table></div></div>';
 }
 function filtered() {
-  return ATHLETES.filter(a => a.g === currentGender && (currentCat === 'all' || a.cat === currentCat));
+  return ATHLETES.filter(a => a.g === currentGender && (a.region || 'Israel') === currentCat);
 }
 
 let swimmerListCache = [];
@@ -1230,10 +1224,8 @@ function renderPickerCats() {
   const wrap = document.getElementById('picker-cats');
   if (!wrap) return;
   const cats = [
-    { key:'all',     label:'🏊 All' },
-    { key:'senior',  label:'💪 Senior' },
-    { key:'academy', label:'🎓 Academy' },
-    { key:'youth',   label:'⭐ Youth' }
+    { key:'Israel', label:'🇮🇱 Israel' },
+    { key:'Europe', label:'🇪🇺 Europe' }
   ];
   wrap.innerHTML = cats.map(c =>
     `<button type="button" class="cat-btn-inline${pickerCat===c.key?' active':''}" onclick="setPickerCat('${c.key}')">${c.label}</button>`
@@ -1250,7 +1242,7 @@ function renderPickerNames() {
   const wrap = document.getElementById('picker-names');
   if (!wrap) return;
   const list = ATHLETES
-    .filter(a => a.g === currentGender && (pickerCat === 'all' || a.cat === pickerCat) && a.active)
+    .filter(a => a.g === currentGender && (a.region || 'Israel') === pickerCat && a.active)
     .slice()
     .sort((a,b) => a.name.localeCompare(b.name,'he'));
   if (!list.length) {
@@ -1738,7 +1730,7 @@ async function undoLastResult(name, sk) {
 }
 
 let newAthleteGender = 'M';
-let newAthleteCat = 'academy';
+let newAthleteRegion = 'Israel';
 
 function toggleAddAthlete() {
   const form = document.getElementById('add-athlete-form');
@@ -1753,10 +1745,10 @@ function setNewAthleteGender(g) {
   document.getElementById('na-gender-F').classList.toggle('active', g === 'F');
 }
 
-function setNewAthleteCat(cat) {
-  newAthleteCat = cat;
-  ['academy','youth','senior'].forEach(c =>
-    document.getElementById('na-cat-'+c).classList.toggle('active', c === cat));
+function setNewAthleteRegion(region) {
+  newAthleteRegion = region;
+  ['Israel','Europe'].forEach(r =>
+    document.getElementById('na-region-'+r).classList.toggle('active', r === region));
 }
 
 async function createNewAthlete() {
@@ -1767,7 +1759,7 @@ async function createNewAthlete() {
     showToast('⚠️ A swimmer with this name already exists'); return;
   }
 
-  const newAthlete = { name, g: newAthleteGender, cat: newAthleteCat, active: true };
+  const newAthlete = { name, g: newAthleteGender, cat: 'academy', region: newAthleteRegion, active: true };
   SKILLS.forEach(s => { const skIdx = s.key.slice(1); newAthlete[s.key] = 0; newAthlete['sc'+skIdx] = 0; });
   newAthlete.total = 0;
   ATHLETES.push(newAthlete);
@@ -1785,7 +1777,7 @@ async function createNewAthlete() {
 
   // Switch filters to match the new athlete so they're visible, then select them
   setGender(newAthleteGender);
-  pickerCat = newAthlete.cat;
+  pickerCat = newAthlete.region;
   renderPickerCats();
   setSelectedSwimmer(name);
   renderPickerNames();
