@@ -1136,7 +1136,7 @@ function renderComparison() {
     output.innerHTML = '<div class="card compare-empty">Select at least two swimmers to see the comparison chart and table.</div>';
     return;
   }
-  if (compareMode === 'skill') renderSingleSkillComparison(output, swimmers);
+  if (compareMode === 'categories') renderCategoryComparison(output, swimmers);
   else renderAllSkillsComparison(output, swimmers);
 }
 
