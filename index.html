@@ -447,7 +447,7 @@
       <div id="compare-search-results" class="compare-search-results"></div>
       <div class="compare-selected-heading">Selected swimmers <span id="compare-count">(0)</span></div>
       <div id="compare-selected" class="compare-selected"></div>
-      <div class="compare-help">Select at least two swimmers. Select a chosen name again to remove it.</div>
+      <div class="compare-help">Select at least two swimmers. Select a swimmer again to remove them.</div>
     </div>
     <div class="card">
       <div class="compare-mode-tabs">
@@ -948,7 +948,7 @@ let editingAthleteName = null;
 let edGender = 'M', edRegion = 'Israel', edActive = true;
 
 function openDetailsModal(name) {
-  if (supa && !isCoach) { showToast('⚠️ Only coaches can edit swimmer details'); return; }
+  if (supa && !isCoach) { showToast('⚠️ Only coaches can edit swimmer details.'); return; }
   const a = ATHLETES.find(x => x.name === name);
   if (!a) return;
   editingAthleteName = name;
@@ -977,7 +977,7 @@ function syncEdButtons() {
 }
 
 async function saveAthleteDetails() {
-  if (supa && !isCoach) { showToast('⚠️ Only coaches can edit swimmer details'); return; }
+  if (supa && !isCoach) { showToast('⚠️ Only coaches can edit swimmer details.'); return; }
   const a = ATHLETES.find(x => x.name === editingAthleteName);
   if (!a) { closeDetailsModal(); return; }
   const errEl = document.getElementById('details-err');
@@ -1003,7 +1003,7 @@ async function saveAthleteDetails() {
     await saveOverrides(collectOverrides());
     showToast('✅ Details updated');
   } catch (e) {
-    showToast('⚠️ Updated but not saved');
+    showToast('⚠️ Changes were made but could not be saved.');
   }
 
   closeDetailsModal();
@@ -1044,7 +1044,7 @@ function setCat(region) {
 
 function showScreen(name) {
   if (name === 'compare' && !isCoach) {
-    showToast('⚠️ Swimmer Comparison is available to coaches only');
+    showToast('⚠️ Swimmer comparison is available to coaches only.');
     return;
   }
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
@@ -1168,7 +1168,7 @@ function renderCategoryComparison(output, swimmers) {
   const x=i=>L+(i+.5)*pw/categories.length,y=v=>T+ph-Math.max(0,Math.min(10,v))/10*ph;
   const grid=[0,2,4,6,8,10].map(v=>'<line x1="'+L+'" y1="'+y(v)+'" x2="'+(W-R)+'" y2="'+y(v)+'" stroke="var(--border)" stroke-width="1"/><text x="'+(L-10)+'" y="'+(y(v)+4)+'" text-anchor="end" font-size="12" fill="var(--text-muted)">'+v+'</text>').join('');
   const labels=categories.map((c,i)=>{const xx=x(i),words=c.label.replace(/^\S+\s/,'').split(/\s+/);let lines=[''];for(const word of words){const last=lines.length-1;if((lines[last]+' '+word).trim().length>13&&lines[last])lines.push(word);else lines[last]=(lines[last]+' '+word).trim();}lines=lines.slice(0,2);return '<line x1="'+xx+'" y1="'+(T+ph)+'" x2="'+xx+'" y2="'+(T+ph+5)+'" stroke="var(--text-muted)"/><text x="'+xx+'" y="'+(T+ph+19)+'" text-anchor="middle" font-size="10.5" fill="var(--text)">'+lines.map((line,j)=>'<tspan x="'+xx+'" dy="'+(j===0?0:12)+'">'+escapeAttr(line)+'</tspan>').join('')+'</text>';}).join('');
-  const series=swimmers.map((a,i)=>{const color=COMPARE_COLORS[i%COMPARE_COLORS.length],pts=categories.map((c,j)=>({x:x(j),y:y(categoryScore(a,c)===null?0:categoryScore(a,c)),v:categoryScore(a,c)}));return '<polyline points="'+pts.map(p=>p.x+','+p.y).join(' ')+'" fill="none" stroke="'+color+'" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>'+pts.map((p,j)=>'<circle cx="'+p.x+'" cy="'+p.y+'" r="4.5" fill="'+color+'" stroke="var(--surface)" stroke-width="1.5"><title>'+escapeAttr(a.name)+' — '+escapeAttr(categories[j].label)+': '+(p.v!==null?p.v.toFixed(1)+'/10':'No data')+'</title></circle>').join('');}).join('');
+  const series=swimmers.map((a,i)=>{const color=COMPARE_COLORS[i%COMPARE_COLORS.length],pts=categories.map((c,j)=>({x:x(j),y:y(categoryScore(a,c)===null?0:categoryScore(a,c)),v:categoryScore(a,c)}));return '<polyline points="'+pts.map(p=>p.x+','+p.y).join(' ')+'" fill="none" stroke="'+color+'" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>'+pts.map((p,j)=>'<circle cx="'+p.x+'" cy="'+p.y+'" r="4.5" fill="'+color+'" stroke="var(--surface)" stroke-width="1.5"><title>'+escapeAttr(a.name)+' — '+escapeAttr(categories[j].label)+': '+(p.v!==null?p.v.toFixed(1)+'/10':'No data available')+'</title></circle>').join('');}).join('');
   const legend=swimmers.map((a,i)=>'<span class="compare-legend-item"><span class="compare-legend-dot" style="background:'+COMPARE_COLORS[i%COMPARE_COLORS.length]+'"></span>'+escapeAttr(a.name)+'</span>').join('');
   const head=swimmers.map(a=>'<th>'+escapeAttr(a.name)+'</th>').join('');
   const body=categories.map(c=>'<tr><td>'+escapeAttr(c.label)+'</td>'+swimmers.map(a=>{const v=categoryScore(a,c);return '<td>'+(v!==null?v.toFixed(1)+'/10':'—')+'</td>';}).join('')+'</tr>').join('');
@@ -1249,7 +1249,7 @@ function renderPickerNames() {
     .slice()
     .sort((a,b) => a.name.localeCompare(b.name,'he'));
   if (!list.length) {
-    wrap.innerHTML = '<div class="picker-empty">No active swimmers in this category</div>';
+    wrap.innerHTML = '<div class="picker-empty">No active swimmers found in this category.</div>';
     return;
   }
   const selected = document.getElementById('swimmer-select').value;
@@ -1633,15 +1633,15 @@ function categoryBreakdownHtml(a) {
   const minScore = valid.length ? Math.min(...valid.map(i => i.score)) : null;
   const chips = items.map(i => {
     const isWeak = valid.length > 1 && i.score !== null && i.score === minScore;
-    const scoreTxt = i.score !== null ? `${i.score.toFixed(1)}/10` : 'No data';
+    const scoreTxt = i.score !== null ? `${i.score.toFixed(1)}/10` : 'No data available';
     const cls = i.score !== null ? scoreClass(i.score) : 'score-none';
     return `<div class="skill-item" style="${isWeak ? 'border-color:var(--coral);box-shadow:0 0 0 1.5px var(--coral)' : ''}">
-      <div class="skill-name">${i.cat.label}${isWeak ? ' ⚠️ Weakest' : ''}</div>
+      <div class="skill-name">${i.cat.label}${isWeak ? ' ⚠️ Lowest score' : ''}</div>
       <span class="skill-score ${cls}">${scoreTxt}</span>
       <div class="skill-rank">${i.cat.skills.map(sk => SKILLS.find(s=>s.key===sk).label).join(' · ')}</div>
     </div>`;
   }).join('');
-  return `<div class="card-title" style="margin-top:1.5rem">📂 Analysis by Category</div>
+  return `<div class="card-title" style="margin-top:1.5rem">📂 Category Analysis</div>
     <div class="skills-grid">${chips}</div>`;
 }
 
@@ -1665,7 +1665,7 @@ function renderProfile(nameOverride) {
 
     const rankInfo = hasVal ? skillRankInfo(a, s) : null;
     const rankHtml = rankInfo
-      ? `<div class="skill-rank">Ranked #${rankInfo.rank} of ${rankInfo.total} (${a.g==='F'?'Females':'Males'})</div>`
+      ? `<div class="skill-rank">Ranked #${rankInfo.rank} of ${rankInfo.total} (${a.g==='F'?'Women':'Men'})</div>`
       : '';
 
     const valDisplay = hasVal
@@ -1780,7 +1780,7 @@ async function saveResult(name, sk) {
 async function undoLastResult(name, sk) {
   const a = ATHLETES.find(x => x.name === name);
   if (!a || !a.history || !a.history[sk] || !a.history[sk].length) {
-    showToast('⚠️ No previous result to undo');
+    showToast('⚠️ There is no previous result to undo.');
     return;
   }
   const skill = SKILLS.find(s => s.key === sk);
@@ -1839,13 +1839,13 @@ async function createNewAthlete() {
   const name = nameInp.value.trim();
   if (!name) { showToast('⚠️ Enter a swimmer’s name.'); nameInp.focus(); return; }
   if (ATHLETES.find(x => x.name.toLowerCase() === name.toLowerCase())) {
-    showToast('⚠️ A swimmer with this name already exists'); return;
+    showToast('⚠️ A swimmer with this name already exists.'); return;
   }
   const birthYearInput = document.getElementById('new-athlete-birth-year');
   const birthYearText = birthYearInput.value.trim();
   const birthYear = birthYearText ? Number(birthYearText) : null;
   if (birthYearText && (!Number.isInteger(birthYear) || birthYear < 1900 || birthYear > 2026)) {
-    showToast('⚠️ Enter a valid birth year (1900–2026).'); birthYearInput.focus(); return;
+    showToast('⚠️ Enter a valid birth year between 1900 and 2026.'); birthYearInput.focus(); return;
   }
 
   const newAthlete = { name, g: newAthleteGender, cat: 'academy', region: newAthleteRegion, birthYear, active: true };
@@ -1954,7 +1954,7 @@ function renderLeaderboard() {
       .sort((x,y) => y.score - x.score);
 
     if (!rows.length) {
-      area.innerHTML = `<div class="card" style="text-align:center;padding:3rem;color:var(--text-muted)">🏊 No data available</div>`;
+      area.innerHTML = `<div class="card" style="text-align:center;padding:3rem;color:var(--text-muted)">🏊 No data available yet.</div>`;
       return;
     }
 
@@ -1987,7 +1987,7 @@ function renderLeaderboard() {
   const rows = filtered().filter(a => a[sk] && a[sk] > 0).sort((a,b) => a[sk] - b[sk]);
 
   if (!rows.length) {
-    area.innerHTML = `<div class="card" style="text-align:center;padding:3rem;color:var(--text-muted)">🏊 No data available</div>`;
+    area.innerHTML = `<div class="card" style="text-align:center;padding:3rem;color:var(--text-muted)">🏊 No data available yet.</div>`;
     return;
   }
 
