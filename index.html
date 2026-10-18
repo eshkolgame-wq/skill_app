@@ -155,7 +155,11 @@
   .compare-label { display:block; font-size:13px; font-weight:700; color:var(--text-muted); margin-bottom:8px; }
   .compare-search { width:100%; box-sizing:border-box; padding:12px 14px; border:1.5px solid var(--border); border-radius:10px; background:var(--surface); color:var(--text); font:inherit; outline:none; }
   .compare-search:focus { border-color:var(--teal); }
-  .compare-search-results { display:flex; flex-wrap:wrap; gap:7px; margin-top:10px; }
+  .training-session-swimmers{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.training-session-chip{border:1px solid var(--border);background:var(--surface2);color:var(--text);border-radius:10px;padding:9px 11px;display:flex;align-items:center;gap:8px;cursor:pointer;font:inherit;font-size:13px}
+.training-session-chip.active{border-color:var(--teal);background:rgba(0,194,177,.13);font-weight:700}
+.training-session-chip .session-remove{border:0;background:transparent;color:var(--text-muted);font-size:17px;padding:0 2px;cursor:pointer;line-height:1}
+.compare-search-results { display:flex; flex-wrap:wrap; gap:7px; margin-top:10px; }
   .compare-search-result { border:1px solid var(--border); border-radius:20px; padding:7px 12px; background:var(--surface); color:var(--text); font:inherit; font-size:13px; cursor:pointer; }
   .compare-search-result:hover { border-color:var(--teal); }
   .compare-selected-heading { margin-top:18px; margin-bottom:8px; font-size:13px; font-weight:800; }
@@ -364,6 +368,15 @@
   <!-- SCREEN: Profile / Enter Result -->
   <div class="panel" id="panel-profile">
     <button class="back-btn" onclick="showScreen('home')">🏠 Back to Main Menu</button>
+    <div class="card coach-only" id="training-session-card">
+      <div class="card-title">🏊 Training Session — Select Swimmers</div>
+      <p class="compare-help">Add everyone you are timing today. Then tap a swimmer below to switch between their results without searching again.</p>
+      <label class="compare-label" for="session-swimmer-search">Add swimmer to this session</label>
+      <input id="session-swimmer-search" class="compare-search" type="search" placeholder="Type a swimmer name..." autocomplete="off" oninput="renderSessionSwimmerSearch(this.value)">
+      <div id="session-swimmer-search-results" class="compare-search-results"></div>
+      <div id="training-session-swimmers" class="training-session-swimmers"></div>
+      <button type="button" class="btn-cancel" id="clear-training-session" style="margin-top:10px;display:none" onclick="clearTrainingSession()">Clear session</button>
+    </div>
     <div class="card">
       <div class="card-title">Select a Swimmer</div>
       <label class="compare-label" for="profile-swimmer-search">Search by swimmer name</label>
@@ -1255,6 +1268,86 @@ function selectSwimmerFromPicker(name) {
   if (search) search.value = name;
   if (results) results.innerHTML = '';
   renderProfile(name);
+}
+
+// --- Coach training-session swimmer shortcuts ---
+let trainingSessionNames = [];
+
+function renderSessionSwimmerSearch(query) {
+  const wrap = document.getElementById('session-swimmer-search-results');
+  if (!wrap) return;
+  const term = (query || '').trim().toLocaleLowerCase();
+  if (!term) {
+    wrap.innerHTML = '<div class="picker-empty">Search and add the swimmers you are measuring today.</div>';
+    return;
+  }
+  const matches = ATHLETES
+    .filter(a => a.active !== false && a.name.toLocaleLowerCase().includes(term) && !trainingSessionNames.includes(a.name))
+    .slice().sort((a,b) => a.name.localeCompare(b.name));
+  if (!matches.length) {
+    wrap.innerHTML = '<div class="picker-empty">No swimmers found, or all matches are already in this session.</div>';
+    return;
+  }
+  wrap.innerHTML = matches.slice(0, 12).map(a =>
+    `<button type="button" class="compare-search-result" onclick="addSessionSwimmer('${escapeAttr(a.name)}')">＋ ${escapeAttr(a.name)}</button>`
+  ).join('');
+}
+
+function addSessionSwimmer(name) {
+  if (!ATHLETES.some(a => a.name === name) || trainingSessionNames.includes(name)) return;
+  trainingSessionNames.push(name);
+  const search = document.getElementById('session-swimmer-search');
+  if (search) { search.value = ''; search.focus(); }
+  renderSessionSwimmerSearch('');
+  renderTrainingSession();
+  selectSessionSwimmer(name);
+}
+
+function removeSessionSwimmer(name) {
+  trainingSessionNames = trainingSessionNames.filter(n => n !== name);
+  renderTrainingSession();
+  if (document.getElementById('swimmer-select').value === name) {
+    if (trainingSessionNames.length) selectSessionSwimmer(trainingSessionNames[trainingSessionNames.length - 1]);
+    else {
+      document.getElementById('profile-area').innerHTML = '';
+      setSelectedSwimmer('');
+    }
+  }
+  const search = document.getElementById('session-swimmer-search');
+  renderSessionSwimmerSearch(search ? search.value : '');
+}
+
+function clearTrainingSession() {
+  trainingSessionNames = [];
+  const search = document.getElementById('session-swimmer-search');
+  if (search) search.value = '';
+  const results = document.getElementById('session-swimmer-search-results');
+  if (results) results.innerHTML = '<div class="picker-empty">Search and add the swimmers you are measuring today.</div>';
+  renderTrainingSession();
+  document.getElementById('profile-area').innerHTML = '';
+  setSelectedSwimmer('');
+}
+
+function renderTrainingSession() {
+  const wrap = document.getElementById('training-session-swimmers');
+  const clear = document.getElementById('clear-training-session');
+  if (!wrap) return;
+  const selected = document.getElementById('swimmer-select')?.value || '';
+  wrap.innerHTML = trainingSessionNames.map(name =>
+    `<div class="training-session-chip${selected===name?' active':''}"><button type="button" style="all:unset;cursor:pointer" onclick="selectSessionSwimmer('${escapeAttr(name)}')">${escapeAttr(name)}</button><button type="button" class="session-remove" aria-label="Remove ${escapeAttr(name)}" title="Remove from session" onclick="removeSessionSwimmer('${escapeAttr(name)}')">×</button></div>`
+  ).join('');
+  if (clear) clear.style.display = trainingSessionNames.length ? 'inline-flex' : 'none';
+}
+
+function selectSessionSwimmer(name) {
+  if (!trainingSessionNames.includes(name)) return;
+  setSelectedSwimmer(name);
+  const search = document.getElementById('profile-swimmer-search');
+  const results = document.getElementById('profile-swimmer-search-results');
+  if (search) search.value = name;
+  if (results) results.innerHTML = '';
+  renderProfile(name);
+  renderTrainingSession();
 }
 
 // --- Typeahead search for the swimmer picker (filters as you type, e.g. one letter) ---
