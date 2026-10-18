@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>SkillWave — Wingate National Swim Team</title>
+<title>SkillWave — Wingate National Swimming Team</title>
 <link rel="manifest" href="./manifest.json">
 
 <!-- Make this behave like an installed app when added to the home screen -->
@@ -276,7 +276,7 @@
 <div class="modal-backdrop" id="details-modal">
   <div class="modal-card">
     <h2>Edit Swimmer Details</h2>
-    <p class="sub">Update name, gender, category, and status. For coaches only.</p>
+    <p class="sub">Update the swimmer’s name, gender, region, and status. Only coaches can make changes.</p>
     <label for="ed-name">Full Name</label>
     <input type="text" id="ed-name" autocomplete="off">
     <label>Gender</label>
@@ -304,7 +304,7 @@
 </div>
 
 <!-- Cloud sync status -->
-<div class="sync-badge" id="sync-badge" title="Sync status"><span class="sync-dot"></span><span id="sync-text">Local</span></div>
+<div class="sync-badge" id="sync-badge" title="Data sync status"><span class="sync-dot"></span><span id="sync-text">Local</span></div>
 
 <header>
   <div class="logo">
@@ -338,7 +338,7 @@
         <span class="home-card-icon">🏆</span>
         <span class="home-card-text">
           <span class="home-card-title">Swimmer Leaderboard</span>
-          <span class="home-card-sub">Rank by skill, category, or overall score</span>
+          <span class="home-card-sub">Rank swimmers by skill, category, or overall score</span>
         </span>
       </button>
       <button class="home-card coach-only" onclick="showScreen('compare')">
@@ -358,8 +358,8 @@
       <button class="home-card swimmer-only" onclick="showScreen('pbs')">
         <span class="home-card-icon">🥇</span>
         <span class="home-card-text">
-          <span class="home-card-title">My Best in Each Skill</span>
-          <span class="home-card-sub">The best time and score recorded for each skill</span>
+          <span class="home-card-title">My Best Results by Skill</span>
+          <span class="home-card-sub">View your best recorded time and score for each skill</span>
         </span>
       </button>
     </div>
@@ -415,11 +415,11 @@
     <div id="profile-area"></div>
   </div>
 
-  <!-- SCREEN: My Best in Each Skill -->
+  <!-- SCREEN: My Best Results by Skill -->
   <div class="panel" id="panel-pbs">
     <button class="back-btn" onclick="showScreen('home')">🏠 Back to Main Menu</button>
     <div class="card">
-      <div class="card-title">🥇 My Best in Each Skill</div>
+      <div class="card-title">🥇 My Best Results by Skill</div>
       <p style="margin:0 0 14px;color:var(--text-muted);font-size:14px">Search for your name to view your full skills profile.</p>
       <input id="pbs-search-input" class="pbs-search-input" type="search" placeholder="Search for a swimmer..." autocomplete="off" oninput="renderPBsSearchResults(this.value)">
       <div id="pbs-search-results" class="pbs-search-results"></div>
@@ -765,7 +765,7 @@ function subscribeRealtime() {
         applyOverrides(newData);
         recomputeAllScores();
         refreshCurrentView();
-        showToast('🔄 Updated by coach');
+        showToast('🔄 Results updated by a coach.');
       })
     .subscribe((status) => {
       if (status === 'SUBSCRIBED') setSyncStatus('online', 'Synced');
@@ -839,7 +839,7 @@ async function doLogin() {
     if (!isCoach) { errEl.textContent = 'This account isn’t registered as a coach. Contact the system administrator.'; return; }
     document.getElementById('login-password').value = '';
     closeLoginModal();
-    showToast('✅ Welcome, Coach');
+    showToast('✅ Welcome, Coach!');
   } catch (e) {
     errEl.textContent = 'Sign-in error';
   } finally {
@@ -851,7 +851,7 @@ async function doLogout() {
   if (!supa) return;
   try { await supa.auth.signOut(); } catch (e) {}
   await applyRole(null);
-  showToast('Signed out');
+  showToast('You have signed out.');
 }
 
 // --- Boot cloud layer: restore session, watch auth, subscribe to realtime ---
@@ -1001,7 +1001,7 @@ async function saveAthleteDetails() {
 
   try {
     await saveOverrides(collectOverrides());
-    showToast('✅ Details updated');
+    showToast('✅ Swimmer details updated.');
   } catch (e) {
     showToast('⚠️ Changes were made but could not be saved.');
   }
@@ -1278,14 +1278,14 @@ function renderSessionSwimmerSearch(query) {
   if (!wrap) return;
   const term = (query || '').trim().toLocaleLowerCase();
   if (!term) {
-    wrap.innerHTML = '<div class="picker-empty">Search and add the swimmers you are measuring today.</div>';
+    wrap.innerHTML = '<div class="picker-empty">Search for swimmers and add them to today’s session.</div>';
     return;
   }
   const matches = ATHLETES
     .filter(a => a.active !== false && a.name.toLocaleLowerCase().includes(term) && !trainingSessionNames.includes(a.name))
     .slice().sort((a,b) => a.name.localeCompare(b.name));
   if (!matches.length) {
-    wrap.innerHTML = '<div class="picker-empty">No swimmers found, or all matches are already in this session.</div>';
+    wrap.innerHTML = '<div class="picker-empty">No swimmers found, or all matching swimmers are already in this session.</div>';
     return;
   }
   wrap.innerHTML = matches.slice(0, 12).map(a =>
@@ -1322,7 +1322,7 @@ function clearTrainingSession() {
   const search = document.getElementById('session-swimmer-search');
   if (search) search.value = '';
   const results = document.getElementById('session-swimmer-search-results');
-  if (results) results.innerHTML = '<div class="picker-empty">Search and add the swimmers you are measuring today.</div>';
+  if (results) results.innerHTML = '<div class="picker-empty">Search for swimmers and add them to today’s session.</div>';
   renderTrainingSession();
   document.getElementById('profile-area').innerHTML = '';
   setSelectedSwimmer('');
@@ -1366,7 +1366,7 @@ function filterSwimmerList() {
       });
 
   if (!matches.length) {
-    list.innerHTML = '<div class="swimmer-search-empty">🔍 No matching swimmer found — try another name or letter</div>';
+    list.innerHTML = '<div class="swimmer-search-empty">🔍 No matching swimmers found. Try another name or letter.</div>';
   } else {
     list.innerHTML = matches.map(a => {
       const female = a.g === 'F' ? ' female' : '';
@@ -1665,7 +1665,7 @@ function renderProfile(nameOverride) {
 
     const rankInfo = hasVal ? skillRankInfo(a, s) : null;
     const rankHtml = rankInfo
-      ? `<div class="skill-rank">Ranked #${rankInfo.rank} of ${rankInfo.total} (${a.g==='F'?'Women':'Men'})</div>`
+      ? `<div class="skill-rank">Rank: #${rankInfo.rank} of ${rankInfo.total} (${a.g==='F'?'Women':'Men'})</div>`
       : '';
 
     const valDisplay = hasVal
@@ -1708,7 +1708,7 @@ function renderProfile(nameOverride) {
         ${nameBlock}
         <div class="profile-sub">${isFemale?'Female swimmer':'Male swimmer'} · ${catLabel(a.cat)}${statusTxt}</div>
       </div>
-      <div class="total-badge" id="total-badge-${a.name.replace(/\s/g,'_')}">Total Score: ${a.total.toFixed(1)}</div>
+      <div class="total-badge" id="total-badge-${a.name.replace(/\s/g,'_')}">Overall Score: ${a.total.toFixed(1)}</div>
       <button class="coach-only" onclick="openDetailsModal('${escapeAttr(a.name)}')" title="Edit details" style="background:none;border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:11px;color:var(--text-muted);cursor:pointer">✏️ Details</button>
       <button class="coach-only" onclick="resetAthlete('${a.name}')" title="Reset to original data" style="background:none;border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:11px;color:var(--text-muted);cursor:pointer">↺ Reset</button>
     </div>
@@ -1755,9 +1755,9 @@ async function applyResult(name, sk, newTime) {
   // Persist to storage so the update survives reloads
   try {
     await saveOverrides(collectOverrides());
-    showToast(`✅ Saved: ${name} — ${SKILLS.find(s=>s.key===sk).label} → ${newTime.toFixed(2)} sec`);
+    showToast(`✅ Saved ${name}’s result for ${SKILLS.find(s=>s.key===sk).label}: ${newTime.toFixed(2)} seconds.`);
   } catch (e) {
-    showToast(`⚠️ Updated but not saved (${name})`);
+    showToast(`⚠️ The result for ${name} was updated locally but could not be saved.`);
   }
 
   renderProfile();
@@ -1803,9 +1803,9 @@ async function undoLastResult(name, sk) {
 
   try {
     await saveOverrides(collectOverrides());
-    showToast(`↩️ Undone: ${name} — ${skill.label}`);
+    showToast(`↩️ Undid the latest result for ${name} — ${skill.label}.`);
   } catch (e) {
-    showToast(`⚠️ Undone locally but not saved (${name})`);
+    showToast(`⚠️ The result for ${name} was undone locally but could not be saved.`);
   }
 
   renderProfile();
@@ -1857,7 +1857,7 @@ async function createNewAthlete() {
     await saveOverrides(collectOverrides());
     showToast(`✅ Added: ${name}`);
   } catch (e) {
-    showToast(`⚠️ Added but not saved (${name})`);
+    showToast(`⚠️ ${name} was added locally but could not be saved.`);
   }
 
   // Reset the form
@@ -1887,7 +1887,7 @@ async function resetAthlete(name) {
     a.history = {};
   }
   await saveOverrides(collectOverrides());
-  showToast(`↺ Reset: ${name}`);
+  showToast(`↺ Reset ${name} to the original data.`);
   renderProfile();
   setSelectedSwimmer(name);
 }
@@ -1933,9 +1933,9 @@ function renderLeaderboard() {
     }).join('');
 
     area.innerHTML = `<div class="card" style="padding:1rem">
-      <div class="card-title">Overall Ranking — Total Score (${currentGender==='M'?'Men':'Women'})</div>
+      <div class="card-title">Overall Ranking — Overall Score (${currentGender==='M'?'Men':'Women'})</div>
       <table class="leaderboard-table" style="table-layout:fixed;width:100%">
-        <thead><tr><th style="width:40px">Rank</th><th>Name</th><th style="width:150px">Score (Avg)</th></tr></thead>
+        <thead><tr><th style="width:40px">Rank</th><th>Name</th><th style="width:150px">Average Score</th></tr></thead>
         <tbody>${tbody}</tbody>
       </table>
     </div>`;
