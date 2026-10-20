@@ -310,7 +310,8 @@
     <h2>Welcome to SkillWave</h2>
     <p class="sub">What is your name? We’ll remember your swimmer profile on this device and open it automatically next time.</p>
     <label for="saved-swimmer-name-input">Your name</label>
-    <input type="text" id="saved-swimmer-name-input" autocomplete="name" placeholder="Enter your swimmer name" onkeydown="if(event.key==='Enter')saveSwimmerName()">
+    <input type="search" id="saved-swimmer-name-input" autocomplete="off" placeholder="Start typing your name..." oninput="renderSavedSwimmerOptions(this.value)" onkeydown="if(event.key===\'Enter\'){event.preventDefault();saveSwimmerName()}">
+    <div id="saved-swimmer-name-options" class="pbs-search-results"></div>
     <div class="modal-err" id="saved-swimmer-name-error"></div>
     <div class="modal-actions"><button class="btn-primary" onclick="saveSwimmerName()">Save name</button></div>
   </div>
@@ -1508,35 +1509,60 @@ function renderHomeGreeting() {
   heading.textContent = name ? 'Hey ' + name.split(/\s+/)[0] : 'What would you like to do?';
 }
 
+let pendingSavedSwimmerName = '';
+
+function renderSavedSwimmerOptions(query) {
+  const wrap = document.getElementById('saved-swimmer-name-options');
+  if (!wrap) return;
+  const term = (query || '').trim().toLocaleLowerCase();
+  pendingSavedSwimmerName = '';
+  const error = document.getElementById('saved-swimmer-name-error');
+  if (error) error.textContent = '';
+  if (!term) { wrap.innerHTML = '<div class="picker-empty">Start typing your name to find your swimmer profile.</div>'; return; }
+  const matches = ATHLETES.filter(a => a.active !== false && a.name.toLocaleLowerCase().includes(term)).slice().sort((a,b) => a.name.localeCompare(b.name));
+  if (!matches.length) { wrap.innerHTML = '<div class="picker-empty">No swimmers found. Try another spelling.</div>'; return; }
+  wrap.innerHTML = matches.slice(0,12).map(a =>
+    '<button type="button" class="pbs-search-result" onclick="chooseSavedSwimmer(&quot;' + escapeAttr(a.name) + '&quot;)">' +
+    '<span class="name-btn-avatar' + (a.g === 'F' ? ' female' : '') + '">' + initials(a.name) + '</span>' +
+    '<span>' + escapeAttr(a.name) + '</span>' +
+    '<span class="pbs-search-meta">' + countryFlag(a.country || 'IL') + (a.birthYear ? ' · ' + a.birthYear : '') + '</span></button>'
+  ).join('');
+}
+
+function chooseSavedSwimmer(name) {
+  const athlete = ATHLETES.find(a => a.name === name && a.active !== false);
+  if (!athlete) return;
+  pendingSavedSwimmerName = athlete.name;
+  const input = document.getElementById('saved-swimmer-name-input');
+  const wrap = document.getElementById('saved-swimmer-name-options');
+  if (input) input.value = athlete.name;
+  if (wrap) wrap.innerHTML = '<div class="picker-empty" style="color:var(--teal);font-weight:700">✓ Selected: ' + escapeAttr(athlete.name) + '</div>';
+  const error = document.getElementById('saved-swimmer-name-error');
+  if (error) error.textContent = '';
+}
+
 function showNameModal(changeName) {
   const modal = document.getElementById('swimmer-name-modal');
   const input = document.getElementById('saved-swimmer-name-input');
   const error = document.getElementById('saved-swimmer-name-error');
   if (!modal || !input) return;
-  input.value = changeName ? getSavedSwimmerName() : '';
+  const saved = changeName ? getSavedSwimmerName() : '';
+  input.value = saved; pendingSavedSwimmerName = '';
   if (error) error.textContent = '';
+  renderSavedSwimmerOptions(saved);
+  const match = ATHLETES.find(a => a.name.toLocaleLowerCase() === saved.toLocaleLowerCase() && a.active !== false);
+  if (match) chooseSavedSwimmer(match.name);
   modal.classList.add('open');
   setTimeout(() => input.focus(), 50);
 }
 
 function saveSwimmerName() {
-  const input = document.getElementById('saved-swimmer-name-input');
   const error = document.getElementById('saved-swimmer-name-error');
-  const typed = input ? input.value.trim() : '';
-  if (!typed) {
-    if (error) error.textContent = 'Please enter your name.';
-    return;
-  }
-  const match = ATHLETES.find(a => a.name.toLocaleLowerCase() === typed.toLocaleLowerCase());
-  const savedName = match ? match.name : typed;
-  try { localStorage.setItem(SAVED_SWIMMER_KEY, savedName); }
-  catch (e) {
-    if (error) error.textContent = 'Could not save on this device. Please check browser storage settings.';
-    return;
-  }
+  if (!pendingSavedSwimmerName) { if (error) error.textContent = 'Please choose your name from the suggestions.'; return; }
+  try { localStorage.setItem(SAVED_SWIMMER_KEY, pendingSavedSwimmerName); }
+  catch (e) { if (error) error.textContent = 'Could not save on this device. Please check browser storage settings.'; return; }
   document.getElementById('swimmer-name-modal').classList.remove('open');
-  renderHomeGreeting();
-  showToast('Name saved on this device.');
+  renderHomeGreeting(); showToast('Swimmer profile saved on this device.');
 }
 
 function openSavedSwimmerProfile() {
