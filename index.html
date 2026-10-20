@@ -304,6 +304,18 @@
 <body>
 <div class="toast" id="toast"></div>
 
+<!-- Remember swimmer name modal -->
+<div class="modal-backdrop" id="swimmer-name-modal">
+  <div class="modal-card">
+    <h2>Welcome to SkillWave</h2>
+    <p class="sub">What is your name? We’ll remember your swimmer profile on this device and open it automatically next time.</p>
+    <label for="saved-swimmer-name-input">Your name</label>
+    <input type="text" id="saved-swimmer-name-input" autocomplete="name" placeholder="Enter your swimmer name" onkeydown="if(event.key==='Enter')saveSwimmerName()">
+    <div class="modal-err" id="saved-swimmer-name-error"></div>
+    <div class="modal-actions"><button class="btn-primary" onclick="saveSwimmerName()">Save name</button></div>
+  </div>
+</div>
+
 <!-- Coach login modal -->
 <div class="modal-backdrop" id="login-modal">
   <div class="modal-card">
@@ -385,7 +397,8 @@
 <div class="main">
   <!-- HOME SCREEN -->
   <div class="panel active" id="panel-home">
-    <div class="home-title">What would you like to do?</div>
+    <div class="home-title" id="home-greeting">What would you like to do?</div>
+    <div style="text-align:center;margin:-0.8rem 0 1rem"><button type="button" class="btn-ghost" style="font-size:12px;padding:5px 10px" onclick="showNameModal(true)">Change swimmer</button></div>
     <div class="home-options">
       <button class="home-card" onclick="showScreen('leaderboard')">
         <span class="home-card-icon">🏆</span>
@@ -475,7 +488,7 @@
     <button class="back-btn" onclick="showScreen('home')">🏠 Back to Main Menu</button>
     <div class="card">
       <div class="card-title">🥇 My Best Results by Skill</div>
-      <p style="margin:0 0 14px;color:var(--text-muted);font-size:14px">Search for your name to view your full skills profile.</p>
+      <p style="margin:0 0 14px;color:var(--text-muted);font-size:14px">Your saved swimmer profile opens automatically. You can search for another swimmer below.</p>
       <input id="pbs-search-input" class="pbs-search-input" type="search" placeholder="Search for a swimmer..." autocomplete="off" oninput="renderPBsSearchResults(this.value)">
       <div id="pbs-search-results" class="pbs-search-results"></div>
     </div>
@@ -1149,6 +1162,7 @@ function showScreen(name) {
   if (name === 'pbs') {
     const search = document.getElementById('pbs-search-input');
     if (search) { search.value = ''; renderPBsSearchResults(''); }
+    if (openSavedSwimmerProfile()) return;
   }
   if (name === 'scoring') renderScoringMatrix();
   if (name === 'compare') initComparisonScreen();
@@ -1477,6 +1491,68 @@ function setSelectedSwimmer(name) {
   document.getElementById('swimmer-select').value = name || '';
   const searchInput = document.getElementById('swimmer-search-input');
   if (searchInput) searchInput.value = name || '';
+}
+
+// --- Remember the swimmer on this device ---
+const SAVED_SWIMMER_KEY = 'skillwave_saved_swimmer_name_v1';
+
+function getSavedSwimmerName() {
+  try { return (localStorage.getItem(SAVED_SWIMMER_KEY) || '').trim(); }
+  catch (e) { return ''; }
+}
+
+function renderHomeGreeting() {
+  const heading = document.getElementById('home-greeting');
+  if (!heading) return;
+  const name = getSavedSwimmerName();
+  heading.textContent = name ? 'Hey ' + name.split(/\s+/)[0] : 'What would you like to do?';
+}
+
+function showNameModal(changeName) {
+  const modal = document.getElementById('swimmer-name-modal');
+  const input = document.getElementById('saved-swimmer-name-input');
+  const error = document.getElementById('saved-swimmer-name-error');
+  if (!modal || !input) return;
+  input.value = changeName ? getSavedSwimmerName() : '';
+  if (error) error.textContent = '';
+  modal.classList.add('open');
+  setTimeout(() => input.focus(), 50);
+}
+
+function saveSwimmerName() {
+  const input = document.getElementById('saved-swimmer-name-input');
+  const error = document.getElementById('saved-swimmer-name-error');
+  const typed = input ? input.value.trim() : '';
+  if (!typed) {
+    if (error) error.textContent = 'Please enter your name.';
+    return;
+  }
+  const match = ATHLETES.find(a => a.name.toLocaleLowerCase() === typed.toLocaleLowerCase());
+  const savedName = match ? match.name : typed;
+  try { localStorage.setItem(SAVED_SWIMMER_KEY, savedName); }
+  catch (e) {
+    if (error) error.textContent = 'Could not save on this device. Please check browser storage settings.';
+    return;
+  }
+  document.getElementById('swimmer-name-modal').classList.remove('open');
+  renderHomeGreeting();
+  showToast('Name saved on this device.');
+}
+
+function openSavedSwimmerProfile() {
+  const saved = getSavedSwimmerName();
+  if (!saved) return false;
+  const match = ATHLETES.find(a => a.name.toLocaleLowerCase() === saved.toLocaleLowerCase());
+  if (match) {
+    openProfile(match.name);
+    return true;
+  }
+  const search = document.getElementById('pbs-search-input');
+  if (search) {
+    search.value = saved;
+    renderPBsSearchResults(saved);
+  }
+  return false;
 }
 
 // --- "My Best in Each Skill": search a swimmer and open their full profile ---
@@ -2127,6 +2203,8 @@ async function boot() {
   populateSwimmerSelect();
   populateSkillSelect();
   renderScoringMatrix();
+  renderHomeGreeting();
+  if (!getSavedSwimmerName()) showNameModal(false);
 }
 boot();
 
