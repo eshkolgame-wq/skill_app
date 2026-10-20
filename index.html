@@ -284,6 +284,10 @@
       <button type="button" class="cat-btn-inline" id="ed-gender-M" onclick="setEdGender('M')">Male</button>
       <button type="button" class="cat-btn-inline" id="ed-gender-F" onclick="setEdGender('F')">Female</button>
     </div>
+    <label for="ed-country">Country</label>
+    <select id="ed-country">${countryOptionsHtml('IL')}</select>
+    <label for="ed-birth-year">Birth Year (optional)</label>
+    <input type="number" id="ed-birth-year" min="1900" max="2026" step="1" placeholder="Birth year">
     <label>Region</label>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
       <button type="button" class="cat-btn-inline" id="ed-region-Israel" onclick="setEdRegion('Israel')">🇮🇱 Israel</button>
@@ -392,6 +396,8 @@
       <div id="add-athlete-form" style="display:none;margin-top:10px">
         <input type="text" id="new-athlete-name" class="add-athlete-input" placeholder="Full Name">
         <input type="number" id="new-athlete-birth-year" class="add-athlete-input" placeholder="Birth Year (optional)" min="1900" max="2026" step="1" aria-label="Birth year">
+        <label class="add-athlete-label" for="new-athlete-country">Country</label>
+        <select id="new-athlete-country" style="margin-bottom:12px">${countryOptionsHtml('IL')}</select>
         <div style="margin-bottom:12px">
           <div class="add-athlete-label">Gender</div>
           <div style="display:flex;gap:8px">
@@ -889,7 +895,7 @@ async function initCloud() {
 }
 
 // Fields (besides skills/scores/total/history) that a coach can edit and that must persist.
-const META_FIELDS = ['name', 'g', 'cat', 'active', 'region'];
+const META_FIELDS = ['name', 'g', 'cat', 'active', 'region', 'country', 'birthYear'];
 
 function applyOverrides(overrides) {
   if (!overrides) return;
@@ -937,10 +943,29 @@ function collectOverrides() {
 
 // Human-readable category label (matches the category bar)
 function catLabel(cat) {
-  return cat === 'senior'  ? '💪 Senior'
-       : cat === 'academy' ? '🎓 Academy'
-       : cat === 'youth'   ? '⭐ Youth'
-       : (cat || '');
+  // Legacy training-level categories are kept internally for compatibility, but no longer shown.
+  return '';
+}
+
+const COUNTRY_OPTIONS = [
+  ['IL','Israel'],['US','United States'],['GB','United Kingdom'],['FR','France'],
+  ['DE','Germany'],['IT','Italy'],['ES','Spain'],['PL','Poland'],['HU','Hungary'],
+  ['CZ','Czechia'],['RU','Russia'],['UA','Ukraine'],['NL','Netherlands'],
+  ['SE','Sweden'],['NO','Norway'],['DK','Denmark'],['CH','Switzerland'],
+  ['AT','Austria'],['BE','Belgium'],['GR','Greece'],['PT','Portugal'],
+  ['RO','Romania'],['HR','Croatia'],['RS','Serbia'],['TR','Türkiye'],
+  ['CA','Canada'],['AU','Australia'],['NZ','New Zealand'],['JP','Japan'],
+  ['CN','China'],['BR','Brazil'],['MX','Mexico'],['ZA','South Africa'],
+  ['OTHER','Other']
+];
+function countryFlag(code) {
+  if (!code || code === 'OTHER') return '🌐';
+  return String.fromCodePoint(...code.toUpperCase().slice(0,2).split('').map(c => 127397 + c.charCodeAt(0)));
+}
+function countryOptionsHtml(selected) {
+  return COUNTRY_OPTIONS.map(([code,label]) =>
+    `<option value="${code}" ${(selected || 'IL')===code?'selected':''}>${countryFlag(code)} ${label}</option>`
+  ).join('');
 }
 
 // --- Edit swimmer details (coaches only) ---
@@ -956,6 +981,8 @@ function openDetailsModal(name) {
   edRegion = a.region || 'Israel';
   edActive = a.active !== false;
   document.getElementById('ed-name').value = a.name;
+  document.getElementById('ed-country').value = a.country || 'IL';
+  document.getElementById('ed-birth-year').value = a.birthYear || '';
   document.getElementById('details-err').textContent = '';
   syncEdButtons();
   document.getElementById('details-modal').classList.add('open');
@@ -991,6 +1018,13 @@ async function saveAthleteDetails() {
   a.name = newName;
   a.g = edGender;
   a.region = edRegion;
+  a.country = document.getElementById('ed-country').value || 'IL';
+  const birthYearText = document.getElementById('ed-birth-year').value.trim();
+  const birthYear = birthYearText ? Number(birthYearText) : null;
+  if (birthYearText && (!Number.isInteger(birthYear) || birthYear < 1900 || birthYear > 2026)) {
+    errEl.textContent = 'Enter a valid birth year between 1900 and 2026.'; return;
+  }
+  a.birthYear = birthYear;
   a.active = edActive;
 
   // Follow the swimmer's (possibly new) gender + category so they stay visible in the picker.
@@ -1412,7 +1446,7 @@ function renderPBsSearchResults(query) {
     return `<button type="button" class="pbs-search-result" onclick="openProfile('${escapeAttr(a.name)}')">
       <span class="name-btn-avatar${female}">${initials(a.name)}</span>
       <span>${a.name}</span>
-      <span class="pbs-search-meta">${catLabel(a.cat).replace(/^[^A-Za-z]+/, '')}</span>
+      <span class="pbs-search-meta">${countryFlag(a.country || 'IL')}${a.birthYear ? ' · '+a.birthYear : ''}</span>
     </button>`;
   }).join('');
 }
@@ -1706,7 +1740,7 @@ function renderProfile(nameOverride) {
       <div class="avatar${isFemale?' female':''}">${initials(a.name)}</div>
       <div>
         ${nameBlock}
-        <div class="profile-sub">${isFemale?'Female swimmer':'Male swimmer'} · ${catLabel(a.cat)}${statusTxt}</div>
+        <div class="profile-sub">${isFemale?'Female swimmer':'Male swimmer'} · ${countryFlag(a.country || 'IL')}${a.birthYear ? ' · '+a.birthYear : ''}${statusTxt}</div>
       </div>
       <div class="total-badge" id="total-badge-${a.name.replace(/\s/g,'_')}">Overall Score: ${a.total.toFixed(1)}</div>
       <button class="coach-only" onclick="openDetailsModal('${escapeAttr(a.name)}')" title="Edit details" style="background:none;border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:11px;color:var(--text-muted);cursor:pointer">✏️ Details</button>
@@ -1848,7 +1882,8 @@ async function createNewAthlete() {
     showToast('⚠️ Enter a valid birth year between 1900 and 2026.'); birthYearInput.focus(); return;
   }
 
-  const newAthlete = { name, g: newAthleteGender, cat: 'academy', region: newAthleteRegion, birthYear, active: true };
+  const country = document.getElementById('new-athlete-country').value || 'IL';
+  const newAthlete = { name, g: newAthleteGender, cat: 'academy', region: newAthleteRegion, country, birthYear, active: true };
   SKILLS.forEach(s => { const skIdx = s.key.slice(1); newAthlete[s.key] = 0; newAthlete['sc'+skIdx] = 0; });
   newAthlete.total = 0;
   ATHLETES.push(newAthlete);
@@ -1863,6 +1898,7 @@ async function createNewAthlete() {
   // Reset the form
   nameInp.value = '';
   document.getElementById('new-athlete-birth-year').value = '';
+  document.getElementById('new-athlete-country').value = 'IL';
   toggleAddAthlete();
 
   // Switch filters to match the new athlete so they're visible, then select them
