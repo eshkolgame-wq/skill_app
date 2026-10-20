@@ -1,5 +1,5 @@
 // חשוב: קדמו את המספר הזה (v1 -> v2 -> v3...) בכל דיפלוי כדי שהגרסה החדשה תדרוס את הישנה
-const CACHE_NAME = 'skillwave-cache-v16';
+const CACHE_NAME = 'skillwave-cache-v17';
 const urlsToCache = [
   './index.html',
   './manifest.json',
@@ -14,8 +14,6 @@ self.addEventListener('install', event => {
   event.waitUntil(
     (async () => {
       const cache = await caches.open(CACHE_NAME);
-      // fetch עם cache:'no-cache' כדי לעקוף גם את מטמון ה-HTTP של הדפדפן,
-      // לא רק את מטמון ה-Service Worker
       await Promise.all(urlsToCache.map(async (url) => {
         try {
           const res = await fetch(url, { cache: 'no-cache' });
@@ -27,7 +25,6 @@ self.addEventListener('install', event => {
   );
 });
 
-// בהפעלה: מוחקת מטמונים ישנים (מגרסאות קודמות) ותופסת שליטה מיידית על כל הטאבים הפתוחים
 self.addEventListener('activate', event => {
   event.waitUntil(
     (async () => {
@@ -38,21 +35,14 @@ self.addEventListener('activate', event => {
   );
 });
 
-// שליפת קבצים מהמטמון או מהרשת
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
-  
-  // אם הבקשה היא ל־Supabase (או לשרת חיצוני), תביא תמיד מהרשת ואל תשמור במטמון
   if (url.hostname.includes('supabase.co')) {
     event.respondWith(fetch(event.request));
     return;
   }
-
-  // לכל השאר - רגיל (מטמון ואז רשת)
   event.respondWith(
     caches.match(event.request)
-      .then(response => {
-        return response || fetch(event.request);
-      })
+      .then(response => response || fetch(event.request))
   );
 });
