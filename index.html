@@ -317,6 +317,16 @@
   </div>
 </div>
 
+<!-- Install SkillWave help modal -->
+<div class="modal-backdrop" id="install-help-modal">
+  <div class="modal-card">
+    <h2>Install SkillWave</h2>
+    <p class="sub" id="install-help-text">Add SkillWave to your home screen for quick access.</p>
+    <div id="install-help-steps" style="font-size:14px;line-height:1.7;color:var(--text);margin:8px 0 16px"></div>
+    <div class="modal-actions"><button class="btn-primary" onclick="closeInstallHelp()">Got it</button></div>
+  </div>
+</div>
+
 <!-- Coach login modal -->
 <div class="modal-backdrop" id="login-modal">
   <div class="modal-card">
@@ -400,6 +410,7 @@
   <div class="panel active" id="panel-home">
     <div class="home-title" id="home-greeting">What would you like to do?</div>
     <div style="text-align:center;margin:-0.8rem 0 1rem"><button type="button" class="btn-ghost" style="font-size:12px;padding:5px 10px" onclick="showNameModal(true)">Change swimmer</button></div>
+    <div id="install-app-wrap" style="text-align:center;margin:-0.35rem 0 1.1rem"><button type="button" class="btn-primary" id="install-app-button" onclick="installSkillWave()" style="padding:10px 18px;border:0;border-radius:22px;background:var(--teal);color:var(--navy);font:700 14px inherit;cursor:pointer;box-shadow:0 3px 12px rgba(0,194,177,.22)">⬇ Install SkillWave</button></div>
     <div class="home-options">
       <button class="home-card" onclick="showScreen('leaderboard')">
         <span class="home-card-icon">🏆</span>
@@ -1494,6 +1505,53 @@ function setSelectedSwimmer(name) {
   if (searchInput) searchInput.value = name || '';
 }
 
+// --- PWA install flow ---
+let deferredInstallPrompt = null;
+window.addEventListener('beforeinstallprompt', event => {
+  event.preventDefault();
+  deferredInstallPrompt = event;
+  updateInstallButton();
+});
+window.addEventListener('appinstalled', () => {
+  deferredInstallPrompt = null;
+  const wrap = document.getElementById('install-app-wrap');
+  if (wrap) wrap.style.display = 'none';
+  showToast('SkillWave installed successfully.');
+});
+function isSkillWaveInstalled() {
+  return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+}
+function updateInstallButton() {
+  const wrap = document.getElementById('install-app-wrap');
+  if (wrap) wrap.style.display = isSkillWaveInstalled() ? 'none' : 'block';
+}
+async function installSkillWave() {
+  if (isSkillWaveInstalled()) { showToast('SkillWave is already installed.'); return; }
+  if (deferredInstallPrompt) {
+    deferredInstallPrompt.prompt();
+    await deferredInstallPrompt.userChoice;
+    deferredInstallPrompt = null;
+    updateInstallButton();
+    return;
+  }
+  const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const steps = document.getElementById('install-help-steps');
+  const text = document.getElementById('install-help-text');
+  if (ios) {
+    if (text) text.textContent = 'On iPhone or iPad, add SkillWave from Safari:';
+    if (steps) steps.innerHTML = '<ol style="padding-left:22px"><li>Open this link in <b>Safari</b>.</li><li>Tap the <b>Share</b> button.</li><li>Choose <b>Add to Home Screen</b>.</li><li>Tap <b>Add</b>.</li></ol>';
+  } else {
+    if (text) text.textContent = 'To install SkillWave on Android:';
+    if (steps) steps.innerHTML = '<ol style="padding-left:22px"><li>Open this page in <b>Chrome</b>.</li><li>Tap the <b>⋮</b> menu.</li><li>Choose <b>Install app</b> or <b>Add to Home screen</b>.</li></ol><p style="margin-top:10px;color:var(--text-muted);font-size:12px">If the option is missing, reload the page or try opening the link directly in Chrome.</p>';
+  }
+  const modal = document.getElementById('install-help-modal');
+  if (modal) modal.classList.add('open');
+}
+function closeInstallHelp() {
+  const modal = document.getElementById('install-help-modal');
+  if (modal) modal.classList.remove('open');
+}
+
 // --- Remember the swimmer on this device ---
 const SAVED_SWIMMER_KEY = 'skillwave_saved_swimmer_name_v1';
 
@@ -2230,6 +2288,7 @@ async function boot() {
   populateSkillSelect();
   renderScoringMatrix();
   renderHomeGreeting();
+  updateInstallButton();
   if (!getSavedSwimmerName()) showNameModal(false);
 }
 boot();
