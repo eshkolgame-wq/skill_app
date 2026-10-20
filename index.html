@@ -285,7 +285,7 @@
       <button type="button" class="cat-btn-inline" id="ed-gender-F" onclick="setEdGender('F')">Female</button>
     </div>
     <label for="ed-country">Country</label>
-    <select id="ed-country">${countryOptionsHtml('IL')}</select>
+    <select id="ed-country"></select>
     <label for="ed-birth-year">Birth Year (optional)</label>
     <input type="number" id="ed-birth-year" min="1900" max="2026" step="1" placeholder="Birth year">
     <label>Region</label>
@@ -397,7 +397,7 @@
         <input type="text" id="new-athlete-name" class="add-athlete-input" placeholder="Full Name">
         <input type="number" id="new-athlete-birth-year" class="add-athlete-input" placeholder="Birth Year (optional)" min="1900" max="2026" step="1" aria-label="Birth year">
         <label class="add-athlete-label" for="new-athlete-country">Country</label>
-        <select id="new-athlete-country" style="margin-bottom:12px">${countryOptionsHtml('IL')}</select>
+        <select id="new-athlete-country" style="margin-bottom:12px"></select>
         <div style="margin-bottom:12px">
           <div class="add-athlete-label">Gender</div>
           <div style="display:flex;gap:8px">
@@ -966,6 +966,12 @@ function countryOptionsHtml(selected) {
   return COUNTRY_OPTIONS.map(([code,label]) =>
     `<option value="${code}" ${(selected || 'IL')===code?'selected':''}>${countryFlag(code)} ${label}</option>`
   ).join('');
+}
+function populateCountrySelects() {
+  ['ed-country','new-athlete-country'].forEach(id => {
+    const select = document.getElementById(id);
+    if (select) select.innerHTML = countryOptionsHtml('IL');
+  });
 }
 
 // --- Edit swimmer details (coaches only) ---
@@ -2064,6 +2070,7 @@ function renderScoringMatrix() {
 
 // Init
 async function boot() {
+  populateCountrySelects();
   await initCloud();
   const overrides = await loadOverrides();
   applyOverrides(overrides);
