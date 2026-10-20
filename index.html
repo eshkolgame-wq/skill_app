@@ -243,12 +243,58 @@
   .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--navy); color: #fff; padding: 11px 22px; border-radius: 24px; font-size: 14px; font-weight: 700; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 999; box-shadow: 0 6px 20px rgba(10,31,68,0.3); }
   .toast.show { opacity: 1; }
   @media (max-width: 600px) {
-    header { padding: 0 0.75rem; }
-    .logo h1 { font-size: 14px; }
-    .gender-btn { padding: 6px 11px; font-size: 13px; }
+    /* Mobile header: stack the brand and controls instead of squeezing them into one row. */
+    header {
+      height: auto;
+      min-height: 60px;
+      padding: 10px 12px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .logo {
+      flex: 1 1 100%;
+      min-width: 0;
+      gap: 9px;
+    }
+    .logo > div { min-width: 0; }
+    .logo h1 { font-size: 17px; line-height: 1.2; }
+    .logo span { display: block; font-size: 11px; line-height: 1.25; white-space: normal; }
+    header > div:last-child {
+      width: 100%;
+      min-width: 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .gender-toggle { max-width: 100%; }
+    .gender-btn { padding: 7px 12px; font-size: 13px; }
+    #auth-slot {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 6px;
+      min-width: 0;
+      margin-left: auto;
+    }
+    .auth-btn { padding: 6px 10px; font-size: 11px; }
+    .role-pill { font-size: 10px; }
+    .scoring-info-btn { width: 32px; height: 32px; flex-basis: 32px; }
+    .cat-bar { padding: 10px 12px; gap: 8px; }
+    .cat-btn { padding: 7px 14px; font-size: 13px; }
     .tab { padding: 9px 10px; font-size: 12px; }
     .skills-grid { grid-template-columns: 1fr 1fr; }
-    .main { padding: 1rem 0.75rem 3rem; }
+    .main { width: 100%; max-width: 960px; padding: 1rem 12px 3rem; }
+    .home-title { font-size: clamp(20px, 5.5vw, 24px); }
+    .home-card { min-width: 0; padding: 1rem; gap: 12px; }
+    .home-card-text { min-width: 0; }
+    .home-card-title { font-size: 16px; }
+    .home-card-sub { font-size: 13px; line-height: 1.4; overflow-wrap: anywhere; }
   }
 </style>
 </head>
