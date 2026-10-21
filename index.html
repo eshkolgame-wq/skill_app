@@ -321,7 +321,14 @@
 <div class="modal-backdrop" id="login-modal">
   <div class="modal-card">
     <h2>Coach Login</h2>
-    <p class="sub">Sign in to update results and times. Swimmers can view the app without signing in.</p>
+    <p class="sub">Choose your coach profile, then sign in with its approved email and password.</p>
+    <label for="login-coach">Coach</label>
+    <select id="login-coach" style="margin-bottom:8px" onchange="syncCoachEmailHint()">
+      <option value="Carmel">Coach Carmel</option>
+      <option value="Eshkol">Coach Eshkol</option>
+      <option value="Neil">Coach Neil (not yet authorized)</option>
+    </select>
+    <p id="login-coach-hint" class="sub" style="margin:0 0 10px">Use the email assigned to Coach Carmel.</p>
     <label for="login-email">Email</label>
     <input type="email" id="login-email" autocomplete="username" placeholder="coach@team.com" onkeydown="if(event.key==='Enter')doLogin()">
     <label for="login-password">Password</label>
@@ -862,9 +869,31 @@ async function checkCoachRole(user) {
   } catch (e) { return false; }
 }
 
+const APPROVED_COACH_EMAILS = {
+  'carmel.livayatan@gmail.com': 'Carmel',
+  'eshkol.game@gmail.com': 'Eshkol'
+};
+
+function coachNameForEmail(email) {
+  return APPROVED_COACH_EMAILS[String(email || '').trim().toLowerCase()] || '';
+}
+
+function syncCoachEmailHint() {
+  const coach = document.getElementById('login-coach')?.value || 'Carmel';
+  const hint = document.getElementById('login-coach-hint');
+  if (hint) hint.textContent = coach === 'Neil'
+    ? 'Coach Neil is listed, but this account has not been authorized yet.'
+    : 'Sign in with the approved email assigned to Coach ' + coach + '.';
+  const email = document.getElementById('login-email');
+  if (email) email.value = '';
+}
+
 async function applyRole(user) {
   currentUser = user || null;
   isCoach = await checkCoachRole(currentUser);
+  const coachName = currentUser && coachNameForEmail(currentUser.email);
+  // Both the existing Supabase coach role and the approved email/name mapping are required.
+  isCoach = !!(isCoach && coachName);
   document.body.classList.toggle('is-coach', isCoach);
   renderAuthSlot();
   const sel = document.getElementById('swimmer-select');
@@ -876,7 +905,8 @@ function renderAuthSlot() {
   if (!slot) return;
   if (!supa) { slot.innerHTML = ''; return; }
   if (isCoach) {
-    slot.innerHTML = '<button class="auth-btn" onclick="doLogout()"><span class="role-pill coach">Coach</span> Sign Out</button>';
+    const coachName = coachNameForEmail(currentUser && currentUser.email);
+    slot.innerHTML = '<button class="auth-btn" onclick="doLogout()"><span class="role-pill coach">Coach ' + coachName + '</span> Sign Out</button>';
   } else if (currentUser) {
     slot.innerHTML = '<button class="auth-btn" onclick="doLogout()"><span class="role-pill viewer">Viewer</span> Sign Out</button>';
   } else {
@@ -895,7 +925,7 @@ function closeLoginModal() {
 
 async function doLogin() {
   if (!supa) return;
-  const email = document.getElementById('login-email').value.trim();
+  const email = document.getElementById('login-email').value.trim().toLowerCase();
   const pass  = document.getElementById('login-password').value;
   const errEl = document.getElementById('login-err');
   const btn   = document.getElementById('login-submit');
@@ -903,13 +933,28 @@ async function doLogin() {
   if (!email || !pass) { errEl.textContent = 'Enter your email and password.'; return; }
   btn.disabled = true; btn.textContent = 'Signing in...';
   try {
+    const selectedCoach = document.getElementById('login-coach')?.value || '';
+    if (selectedCoach === 'Neil') {
+      errEl.textContent = 'Coach Neil is not authorized yet. Contact the system administrator.';
+      return;
+    }
+    const expectedCoach = coachNameForEmail(email);
+    if (!expectedCoach || expectedCoach !== selectedCoach) {
+      errEl.textContent = 'This email is not assigned to Coach ' + selectedCoach + '.';
+      return;
+    }
     const { data, error } = await supa.auth.signInWithPassword({ email, password: pass });
     if (error) { errEl.textContent = 'Sign-in failed. Check your email and password.'; return; }
     await applyRole(data.user);
-    if (!isCoach) { errEl.textContent = 'This account isn’t registered as a coach. Contact the system administrator.'; return; }
+    if (!isCoach) {
+      await supa.auth.signOut();
+      await applyRole(null);
+      errEl.textContent = 'This account is not enabled as a coach in the system. Contact the administrator.';
+      return;
+    }
     document.getElementById('login-password').value = '';
     closeLoginModal();
-    showToast('✅ Welcome, Coach!');
+    showToast('✅ Welcome, Coach ' + expectedCoach + '!');
   } catch (e) {
     errEl.textContent = 'Sign-in error';
   } finally {
