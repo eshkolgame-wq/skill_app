@@ -1616,11 +1616,26 @@ function showNameModal(changeName) {
 
 function saveSwimmerName() {
   const error = document.getElementById('saved-swimmer-name-error');
-  if (!pendingSavedSwimmerName) { if (error) error.textContent = 'Please choose your name from the suggestions.'; return; }
-  try { localStorage.setItem(SAVED_SWIMMER_KEY, pendingSavedSwimmerName); }
-  catch (e) { if (error) error.textContent = 'Could not save on this device. Please check browser storage settings.'; return; }
+  const input = document.getElementById('saved-swimmer-name-input');
+  const typedName = input ? input.value.trim() : '';
+  if (!pendingSavedSwimmerName && !typedName) {
+    if (error) error.textContent = 'Enter your name or choose a swimmer from the suggestions.';
+    return;
+  }
+
+  // A roster match is preferred, but a name not found in the swimmer list
+  // must never prevent a coach or visitor from continuing into the app.
+  const exactMatch = ATHLETES.find(a => a.name.toLocaleLowerCase() === typedName.toLocaleLowerCase());
+  const nameToSave = pendingSavedSwimmerName || (exactMatch ? exactMatch.name : typedName);
+
+  try { localStorage.setItem(SAVED_SWIMMER_KEY, nameToSave); }
+  catch (e) {
+    if (error) error.textContent = 'Could not save on this device. Please check browser storage settings.';
+    return;
+  }
   document.getElementById('swimmer-name-modal').classList.remove('open');
-  renderHomeGreeting(); showToast('Swimmer profile saved on this device.');
+  renderHomeGreeting();
+  showToast(exactMatch || pendingSavedSwimmerName ? 'Swimmer profile saved on this device.' : 'Name saved. You can continue using SkillWave.');
 }
 
 function openSavedSwimmerProfile() {
