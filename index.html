@@ -203,6 +203,9 @@
   .skill-item { background: var(--surface2); border-radius: var(--radius); padding: 12px 14px; border: 1px solid var(--border); transition: border-color 0.15s; }
   .skill-item:has(.score-high) { border-color: rgba(0,194,177,0.4); }
   .skill-name { font-size: 12px; font-weight: 700; color: var(--text-muted); margin-bottom: 4px; }
+  .skill-name-link { display:block; width:100%; padding:0; border:0; background:transparent; text-align:left; font-family:inherit; cursor:pointer; }
+  .skill-name-link:hover { color:var(--teal); text-decoration:underline; }
+  .skill-name-link span { opacity:.65; font-size:11px; }
   .skill-val { font-size: 18px; font-weight: 800; font-variant-numeric: tabular-nums; }
   .skill-score { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 12px; margin-top: 4px; display: inline-block; font-variant-numeric: tabular-nums; }
   .score-high { background: #D6F5EF; color: #007A6B; }
@@ -1698,6 +1701,18 @@ function selectSkill(key) {
   renderLeaderboard();
 }
 
+function openSkillLeaderboard(skillKey, gender) {
+  // Keep the gender of the swimmer whose profile was being viewed.
+  currentGender = gender === 'F' ? 'F' : 'M';
+  document.querySelectorAll('.gender-btn').forEach((button, index) =>
+    button.classList.toggle('active', (index === 0 && currentGender === 'M') || (index === 1 && currentGender === 'F')));
+  const skillSelect = document.getElementById('skill-select');
+  if (skillSelect) skillSelect.value = skillKey;
+  showScreen('leaderboard');
+  populateSkillSelect();
+  renderLeaderboard();
+}
+
 function initials(name) {
   return name.split(/[\s,]+/).filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('');
 }
@@ -1935,7 +1950,7 @@ function renderProfile(nameOverride) {
       : '';
 
     return `<div class="skill-item" id="si-${s.key}">
-      <div class="skill-name">${s.label}</div>
+      <button type="button" class="skill-name skill-name-link" onclick="openSkillLeaderboard('${s.key}','${a.g}')" title="View ${s.label} ranking for ${a.g==='F'?'women':'men'}" aria-label="Open ${s.label} ranking for ${a.g==='F'?'women':'men'}">${s.label} <span aria-hidden="true">↗</span></button>
       ${valDisplay}
       <button class="edit-btn coach-only" onclick="showEdit('${a.name}','${s.key}')">✏️ Update Result</button>
       ${hasVal ? `<button class="edit-btn coach-only" style="border-color:var(--danger,#c0392b);color:var(--danger,#c0392b)" onclick="undoLastResult('${escapeAttr(a.name)}','${s.key}')">↩️ Undo Last Result</button>` : ''}
