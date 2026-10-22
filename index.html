@@ -1172,7 +1172,7 @@ function syncCountrySearch(inputId, selectId) {
 function getCountrySearchValue(inputId, selectId) {
   syncCountrySearch(inputId, selectId);
   const select = document.getElementById(selectId);
-  return select?.dataset.countryValue || 'IL';
+  return select?.dataset.countryValue || '';
 }
 function setCountrySearch(inputId, selectId, code) {
   const input = document.getElementById(inputId);
@@ -1233,10 +1233,12 @@ async function saveAthleteDetails() {
     errEl.textContent = 'A swimmer with this name already exists.'; return;
   }
 
+  const country = getCountrySearchValue('ed-country-search', 'ed-country');
+  if (!country) { errEl.textContent = 'Select a country from the suggestions.'; document.getElementById('ed-country-search').focus(); return; }
   a.name = newName;
   a.g = edGender;
   a.region = edRegion;
-  a.country = getCountrySearchValue('ed-country-search', 'ed-country');
+  a.country = country;
   const birthYearText = document.getElementById('ed-birth-year').value.trim();
   const birthYear = birthYearText ? Number(birthYearText) : null;
   if (birthYearText && (!Number.isInteger(birthYear) || birthYear < 1900 || birthYear > 2026)) {
@@ -2283,6 +2285,7 @@ async function createNewAthlete() {
 
   const countryInput = document.getElementById('new-athlete-country-search');
   const country = getCountrySearchValue('new-athlete-country-search', 'new-athlete-country');
+  if (!country) { showToast('⚠️ Select a country from the suggestions.'); countryInput.focus(); return; }
   const newAthlete = { name, g: newAthleteGender, cat: 'academy', region: newAthleteRegion, country, birthYear, active: true };
   SKILLS.forEach(s => { const skIdx = s.key.slice(1); newAthlete[s.key] = 0; newAthlete['sc'+skIdx] = 0; });
   newAthlete.total = 0;
