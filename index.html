@@ -149,6 +149,17 @@
   .name-btn:hover { border-color: var(--blue); }
   .name-btn.active { background: var(--teal); color: var(--navy); border-color: var(--teal); box-shadow: 0 3px 10px rgba(0,194,177,0.35); }
   .name-btn-avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--navy-mid); color: var(--teal); display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+  .name-btn-avatar img, .swimmer-search-avatar img, .pbs-avatar img { width:100%;height:100%;object-fit:cover;border-radius:50%; }
+  .name-btn-avatar.photo-clickable { cursor:pointer; overflow:hidden; }
+  .name-btn-avatar.photo-clickable:focus { outline:2px solid var(--teal); outline-offset:2px; }
+  .country-autocomplete { position:relative; }
+  .country-suggestions { display:none; position:absolute; z-index:1005; top:calc(100% - 10px); left:0; right:0; max-height:220px; overflow-y:auto; background:var(--surface); border:1px solid var(--border); border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,.22); }
+  .country-suggestions.open { display:block; }
+  .country-suggestion { display:block;width:100%;text-align:left;padding:10px 12px;border:0;border-bottom:1px solid var(--border);background:transparent;color:var(--text);font:inherit;cursor:pointer; }
+  .country-suggestion:hover { background:var(--surface2); }
+  .country-suggestion-empty { padding:12px;color:var(--text-muted);font-size:13px; }
+  .photo-upload-input { display:none; }
+  .photo-upload-hint { font-size:11px; opacity:.8; display:block; text-align:center; }
   .name-btn-avatar.female { background: #3D2159; color: #E8A3F0; }
   .name-btn.active .name-btn-avatar { background: rgba(10,31,68,0.18); color: var(--navy); }
   .picker-empty { color: var(--text-muted); font-size: 13.5px; padding: 10px 2px; }
@@ -363,7 +374,10 @@
       <button type="button" class="cat-btn-inline" id="ed-gender-F" onclick="setEdGender('F')">Female</button>
     </div>
     <label for="ed-country">Country</label>
-    <input id="ed-country-search" list="country-search-options" placeholder="Type to search countries..." oninput="syncCountrySearch('ed-country-search','ed-country')">
+    <div class="country-autocomplete">
+      <input id="ed-country-search" autocomplete="off" placeholder="Type a country (e.g. slo)..." oninput="renderCountrySuggestions('ed-country-search','ed-country','ed-country-suggestions')" onfocus="renderCountrySuggestions('ed-country-search','ed-country','ed-country-suggestions')">
+      <div id="ed-country-suggestions" class="country-suggestions"></div>
+    </div>
     <select id="ed-country" style="display:none" aria-hidden="true"></select>
     <label for="ed-birth-year">Birth Year (optional)</label>
     <input type="number" id="ed-birth-year" min="1900" max="2026" step="1" placeholder="Birth year">
@@ -478,8 +492,10 @@
         <input type="text" id="new-athlete-name" class="add-athlete-input" placeholder="Full Name">
         <input type="number" id="new-athlete-birth-year" class="add-athlete-input" placeholder="Birth Year (optional)" min="1900" max="2026" step="1" aria-label="Birth year">
         <label class="add-athlete-label" for="new-athlete-country">Country</label>
-        <input id="new-athlete-country-search" list="country-search-options" placeholder="Type to search countries..." style="margin-bottom:12px" value="Israel" oninput="syncCountrySearch('new-athlete-country-search','new-athlete-country')">
-        <datalist id="country-search-options"></datalist>
+        <div class="country-autocomplete" style="margin-bottom:12px">
+          <input id="new-athlete-country-search" autocomplete="off" placeholder="Type a country (e.g. slo)..." value="Israel" oninput="renderCountrySuggestions('new-athlete-country-search','new-athlete-country','new-athlete-country-suggestions')" onfocus="renderCountrySuggestions('new-athlete-country-search','new-athlete-country','new-athlete-country-suggestions')">
+          <div id="new-athlete-country-suggestions" class="country-suggestions"></div>
+        </div>
         <select id="new-athlete-country" style="display:none" aria-hidden="true"></select>
         <div style="margin-bottom:12px">
           <div class="add-athlete-label">Gender</div>
@@ -1023,7 +1039,7 @@ async function initCloud() {
 }
 
 // Fields (besides skills/scores/total/history) that a coach can edit and that must persist.
-const META_FIELDS = ['name', 'g', 'cat', 'active', 'region', 'country', 'birthYear'];
+const META_FIELDS = ['name', 'g', 'cat', 'active', 'region', 'country', 'birthYear', 'photo'];
 
 function applyOverrides(overrides) {
   if (!overrides) return;
@@ -1076,22 +1092,21 @@ function catLabel(cat) {
 }
 
 const COUNTRY_OPTIONS = [
-  ['IL','Israel'],['US','United States'],['GB','United Kingdom'],['FR','France'],
-  ['DE','Germany'],['IT','Italy'],['ES','Spain'],['PL','Poland'],['HU','Hungary'],
-  ['CZ','Czechia'],['RU','Russia'],['UA','Ukraine'],['NL','Netherlands'],
-  ['SE','Sweden'],['NO','Norway'],['DK','Denmark'],['SW','Switzerland'],
-  ['AT','Austria'],['BE','Belgium'],['GR','Greece'],['PT','Portugal'],
-  ['RO','Romania'],['HR','Croatia'],['RS','Serbia'],['TR','Türkiye'],
-  ['AL','Albania'],['AD','Andorra'],['AM','Armenia'],['AZ','Azerbaijan'],
-  ['BA','Bosnia and Herzegovina'],['BG','Bulgaria'],['BY','Belarus'],['CY','Cyprus'],
-  ['EE','Estonia'],['FI','Finland'],['GE','Georgia'],['IS','Iceland'],
-  ['IE','Ireland'],['XK','Kosovo'],['LV','Latvia'],['LI','Liechtenstein'],
-  ['LT','Lithuania'],['LU','Luxembourg'],['MT','Malta'],['MD','Moldova'],
-  ['MC','Monaco'],['ME','Montenegro'],['MK','North Macedonia'],['NO','Norway'],
-  ['SM','San Marino'],['SK','Slovakia'],['SI','Slovenia'],['VA','Vatican City'],
-  ['CA','Canada'],['AU','Australia'],['NZ','New Zealand'],['JP','Japan'],
-  ['CN','China'],['BR','Brazil'],['MX','Mexico'],['ZA','South Africa'],
-  ['OTHER','Other']
+  // Israel is retained because it is a core country in this swimming app.
+  ['IL','Israel'],
+  ['AL','Albania'],['AD','Andorra'],['AM','Armenia'],['AT','Austria'],
+  ['AZ','Azerbaijan'],['BY','Belarus'],['BE','Belgium'],['BA','Bosnia and Herzegovina'],
+  ['BG','Bulgaria'],['HR','Croatia'],['CY','Cyprus'],['CZ','Czechia'],
+  ['DK','Denmark'],['EE','Estonia'],['FI','Finland'],['FR','France'],
+  ['GE','Georgia'],['DE','Germany'],['GR','Greece'],['HU','Hungary'],
+  ['IS','Iceland'],['IE','Ireland'],['IT','Italy'],['XK','Kosovo'],
+  ['LV','Latvia'],['LI','Liechtenstein'],['LT','Lithuania'],['LU','Luxembourg'],
+  ['MT','Malta'],['MD','Moldova'],['MC','Monaco'],['ME','Montenegro'],
+  ['NL','Netherlands'],['MK','North Macedonia'],['NO','Norway'],['PL','Poland'],
+  ['PT','Portugal'],['RO','Romania'],['RU','Russia'],['SM','San Marino'],
+  ['RS','Serbia'],['SK','Slovakia'],['SI','Slovenia'],['ES','Spain'],
+  ['SE','Sweden'],['SW','Switzerland'],['TR','Türkiye'],['UA','Ukraine'],
+  ['GB','United Kingdom'],['VA','Vatican City']
 ];
 function countryFlag(code) {
   if (!code || code === 'OTHER') return '🌐';
@@ -1111,28 +1126,53 @@ function populateCountrySelects() {
     const select = document.getElementById(id);
     if (select) select.innerHTML = countryOptionsHtml('IL');
   });
-  const list = document.getElementById('country-search-options');
-  if (list) list.innerHTML = COUNTRY_OPTIONS.map(([code,label]) =>
-    `<option value="${label}">`
-  ).join('');
+}
+function renderCountrySuggestions(inputId, selectId, wrapId) {
+  const input = document.getElementById(inputId);
+  const select = document.getElementById(selectId);
+  const wrap = document.getElementById(wrapId);
+  if (!input || !select || !wrap) return;
+  const query = input.value.trim().toLocaleLowerCase();
+  if (!query) { wrap.innerHTML = ''; wrap.classList.remove('open'); return; }
+  const matches = COUNTRY_OPTIONS.filter(([code,label]) =>
+    label.toLocaleLowerCase().startsWith(query) || code.toLocaleLowerCase().startsWith(query) ||
+    label.toLocaleLowerCase().split(/[\s-]+/).some(part => part.startsWith(query))
+  ).slice(0, 10);
+  if (!matches.length) {
+    wrap.innerHTML = '<div class="country-suggestion-empty">No matching European country. Keep typing or check the spelling.</div>';
+  } else {
+    wrap.innerHTML = matches.map(([code,label]) =>
+      `<button type="button" class="country-suggestion" onmousedown="event.preventDefault();chooseCountrySuggestion('${inputId}','${selectId}','${wrapId}','${code}')">${countryFlag(code)} ${label}</button>`
+    ).join('');
+  }
+  wrap.classList.add('open');
+}
+function chooseCountrySuggestion(inputId, selectId, wrapId, code) {
+  const input = document.getElementById(inputId);
+  const select = document.getElementById(selectId);
+  const wrap = document.getElementById(wrapId);
+  const match = COUNTRY_OPTIONS.find(([c]) => c === code);
+  if (!input || !select || !match) return;
+  input.value = match[1];
+  select.dataset.countryValue = match[0];
+  select.value = match[0];
+  if (wrap) { wrap.innerHTML = ''; wrap.classList.remove('open'); }
 }
 function syncCountrySearch(inputId, selectId) {
   const input = document.getElementById(inputId);
   const select = document.getElementById(selectId);
   if (!input || !select) return;
-  const query = input.value.trim();
+  const query = input.value.trim().toLocaleLowerCase();
   const match = COUNTRY_OPTIONS.find(([code,label]) =>
-    label.toLocaleLowerCase() === query.toLocaleLowerCase() || code.toLocaleLowerCase() === query.toLocaleLowerCase()
+    label.toLocaleLowerCase() === query || code.toLocaleLowerCase() === query
   );
-  // Use the known country code when matched; otherwise preserve the user's own country text.
-  select.dataset.countryValue = match ? match[0] : query;
-  input.setCustomValidity('');
+  select.dataset.countryValue = match ? match[0] : '';
+  select.value = match ? match[0] : '';
 }
 function getCountrySearchValue(inputId, selectId) {
   syncCountrySearch(inputId, selectId);
-  const input = document.getElementById(inputId);
   const select = document.getElementById(selectId);
-  return (select?.dataset.countryValue || input?.value || '').trim() || 'IL';
+  return select?.dataset.countryValue || 'IL';
 }
 function setCountrySearch(inputId, selectId, code) {
   const input = document.getElementById(inputId);
@@ -1141,8 +1181,9 @@ function setCountrySearch(inputId, selectId, code) {
   const value = code || 'IL';
   const normalized = value === 'CH' ? 'SW' : value;
   const match = COUNTRY_OPTIONS.find(([c]) => c === normalized);
-  input.value = match ? match[1] : (value.length === 2 && /^[A-Z]{2}$/.test(value) ? value : value);
-  select.dataset.countryValue = normalized;
+  input.value = match ? match[1] : 'Israel';
+  select.dataset.countryValue = match ? match[0] : 'IL';
+  select.value = match ? match[0] : 'IL';
 }
 
 // --- Edit swimmer details (coaches only) ---
@@ -1468,7 +1509,7 @@ function renderPickerNames() {
   wrap.innerHTML = list.map(a => {
     const female = a.g === 'F' ? ' female' : '';
     return `<button type="button" class="name-btn${selected===a.name?' active':''}" onclick="selectSwimmerFromPicker('${escapeAttr(a.name)}')">
-      <span class="name-btn-avatar${female}">${initials(a.name)}</span>${a.name}
+      <span class="name-btn-avatar${female}${a.photo?' photo-clickable':''}" title="Click initials to add or change profile photo" role="button" tabindex="0" onclick="event.stopPropagation();chooseSwimmerPhoto('${escapeAttr(a.name)}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();chooseSwimmerPhoto('${escapeAttr(a.name)}')}">${athleteAvatarContent(a)}</span>${a.name}
     </button>`;
   }).join('');
 }
@@ -1787,6 +1828,64 @@ function openSkillLeaderboard(skillKey, gender) {
 
 function initials(name) {
   return name.split(/[\s,]+/).filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('');
+}
+function athleteAvatarContent(a) {
+  return a && a.photo ? `<img src="${a.photo}" alt="${escapeAttr(a.name)} profile photo">` : escapeAttr(initials(a.name));
+}
+let photoTargetAthleteName = null;
+function chooseSwimmerPhoto(name) {
+  if (supa && !isCoach) { showToast('⚠️ Only coaches can change swimmer photos.'); return; }
+  photoTargetAthleteName = name;
+  const input = document.getElementById('swimmer-photo-input');
+  if (input) { input.value = ''; input.click(); }
+}
+async function handleSwimmerPhotoUpload(event) {
+  const file = event.target.files && event.target.files[0];
+  const athlete = ATHLETES.find(a => a.name === photoTargetAthleteName);
+  if (!file || !athlete) return;
+  if (!file.type.startsWith('image/')) { showToast('⚠️ Choose an image file.'); return; }
+  try {
+    const dataUrl = await new Promise((resolve,reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+    const photo = await new Promise((resolve,reject) => {
+      const img = new Image();
+      img.onload = () => {
+        const size = 256, scale = Math.min(size / img.width, size / img.height, 1);
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.max(1, Math.round(img.width * scale));
+        canvas.height = Math.max(1, Math.round(img.height * scale));
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        resolve(canvas.toDataURL('image/jpeg', 0.78));
+      };
+      img.onerror = reject;
+      img.src = dataUrl;
+    });
+    athlete.photo = photo;
+    await saveOverrides(collectOverrides());
+    renderPickerNames();
+    renderProfile(athlete.name);
+    showToast('✅ Profile photo saved.');
+  } catch (e) {
+    showToast('⚠️ Could not save the photo. Please try a smaller image.');
+  } finally {
+    photoTargetAthleteName = null;
+    event.target.value = '';
+  }
+}
+function removeSwimmerPhoto(name) {
+  if (supa && !isCoach) { showToast('⚠️ Only coaches can change swimmer photos.'); return; }
+  const athlete = ATHLETES.find(a => a.name === name);
+  if (!athlete) return;
+  athlete.photo = '';
+  saveOverrides(collectOverrides()).then(() => {
+    renderPickerNames(); renderProfile(athlete.name);
+    showToast('Profile photo removed.');
+  }).catch(() => showToast('⚠️ Could not save the change.'));
 }
 function skillRankInfo(a, s) {
   // Rank among all swimmers of the same gender who have a recorded time for this skill
@@ -2386,5 +2485,6 @@ boot();
     });
   }
 </script>  
+<input type="file" id="swimmer-photo-input" class="photo-upload-input" accept="image/*" onchange="handleSwimmerPhotoUpload(event)">
 </body>
 </html>
