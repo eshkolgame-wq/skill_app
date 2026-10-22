@@ -363,7 +363,8 @@
       <button type="button" class="cat-btn-inline" id="ed-gender-F" onclick="setEdGender('F')">Female</button>
     </div>
     <label for="ed-country">Country</label>
-    <select id="ed-country"></select>
+    <input id="ed-country-search" list="country-search-options" placeholder="Type to search countries..." oninput="syncCountrySearch('ed-country-search','ed-country')">
+    <select id="ed-country" style="display:none" aria-hidden="true"></select>
     <label for="ed-birth-year">Birth Year (optional)</label>
     <input type="number" id="ed-birth-year" min="1900" max="2026" step="1" placeholder="Birth year">
     <label>Region</label>
@@ -477,7 +478,9 @@
         <input type="text" id="new-athlete-name" class="add-athlete-input" placeholder="Full Name">
         <input type="number" id="new-athlete-birth-year" class="add-athlete-input" placeholder="Birth Year (optional)" min="1900" max="2026" step="1" aria-label="Birth year">
         <label class="add-athlete-label" for="new-athlete-country">Country</label>
-        <select id="new-athlete-country" style="margin-bottom:12px"></select>
+        <input id="new-athlete-country-search" list="country-search-options" placeholder="Type to search countries..." style="margin-bottom:12px" value="Israel" oninput="syncCountrySearch('new-athlete-country-search','new-athlete-country')">
+        <datalist id="country-search-options"></datalist>
+        <select id="new-athlete-country" style="display:none" aria-hidden="true"></select>
         <div style="margin-bottom:12px">
           <div class="add-athlete-label">Gender</div>
           <div style="display:flex;gap:8px">
@@ -1079,6 +1082,13 @@ const COUNTRY_OPTIONS = [
   ['SE','Sweden'],['NO','Norway'],['DK','Denmark'],['CH','Switzerland'],
   ['AT','Austria'],['BE','Belgium'],['GR','Greece'],['PT','Portugal'],
   ['RO','Romania'],['HR','Croatia'],['RS','Serbia'],['TR','Türkiye'],
+  ['AL','Albania'],['AD','Andorra'],['AM','Armenia'],['AZ','Azerbaijan'],
+  ['BA','Bosnia and Herzegovina'],['BG','Bulgaria'],['BY','Belarus'],['CY','Cyprus'],
+  ['EE','Estonia'],['FI','Finland'],['GE','Georgia'],['IS','Iceland'],
+  ['IE','Ireland'],['XK','Kosovo'],['LV','Latvia'],['LI','Liechtenstein'],
+  ['LT','Lithuania'],['LU','Luxembourg'],['MT','Malta'],['MD','Moldova'],
+  ['MC','Monaco'],['ME','Montenegro'],['MK','North Macedonia'],['NO','Norway'],
+  ['SM','San Marino'],['SK','Slovakia'],['SI','Slovenia'],['VA','Vatican City'],
   ['CA','Canada'],['AU','Australia'],['NZ','New Zealand'],['JP','Japan'],
   ['CN','China'],['BR','Brazil'],['MX','Mexico'],['ZA','South Africa'],
   ['OTHER','Other']
@@ -1097,6 +1107,34 @@ function populateCountrySelects() {
     const select = document.getElementById(id);
     if (select) select.innerHTML = countryOptionsHtml('IL');
   });
+  const list = document.getElementById('country-search-options');
+  if (list) list.innerHTML = COUNTRY_OPTIONS.map(([code,label]) =>
+    `<option value="${label}">`
+  ).join('');
+}
+function syncCountrySearch(inputId, selectId) {
+  const input = document.getElementById(inputId);
+  const select = document.getElementById(selectId);
+  if (!input || !select) return;
+  const query = input.value.trim().toLocaleLowerCase();
+  const match = COUNTRY_OPTIONS.find(([code,label]) =>
+    label.toLocaleLowerCase() === query || code.toLocaleLowerCase() === query
+  );
+  if (match) {
+    select.value = match[0];
+    input.setCustomValidity('');
+  } else {
+    select.value = '';
+    input.setCustomValidity(query ? 'Choose a country from the suggestions.' : '');
+  }
+}
+function setCountrySearch(inputId, selectId, code) {
+  const input = document.getElementById(inputId);
+  const select = document.getElementById(selectId);
+  if (!input || !select) return;
+  select.value = code || 'IL';
+  const match = COUNTRY_OPTIONS.find(([c]) => c === select.value);
+  input.value = match ? match[1] : 'Israel';
 }
 
 // --- Edit swimmer details (coaches only) ---
@@ -1112,7 +1150,7 @@ function openDetailsModal(name) {
   edRegion = a.region || 'Israel';
   edActive = a.active !== false;
   document.getElementById('ed-name').value = a.name;
-  document.getElementById('ed-country').value = a.country || 'IL';
+  setCountrySearch('ed-country-search', 'ed-country', a.country || 'IL');
   document.getElementById('ed-birth-year').value = a.birthYear || '';
   document.getElementById('details-err').textContent = '';
   syncEdButtons();
@@ -2136,6 +2174,13 @@ async function createNewAthlete() {
     showToast('⚠️ Enter a valid birth year between 1900 and 2026.'); birthYearInput.focus(); return;
   }
 
+  syncCountrySearch('new-athlete-country-search', 'new-athlete-country');
+  const countryInput = document.getElementById('new-athlete-country-search');
+  if (!document.getElementById('new-athlete-country').value) {
+    showToast('⚠️ Choose a country from the suggestions.');
+    countryInput.focus();
+    return;
+  }
   const country = document.getElementById('new-athlete-country').value || 'IL';
   const newAthlete = { name, g: newAthleteGender, cat: 'academy', region: newAthleteRegion, country, birthYear, active: true };
   SKILLS.forEach(s => { const skIdx = s.key.slice(1); newAthlete[s.key] = 0; newAthlete['sc'+skIdx] = 0; });
@@ -2152,7 +2197,7 @@ async function createNewAthlete() {
   // Reset the form
   nameInp.value = '';
   document.getElementById('new-athlete-birth-year').value = '';
-  document.getElementById('new-athlete-country').value = 'IL';
+  setCountrySearch('new-athlete-country-search', 'new-athlete-country', 'IL');
   toggleAddAthlete();
 
   // Switch filters to match the new athlete so they're visible, then select them
