@@ -1079,7 +1079,7 @@ const COUNTRY_OPTIONS = [
   ['IL','Israel'],['US','United States'],['GB','United Kingdom'],['FR','France'],
   ['DE','Germany'],['IT','Italy'],['ES','Spain'],['PL','Poland'],['HU','Hungary'],
   ['CZ','Czechia'],['RU','Russia'],['UA','Ukraine'],['NL','Netherlands'],
-  ['SE','Sweden'],['NO','Norway'],['DK','Denmark'],['CH','Switzerland'],
+  ['SE','Sweden'],['NO','Norway'],['DK','Denmark'],['SW','Switzerland'],
   ['AT','Austria'],['BE','Belgium'],['GR','Greece'],['PT','Portugal'],
   ['RO','Romania'],['HR','Croatia'],['RS','Serbia'],['TR','Türkiye'],
   ['AL','Albania'],['AD','Andorra'],['AM','Armenia'],['AZ','Azerbaijan'],
@@ -1095,7 +1095,10 @@ const COUNTRY_OPTIONS = [
 ];
 function countryFlag(code) {
   if (!code || code === 'OTHER') return '🌐';
-  return String.fromCodePoint(...code.toUpperCase().slice(0,2).split('').map(c => 127397 + c.charCodeAt(0)));
+  // App-friendly country code can differ from the ISO code used to render the flag.
+  // SW is the intuitive display/storage abbreviation for Switzerland; CH remains its flag code.
+  const flagCode = String(code).toUpperCase() === 'SW' ? 'CH' : String(code).toUpperCase();
+  return String.fromCodePoint(...flagCode.slice(0,2).split('').map(c => 127397 + c.charCodeAt(0)));
 }
 function countryOptionsHtml(selected) {
   return COUNTRY_OPTIONS.map(([code,label]) =>
