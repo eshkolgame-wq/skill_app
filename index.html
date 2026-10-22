@@ -1761,8 +1761,7 @@ function escapeAttr(str) {
   return String(str).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
-// Build a small inline SVG line chart of score-over-time for one skill's history.
-// Gold dots mark a new personal best (fastest time so far); teal dots are regular attempts.
+// Build a small inline SVG line chart of the recorded personal-best results for one skill.
 function buildHistorySVG(history) {
   const pts = history;
   const w = Math.max(260, Math.min(560, pts.length * 70));
@@ -1779,17 +1778,14 @@ function buildHistorySVG(history) {
   // Faster time (lower value) plots higher up, so an improving trend visually climbs.
   const yAt = t => padT + ((t - minT) / range) * plotH;
 
-  let bestSoFar = Infinity; // lower time = better
-  const dots = pts.map((p, i) => {
-    const isPB = p.time < bestSoFar;
-    if (p.time < bestSoFar) bestSoFar = p.time;
-    return { x: xAt(i), y: yAt(p.time), p, isPB };
-  });
+  const dots = pts.map((p, i) => ({
+    x: xAt(i), y: yAt(p.time), p
+  }));
 
   const linePath = dots.map((d, i) => (i === 0 ? 'M' : 'L') + d.x.toFixed(1) + ',' + d.y.toFixed(1)).join(' ');
 
   const circles = dots.map(d =>
-    `<circle cx="${d.x.toFixed(1)}" cy="${d.y.toFixed(1)}" r="${d.isPB ? 5.5 : 4.5}" style="fill:${d.isPB ? '#F5B740' : '#00C2B1'}" stroke="#fff" stroke-width="1.2"/>`
+    `<circle cx="${d.x.toFixed(1)}" cy="${d.y.toFixed(1)}" r="5.5" style="fill:#F5B740" stroke="#fff" stroke-width="1.2"/>`
   ).join('');
 
   // Main label = the result (time); the score rides along in smaller, muted text right after it.
@@ -1810,8 +1806,7 @@ function buildHistorySVG(history) {
     ${circles}
     ${resultLabels}
     ${dateLabels}
-  </svg>
-  <div style="font-size:10.5px;color:var(--text-muted);text-align:center;margin-top:4px">🟡 New personal best &nbsp; 🔵 Regular attempt</div>`;
+  </svg>`;
 }
 
 function toggleHistoryChart(sk) {
