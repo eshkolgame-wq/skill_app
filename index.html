@@ -317,6 +317,9 @@
     <div id="saved-swimmer-name-options" class="pbs-search-results"></div>
     <div class="modal-err" id="saved-swimmer-name-error"></div>
     <div class="modal-actions"><button class="btn-primary" onclick="saveSwimmerName()">Save name</button></div>
+    <div style="text-align:center;margin-top:10px">
+      <button type="button" class="btn-ghost" onclick="skipSwimmerName()">Continue without saving</button>
+    </div>
     <div style="text-align:center;margin-top:14px">
       <button type="button" class="btn-ghost" onclick="openCoachLoginFromWelcome()">I’m a coach — Sign in</button>
     </div>
@@ -902,6 +905,7 @@ async function applyRole(user) {
   isCoach = !!(isCoach && coachName);
   document.body.classList.toggle('is-coach', isCoach);
   renderAuthSlot();
+  renderHomeGreeting();
   const sel = document.getElementById('swimmer-select');
   if (sel && sel.value) { try { renderProfile(); } catch (e) {} }
 }
@@ -1563,8 +1567,14 @@ function getSavedSwimmerName() {
 function renderHomeGreeting() {
   const heading = document.getElementById('home-greeting');
   if (!heading) return;
+  // An authenticated coach's identity always takes priority over the optional saved swimmer name.
+  const coachName = isCoach && currentUser ? coachNameForEmail(currentUser.email) : '';
+  if (coachName) {
+    heading.textContent = 'Hey Coach ' + coachName;
+    return;
+  }
   const name = getSavedSwimmerName();
-  heading.textContent = name ? 'Hey ' + name.split(/\s+/)[0] : 'What would you like to do?';
+  heading.textContent = name ? 'Hey ' + name.split(/\s+/)[0] : 'Hey, welcome to the app.';
 }
 
 let pendingSavedSwimmerName = '';
@@ -1612,6 +1622,13 @@ function showNameModal(changeName) {
   if (match) chooseSavedSwimmer(match.name);
   modal.classList.add('open');
   setTimeout(() => input.focus(), 50);
+}
+
+function skipSwimmerName() {
+  const modal = document.getElementById('swimmer-name-modal');
+  if (modal) modal.classList.remove('open');
+  pendingSavedSwimmerName = '';
+  renderHomeGreeting();
 }
 
 function saveSwimmerName() {
@@ -2315,7 +2332,7 @@ async function boot() {
   populateSkillSelect();
   renderScoringMatrix();
   renderHomeGreeting();
-  if (!getSavedSwimmerName()) showNameModal(false);
+  // Naming is optional; never block app access with the swimmer-name modal.
 }
 boot();
 
