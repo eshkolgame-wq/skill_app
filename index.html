@@ -422,8 +422,9 @@
 </header>
 <div id="cloud-banner" class="cloud-banner" style="display:none"></div>
 <div class="cat-bar">
-  <button class="cat-btn active" onclick="setCat('Israel')">🇮🇱 Israel</button>
-  <button class="cat-btn" onclick="setCat('Europe')">🇪🇺 Europe</button>
+  <button class="cat-btn active" data-cat="Israel" onclick="setCat('Israel')">🇮🇱 Israel</button>
+  <button class="cat-btn" data-cat="Europe" onclick="setCat('Europe')">🇪🇺 Europe</button>
+  <button class="cat-btn" data-cat="Both" onclick="setCat('Both')">🌍 Both</button>
 </div>
 
 <div class="main">
@@ -1284,9 +1285,9 @@ function setGender(g) {
 }
 
 function setCat(region) {
-  currentCat = region;
+  currentCat = ['Israel','Europe','Both'].includes(region) ? region : 'Israel';
   document.querySelectorAll('.cat-btn').forEach(b => {
-    b.classList.toggle('active', b.textContent.includes(region));
+    b.classList.toggle('active', b.dataset.cat === currentCat);
   });
   populateSwimmerSelect();
   document.getElementById('profile-area').innerHTML = '';
@@ -1442,7 +1443,13 @@ function renderAllSkillsComparison(output, swimmers) {
   output.innerHTML='<div class="card"><div class="card-title">All Skills — Score Comparison</div><p class="compare-help">Vertical axis: score out of 10. Each colored line represents a swimmer across the skills; higher points mean higher scores.</p><div class="compare-legend">'+legend+'</div><div class="compare-graph-wrap"><svg class="compare-chart compare-xy-chart" style="width:'+W+'px;max-width:100%" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Line chart comparing swimmer scores across all skills"><line x1="'+L+'" y1="'+T+'" x2="'+L+'" y2="'+(T+ph)+'" stroke="var(--text-muted)" stroke-width="1.2"/><line x1="'+L+'" y1="'+(T+ph)+'" x2="'+(W-R)+'" y2="'+(T+ph)+'" stroke="var(--text-muted)" stroke-width="1.2"/>'+grid+labels+series+'<text x="15" y="'+(T+ph/2)+'" transform="rotate(-90 15 '+(T+ph/2)+')" text-anchor="middle" font-size="12" fill="var(--text-muted)">Score / 10</text></svg></div></div><div class="card"><div class="card-title">All Skills — Comparison Table</div><div class="compare-table-wrap"><table class="compare-table"><thead><tr><th>Skill</th>'+head+'</tr></thead><tbody>'+body+'</tbody></table></div></div>';
 }
 function filtered() {
-  return ATHLETES.filter(a => a.g === currentGender && (a.region || 'Israel') === currentCat);
+  return ATHLETES.filter(a => {
+    const region = a.region || 'Israel';
+    const inSelectedRegion = currentCat === 'Both'
+      ? region === 'Israel' || region === 'Europe'
+      : region === currentCat;
+    return a.g === currentGender && inSelectedRegion;
+  });
 }
 
 let swimmerListCache = [];
@@ -1890,9 +1897,15 @@ function removeSwimmerPhoto(name) {
   }).catch(() => showToast('⚠️ Could not save the change.'));
 }
 function skillRankInfo(a, s) {
-  // Rank among all swimmers of the same gender who have a recorded time for this skill
-  const pool = ATHLETES.filter(x => x.g === a.g && x[s.key] && x[s.key] > 0);
-  if (!pool.length) return null;
+  // Rank within the selected region: Israel, Europe, or the combined pool.
+  const pool = ATHLETES.filter(x => {
+    const region = x.region || 'Israel';
+    const inSelectedRegion = currentCat === 'Both'
+      ? region === 'Israel' || region === 'Europe'
+      : region === currentCat;
+    return x.g === a.g && inSelectedRegion && x[s.key] && x[s.key] > 0;
+  });
+  if (!pool.some(x => x.name === a.name)) return null;
   pool.sort((x, y) => x[s.key] - y[s.key]); // lower time = better
   const rank = pool.findIndex(x => x.name === a.name) + 1;
   return { rank, total: pool.length };
