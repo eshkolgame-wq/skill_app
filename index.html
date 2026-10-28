@@ -1688,7 +1688,7 @@ function renderHomeGreeting() {
   // An authenticated coach's identity always takes priority over the optional saved swimmer name.
   const coachName = isCoach && currentUser ? coachNameForEmail(currentUser.email) : '';
   if (coachName) {
-    heading.textContent = 'Hey ' + coachName;
+    heading.textContent = 'Hey Coach ' + coachName;
     return;
   }
   const name = getSavedSwimmerName();
