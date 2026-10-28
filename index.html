@@ -344,10 +344,18 @@
     <p class="sub">Choose your coach profile, then sign in with its approved email and password.</p>
     <label for="login-coach">Coach</label>
     <select id="login-coach" style="margin-bottom:8px" onchange="syncCoachEmailHint()">
-      <option value="Carmel">Coach Carmel</option>
-      <option value="Eshkol">Coach Eshkol</option>
-      <option value="Neil">Coach Neil</option>
-      <option value="Charlie">Coach Charlie</option>
+      <option value="Carmel">🇮🇱 Coach Carmel</option>
+      <option value="Eshkol">🇮🇱 Coach Eshkol</option>
+      <option value="Neil">🇮🇱 Coach Neil</option>
+      <option value="Charlie">🏴 Coach Charlie</option>
+      <option value="Curtis Coulter">🇮🇪 Curtis Coulter</option>
+      <option value="J. Stetina">🇩🇪 J. Stetina</option>
+      <option value="Florent Tresarrieu">🇨🇭 Florent Tresarrieu</option>
+      <option value="Robin Vanaggele">🇳🇱 Robin Vanaggele</option>
+      <option value="Henning">🇳🇴 Henning</option>
+      <option value="Daan Pex">🇳🇱 Daan Pex</option>
+      <option value="Geert Janssen">🇳🇱 Geert Janssen</option>
+      <option value="Paul Huch">🌍 Paul Huch</option>
     </select>
     <p id="login-coach-hint" class="sub" style="margin:0 0 10px">Use the email assigned to Coach Carmel.</p>
     <label for="login-email">Email</label>
@@ -903,7 +911,15 @@ const APPROVED_COACH_EMAILS = {
   'carmel.livyatan@gmail.com': 'Carmel',
   'eshkol.game@gmail.com': 'Eshkol',
   'neilswimming@gmail.com': 'Neil',
-  'charlie.boldison@stir.ac.uk': 'Charlie'
+  'charlie.boldison@stir.ac.uk': 'Charlie',
+  'curtis.coulter13@yahoo.co.uk': 'Curtis Coulter',
+  'j.stetina@fcn-schwimmen.de': 'J. Stetina',
+  'florent.tresarrieu@gn1885.ch': 'Florent Tresarrieu',
+  'robin.vanaggele@hotmail.com': 'Robin Vanaggele',
+  'henning@stavangersvommeklubb.no': 'Henning',
+  'daan.pex@knzb.nl': 'Daan Pex',
+  'geert.janssen@knzb.nl': 'Geert Janssen',
+  'paulhuch12@gmail.com': 'Paul Huch'
 };
 
 function coachNameForEmail(email) {
