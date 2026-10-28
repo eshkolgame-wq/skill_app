@@ -346,7 +346,8 @@
     <select id="login-coach" style="margin-bottom:8px" onchange="syncCoachEmailHint()">
       <option value="Carmel">Coach Carmel</option>
       <option value="Eshkol">Coach Eshkol</option>
-      <option value="Neil">Coach Neil (not yet authorized)</option>
+      <option value="Neil">Coach Neil</option>
+      <option value="Charlie">Coach Charlie</option>
     </select>
     <p id="login-coach-hint" class="sub" style="margin:0 0 10px">Use the email assigned to Coach Carmel.</p>
     <label for="login-email">Email</label>
@@ -900,7 +901,9 @@ async function checkCoachRole(user) {
 
 const APPROVED_COACH_EMAILS = {
   'carmel.livyatan@gmail.com': 'Carmel',
-  'eshkol.game@gmail.com': 'Eshkol'
+  'eshkol.game@gmail.com': 'Eshkol',
+  'neilswimming@gmail.com': 'Neil',
+  'charlie.boldison@stir.ac.uk': 'Charlie'
 };
 
 function coachNameForEmail(email) {
@@ -910,9 +913,7 @@ function coachNameForEmail(email) {
 function syncCoachEmailHint() {
   const coach = document.getElementById('login-coach')?.value || 'Carmel';
   const hint = document.getElementById('login-coach-hint');
-  if (hint) hint.textContent = coach === 'Neil'
-    ? 'Coach Neil is listed, but this account has not been authorized yet.'
-    : 'Sign in with the approved email assigned to Coach ' + coach + '.';
+  if (hint) hint.textContent = 'Sign in with the email and password assigned to Coach ' + coach + '.';
   const email = document.getElementById('login-email');
   if (email) email.value = '';
 }
@@ -970,10 +971,6 @@ async function doLogin() {
   btn.disabled = true; btn.textContent = 'Signing in...';
   try {
     const selectedCoach = document.getElementById('login-coach')?.value || '';
-    if (selectedCoach === 'Neil') {
-      errEl.textContent = 'Coach Neil is not authorized yet. Contact the system administrator.';
-      return;
-    }
     const expectedCoach = coachNameForEmail(email);
     if (!expectedCoach || expectedCoach !== selectedCoach) {
       errEl.textContent = 'This email is not assigned to Coach ' + selectedCoach + '.';
