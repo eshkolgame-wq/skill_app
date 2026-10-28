@@ -1130,6 +1130,13 @@ function countryFlag(code) {
   if (!/^[A-Z]{2}$/.test(flagCode)) return '🌐';
   return String.fromCodePoint(...flagCode.split('').map(c => 127397 + c.charCodeAt(0)));
 }
+function countryFlagImage(code) {
+  if (!code || code === 'OTHER') return '<span class="country-flag-image" aria-label="Unknown country">🌐</span>';
+  const raw = String(code).trim();
+  const flagCode = (raw.toUpperCase() === 'SW' ? 'CH' : raw.toUpperCase()).toLowerCase();
+  if (!/^[a-z]{2}$/.test(flagCode)) return '<span class="country-flag-image" aria-label="Unknown country">🌐</span>';
+  return '<img class="country-flag-image" src="https://flagcdn.com/24x18/' + flagCode + '.png" srcset="https://flagcdn.com/48x36/' + flagCode + '.png 2x" alt="" aria-hidden="true" loading="lazy">';
+}
 function countryOptionsHtml(selected) {
   return COUNTRY_OPTIONS.map(([code,label]) =>
     `<option value="${code}" ${(selected || 'IL')===code?'selected':''}>${countryFlag(code)} ${label}</option>`
@@ -1156,7 +1163,7 @@ function renderCountrySuggestions(inputId, selectId, wrapId) {
     wrap.innerHTML = '<div class="country-suggestion-empty">No matching European country. Keep typing or check the spelling.</div>';
   } else {
     wrap.innerHTML = matches.map(([code,label]) =>
-      `<button type="button" class="country-suggestion" onmousedown="event.preventDefault();chooseCountrySuggestion('${inputId}','${selectId}','${wrapId}','${code}')">${countryFlag(code)} ${label}</button>`
+      `<button type="button" class="country-suggestion" onmousedown="event.preventDefault();chooseCountrySuggestion('${inputId}','${selectId}','${wrapId}','${code}')">${countryFlagImage(code)} ${label}</button>`
     ).join('');
   }
   wrap.classList.add('open');
@@ -1804,7 +1811,7 @@ function renderPBsSearchResults(query) {
     return `<button type="button" class="pbs-search-result" onclick="openProfile('${escapeAttr(a.name)}')">
       <span class="name-btn-avatar${female}">${initials(a.name)}</span>
       <span>${a.name}</span>
-      <span class="pbs-search-meta">${countryFlag(a.country || 'IL')}${a.birthYear ? ' · '+a.birthYear : ''}</span>
+      <span class="pbs-search-meta">${countryFlagImage(a.country || 'IL')}${a.birthYear ? ' · '+a.birthYear : ''}</span>
     </button>`;
   }).join('');
 }
@@ -2169,7 +2176,7 @@ function renderProfile(nameOverride) {
       <div class="avatar${isFemale?' female':''}">${initials(a.name)}</div>
       <div>
         ${nameBlock}
-        <div class="profile-sub">${isFemale?'Female swimmer':'Male swimmer'} · ${countryFlag(a.country || 'IL')}${a.birthYear ? ' · '+a.birthYear : ''}${statusTxt}</div>
+        <div class="profile-sub">${isFemale?'Female swimmer':'Male swimmer'} · ${countryFlagImage(a.country || 'IL')}${a.birthYear ? ' · '+a.birthYear : ''}${statusTxt}</div>
       </div>
       <div class="total-badge" id="total-badge-${a.name.replace(/\s/g,'_')}">Overall Score: ${a.total.toFixed(1)}</div>
       <button class="coach-only" onclick="openDetailsModal('${escapeAttr(a.name)}')" title="Edit details" style="background:none;border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:11px;color:var(--text-muted);cursor:pointer">✏️ Details</button>
