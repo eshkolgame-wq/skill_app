@@ -344,10 +344,10 @@
     <p class="sub">Choose your coach profile, then sign in with its approved email and password.</p>
     <label for="login-coach">Coach</label>
     <select id="login-coach" style="margin-bottom:8px" onchange="syncCoachEmailHint()">
-      <option value="Carmel">🇮🇱 Coach Carmel</option>
-      <option value="Eshkol">🇮🇱 Coach Eshkol</option>
-      <option value="Neil">🇮🇱 Coach Neil</option>
-      <option value="Charlie">🇬🇧 Coach Charlie</option>
+      <option value="Carmel">🇮🇱 Carmel</option>
+      <option value="Eshkol">🇮🇱 Eshkol</option>
+      <option value="Neil">🇮🇱 Neil</option>
+      <option value="Charlie">🇬🇧 Charlie</option>
       <option value="Curtis Coulter">🇮🇪 Curtis Coulter</option>
       <option value="J. Stetina">🇩🇪 J. Stetina</option>
       <option value="Florent Tresarrieu">🇨🇭 Florent Tresarrieu</option>
@@ -357,7 +357,7 @@
       <option value="Geert Janssen">🇳🇱 Geert Janssen</option>
       <option value="Paul Huch">🌍 Paul Huch</option>
     </select>
-    <p id="login-coach-hint" class="sub" style="margin:0 0 10px">Use the email assigned to Coach Carmel.</p>
+    <p id="login-coach-hint" class="sub" style="margin:0 0 10px">Use the email assigned to Carmel.</p>
     <label for="login-email">Email</label>
     <input type="email" id="login-email" autocomplete="username" placeholder="coach@team.com" onkeydown="if(event.key==='Enter')doLogin()">
     <label for="login-password">Password</label>
@@ -1688,7 +1688,7 @@ function renderHomeGreeting() {
   // An authenticated coach's identity always takes priority over the optional saved swimmer name.
   const coachName = isCoach && currentUser ? coachNameForEmail(currentUser.email) : '';
   if (coachName) {
-    heading.textContent = 'Hey Coach ' + coachName;
+    heading.textContent = 'Hey ' + coachName;
     return;
   }
   const name = getSavedSwimmerName();
