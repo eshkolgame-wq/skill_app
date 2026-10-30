@@ -1,5 +1,5 @@
 // חשוב: קדמו את המספר הזה (v1 -> v2 -> v3...) בכל דיפלוי כדי שהגרסה החדשה תדרוס את הישנה
-const CACHE_NAME = 'skillwave-cache-v44';
+const CACHE_NAME = 'skillwave-cache-v45';
 const urlsToCache = [
   './index.html',
   './manifest.json',
