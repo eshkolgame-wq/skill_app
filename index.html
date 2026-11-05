@@ -79,6 +79,12 @@
   /* --- Role gating: hide edit controls for viewers (swimmers) --- */
   body:not(.is-coach) .coach-only { display: none !important; }
   body.is-coach .swimmer-only { display: none !important; }
+  .language-toggle { border:1px solid rgba(255,255,255,0.3); border-radius:18px; padding:6px 11px; background:rgba(255,255,255,0.12); color:#fff; font:700 12px inherit; cursor:pointer; white-space:nowrap; }
+  .language-toggle:hover { background:rgba(255,255,255,0.22); }
+  html[dir="rtl"] body { direction:rtl; }
+  html[dir="rtl"] .home-card { text-align:right; }
+  html[dir="rtl"] input, html[dir="rtl"] select, html[dir="rtl"] textarea { text-align:right; }
+  html[dir="rtl"] .modal-card, html[dir="rtl"] .card { text-align:right; }
   .scoring-info-btn { width:30px; height:30px; flex:0 0 30px; display:inline-flex; align-items:center; justify-content:center; border:1px solid rgba(255,255,255,0.3); border-radius:50%; background:rgba(255,255,255,0.12); color:#fff; font:700 17px/1 inherit; cursor:pointer; }
   .scoring-info-btn:hover, .scoring-info-btn:focus-visible { background:var(--teal); color:var(--navy); outline:none; }
   /* --- Header auth button --- */
@@ -425,6 +431,7 @@
     </div>
   </div>
   <div style="display:flex;align-items:center;gap:10px">
+    <button type="button" id="language-toggle" class="language-toggle" onclick="toggleLanguage()">עברית</button>
     <button class="scoring-info-btn" onclick="showScreen('scoring')" aria-label="Open scoring thresholds" title="Scoring thresholds">ⓘ</button>
     <div class="gender-toggle">
       <button class="gender-btn active" onclick="setGender('M')">Men</button>
@@ -591,6 +598,86 @@
 </div>
 
 <script>
+const UI_TRANSLATIONS = {
+"Welcome to SkillWave":"ברוכים הבאים ל-SkillWave",
+"What is your name? We’ll remember your swimmer profile on this device and open it automatically next time.":"מה שמך? נשמור את פרופיל השחיין במכשיר הזה ונפתח אותו אוטומטית בפעם הבאה.",
+"Your name":"השם שלך","Start typing your name...":"התחל להקליד את שמך...","Save name":"שמור שם","Continue without saving":"המשך בלי לשמור","I’m a coach — Sign in":"אני מאמן — התחברות",
+"Coach Login":"התחברות מאמן","Choose your coach profile, then sign in with its approved email and password.":"בחר את פרופיל המאמן שלך, ואז התחבר באמצעות כתובת הדוא״ל והסיסמה המאושרות.",
+"Coach":"מאמן","Email":"דוא״ל","Password":"סיסמה","Sign In":"התחבר","Cancel":"ביטול",
+"Edit Swimmer Details":"עריכת פרטי שחיין","Update the swimmer’s name, gender, region, and status. Only coaches can make changes.":"עדכון שם השחיין, המגדר, האזור והסטטוס. רק מאמנים יכולים לבצע שינויים.",
+"Full Name":"שם מלא","Gender":"מגדר","Male":"גברים","Female":"נשים","Country":"מדינה","Type a country (e.g. slo)...":"הקלד שם מדינה (לדוגמה: slo)...",
+"Birth Year (optional)":"שנת לידה (לא חובה)","Birth year":"שנת לידה","Region":"אזור","Israel":"ישראל","Europe":"אירופה","Status":"סטטוס","✅ Active":"✅ פעיל","⏸️ Inactive":"⏸️ לא פעיל",
+"Inactive swimmers are hidden from search results but remain in the tables.":"שחיינים לא פעילים מוסתרים מתוצאות החיפוש אך נשארים בטבלאות.",
+"Save Changes":"שמור שינויים","Data sync status":"מצב סנכרון נתונים","Local":"מקומי","Men":"גברים","Women":"נשים","Both":"שניהם",
+"What would you like to do?":"מה תרצה לעשות?","Change swimmer":"החלף שחיין","Swimmer Leaderboard":"דירוג שחיינים",
+"Rank swimmers by skill, category, or overall score":"דירוג שחיינים לפי מיומנות, קטגוריה או ציון כולל",
+"Swimmer Comparison":"השוואת שחיינים","Compare swimmers by one skill or across all skills":"השוואת שחיינים לפי מיומנות אחת או לפי כל המיומנויות",
+"Enter Swimmer Results":"הזנת תוצאות שחיין","View a swimmer’s profile, record skill results, and see individual rankings":"צפה בפרופיל שחיין, הזן תוצאות מיומנויות וראה דירוגים אישיים",
+"My Best Results by Skill":"התוצאות הטובות ביותר שלי לפי מיומנות","View your best recorded time and score for each skill":"צפה בזמן ובציון הטובים ביותר שנרשמו עבורך בכל מיומנות",
+"Back to Main Menu":"חזרה לתפריט הראשי","Training Session — Select Swimmers":"אימון — בחירת שחיינים",
+"Add all the swimmers you’re timing today. Then select a swimmer below to enter their results without searching again.":"הוסף את כל השחיינים שאתה מודד היום. לאחר מכן בחר שחיין מהרשימה כדי להזין את תוצאותיו בלי לחפש שוב.",
+"Add a swimmer to this session":"הוסף שחיין לאימון הזה","Enter a swimmer’s name...":"הקלד שם שחיין...","Clear session":"נקה אימון",
+"Select a Swimmer":"בחירת שחיין","Search by swimmer name":"חיפוש לפי שם שחיין","Add a New Swimmer":"הוספת שחיין חדש","➕ Add Swimmer":"➕ הוסף שחיין",
+"Create Swimmer":"צור שחיין","Select a Skill or Category":"בחר מיומנות או קטגוריה","Find swimmers to compare":"חפש שחיינים להשוואה",
+"Selected swimmers":"שחיינים שנבחרו","Select at least two swimmers. Select a swimmer again to remove them.":"בחר לפחות שני שחיינים. לחץ שוב על שחיין כדי להסיר אותו.",
+"Categories":"קטגוריות","All Skills":"כל המיומנויות","Scoring Table":"טבלת ניקוד","Search for a swimmer...":"חפש שחיין...",
+"Open scoring thresholds":"פתיחת ספי הניקוד","Scoring thresholds":"ספי ניקוד","Save":"שמור","Delete":"מחק","Edit":"ערוך","Update":"עדכן","Search":"חיפוש",
+"Loading...":"טוען...","No results found":"לא נמצאו תוצאות","No swimmers found":"לא נמצאו שחיינים","Overall":"כללי",
+"Dive":"זינוק","Push":"דחיפה","Swimming":"שחייה","Glide":"גלישה","Underwater":"תת-מימי",
+"10m Push & Glide":"10 מ׳ דחיפה וגלישה","10m Dive & Glide":"10 מ׳ זינוק וגלישה","10m Flutter Kick":"10 מ׳ בעיטות רגליים",
+"10m UW Push":"10 מ׳ דחיפה תת-מימית","10m UW Dive":"10 מ׳ זינוק תת-מימי","15m Dive Free":"15 מ׳ שחייה חופשית לאחר זינוק",
+"Turn 5+10":"סיבוב 5+10","10m Mid":"10 מ׳ אמצע","Results":"תוצאות","Score":"ציון","Time":"זמן","Name":"שם",
+"Date":"תאריך","Actions":"פעולות","Points":"נקודות","Average":"ממוצע","No data available":"אין נתונים זמינים","Select":"בחר","Close":"סגור","Back":"חזרה"
+};
+const UI_TRANSLATIONS_REVERSE = Object.fromEntries(Object.entries(UI_TRANSLATIONS).map(([en,he])=>[he,en]));
+let currentLanguage = localStorage.getItem('skillwave-language') === 'he' ? 'he' : 'en';
+function translateUiText(value) {
+  const dict = currentLanguage === 'he' ? UI_TRANSLATIONS : UI_TRANSLATIONS_REVERSE;
+  const trimmed = value.trim();
+  if (dict[trimmed]) return value.replace(trimmed, dict[trimmed]);
+  let result = value;
+  for (const [from,to] of Object.entries(dict).sort((a,b)=>b[0].length-a[0].length)) {
+    if (result.includes(from)) result = result.split(from).join(to);
+  }
+  return result;
+}
+function applyLanguage() {
+  const he = currentLanguage === 'he';
+  document.documentElement.lang = he ? 'he' : 'en';
+  document.documentElement.dir = he ? 'rtl' : 'ltr';
+  document.body.dir = he ? 'rtl' : 'ltr';
+  const toggle = document.getElementById('language-toggle');
+  if (toggle) toggle.textContent = he ? 'English' : 'עברית';
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  let node;
+  while ((node = walker.nextNode())) node.nodeValue = translateUiText(node.nodeValue);
+  document.querySelectorAll('*').forEach(el => ['placeholder','title','aria-label'].forEach(attr => {
+    if (el.hasAttribute(attr)) el.setAttribute(attr, translateUiText(el.getAttribute(attr)));
+  }));
+}
+function toggleLanguage() {
+  currentLanguage = currentLanguage === 'en' ? 'he' : 'en';
+  localStorage.setItem('skillwave-language', currentLanguage);
+  applyLanguage();
+}
+const uiTranslationObserver = new MutationObserver(records => {
+  if (currentLanguage !== 'he') return;
+  records.forEach(record => {
+    if (record.type === 'characterData') {
+      const v = translateUiText(record.target.nodeValue);
+      if (v !== record.target.nodeValue) record.target.nodeValue = v;
+    } else record.addedNodes.forEach(node => {
+      if (node.nodeType === Node.TEXT_NODE) node.nodeValue = translateUiText(node.nodeValue);
+      else if (node.nodeType === Node.ELEMENT_NODE) {
+        const walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT);
+        let child;
+        while ((child = walker.nextNode())) child.nodeValue = translateUiText(child.nodeValue);
+      }
+    });
+  });
+});
+uiTranslationObserver.observe(document.body,{subtree:true,childList:true,characterData:true});
+
 const SKILLS = [
   { key:'s1', label:'10m Push & Glide' },
   { key:'s2', label:'10m Dive & Glide' },
@@ -2521,6 +2608,7 @@ async function boot() {
   renderHomeGreeting();
   // Naming is optional; never block app access with the swimmer-name modal.
 }
+applyLanguage();
 boot();
 
   if ('serviceWorker' in navigator) {
