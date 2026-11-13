@@ -1806,12 +1806,12 @@ function renderHomeGreeting() {
   if (!heading) return;
   // An authenticated coach's identity always takes priority over the optional saved swimmer name.
   const coachName = isCoach && currentUser ? coachNameForEmail(currentUser.email) : '';
-  if (coachName) {
-    heading.textContent = 'Hey Coach ' + coachName;
-    return;
-  }
   const name = getSavedSwimmerName();
-  heading.textContent = name ? 'Hey ' + name.split(/\s+/)[0] : 'Hey, welcome to the app.';
+  const guestMode = !coachName && (guestBrowsing || !name);
+  document.body.classList.toggle('guest-mode', guestMode);
+  heading.textContent = coachName
+    ? 'Hey Coach ' + coachName
+    : (guestMode ? 'Welcome — browsing as a guest' : 'Hey ' + name.split(/\s+/)[0]);
 }
 
 let pendingSavedSwimmerName = '';
