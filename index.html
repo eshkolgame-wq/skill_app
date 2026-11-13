@@ -80,8 +80,8 @@
   body:not(.is-coach) .coach-only { display: none !important; }
   body.is-coach .swimmer-only { display: none !important; }
   body.guest-mode .swimmer-only { display: none !important; }
-  .guest-only-card { display: none; }
-  body.guest-mode .guest-only-card { display: flex; }
+  .guest-only-card { display: flex; }
+  body.guest-mode .guest-change-swimmer { display: none !important; }
   .language-toggle { border:1px solid rgba(255,255,255,0.3); border-radius:18px; padding:6px 11px; background:rgba(255,255,255,0.12); color:#fff; font-family:inherit; font-size:12px; font-weight:700; cursor:pointer; white-space:nowrap; }
   .language-toggle:hover { background:rgba(255,255,255,0.22); }
   html[dir="rtl"] body { direction:rtl; }
@@ -461,7 +461,7 @@
   <!-- HOME SCREEN -->
   <div class="panel active" id="panel-home">
     <div class="home-title" id="home-greeting">What would you like to do?</div>
-    <div style="text-align:center;margin:-0.8rem 0 1rem"><button type="button" class="btn-ghost" style="font-size:12px;padding:5px 10px" onclick="showNameModal(true)">Change swimmer</button></div>
+    <div class="guest-change-swimmer" style="text-align:center;margin:-0.8rem 0 1rem"><button type="button" class="btn-ghost" style="font-size:12px;padding:5px 10px" onclick="showNameModal(true)">Change swimmer</button></div>
     
     <div class="home-options">
       <button class="home-card guest-only-card" onclick="enterGuestMode()">
