@@ -80,7 +80,11 @@
   body:not(.is-coach) .coach-only { display: none !important; }
   body.is-coach .swimmer-only { display: none !important; }
   body.guest-mode .swimmer-only { display: none !important; }
-  .guest-only-card { display: flex; }
+  .guest-only-card { display: none !important; }
+  .home-mode-switch { display:flex; justify-content:center; gap:8px; margin:0 auto 1.25rem; }
+  .home-mode-btn { border:1.5px solid var(--border); border-radius:24px; padding:9px 17px; background:var(--surface); color:var(--text-muted); font:700 13px inherit; cursor:pointer; transition:all .15s; }
+  .home-mode-btn.active { background:var(--teal); border-color:var(--teal); color:#fff; box-shadow:0 3px 10px rgba(0,194,177,.2); }
+  .home-mode-btn:focus-visible { outline:3px solid rgba(0,194,177,.3); outline-offset:2px; }
   body.guest-mode .guest-change-swimmer { display: none !important; }
   .language-toggle { border:1px solid rgba(255,255,255,0.3); border-radius:18px; padding:6px 11px; background:rgba(255,255,255,0.12); color:#fff; font-family:inherit; font-size:12px; font-weight:700; cursor:pointer; white-space:nowrap; }
   .language-toggle:hover { background:rgba(255,255,255,0.22); }
@@ -461,16 +465,12 @@
   <!-- HOME SCREEN -->
   <div class="panel active" id="panel-home">
     <div class="home-title" id="home-greeting">What would you like to do?</div>
-    <div class="guest-change-swimmer" style="text-align:center;margin:-0.8rem 0 1rem"><button type="button" class="btn-ghost" style="font-size:12px;padding:5px 10px" onclick="showNameModal(true)">Change swimmer</button></div>
-    
+    <div class="home-mode-switch" role="group" aria-label="Choose browsing mode">
+      <button type="button" id="home-mode-guest" class="home-mode-btn" onclick="enterGuestMode()">👀 Browse as Guest</button>
+      <button type="button" id="home-mode-swimmer" class="home-mode-btn" onclick="showNameModal(true)">🏊 Swimmer Profile</button>
+    </div>
+
     <div class="home-options">
-      <button class="home-card guest-only-card" onclick="enterGuestMode()">
-        <span class="home-card-icon">👀</span>
-        <span class="home-card-text">
-          <span class="home-card-title">Browse as Guest</span>
-          <span class="home-card-sub">View skill tables and rankings without entering a name or opening a personal results profile</span>
-        </span>
-      </button>
       <button class="home-card" onclick="showScreen('leaderboard')">
         <span class="home-card-icon">🏆</span>
         <span class="home-card-text">
@@ -1809,6 +1809,10 @@ function renderHomeGreeting() {
   const name = getSavedSwimmerName();
   const guestMode = !coachName && (guestBrowsing || !name);
   document.body.classList.toggle('guest-mode', guestMode);
+  const guestButton = document.getElementById('home-mode-guest');
+  const swimmerButton = document.getElementById('home-mode-swimmer');
+  if (guestButton) guestButton.classList.toggle('active', guestMode);
+  if (swimmerButton) swimmerButton.classList.toggle('active', !guestMode && !coachName);
   heading.textContent = coachName
     ? 'Hey Coach ' + coachName
     : (guestMode ? 'Welcome — browsing as a guest' : 'Hey ' + name.split(/\s+/)[0]);
