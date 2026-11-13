@@ -79,6 +79,9 @@
   /* --- Role gating: hide edit controls for viewers (swimmers) --- */
   body:not(.is-coach) .coach-only { display: none !important; }
   body.is-coach .swimmer-only { display: none !important; }
+  body.guest-mode .swimmer-only { display: none !important; }
+  .guest-only-card { display: none; }
+  body.guest-mode .guest-only-card { display: flex; }
   .language-toggle { border:1px solid rgba(255,255,255,0.3); border-radius:18px; padding:6px 11px; background:rgba(255,255,255,0.12); color:#fff; font-family:inherit; font-size:12px; font-weight:700; cursor:pointer; white-space:nowrap; }
   .language-toggle:hover { background:rgba(255,255,255,0.22); }
   html[dir="rtl"] body { direction:rtl; }
@@ -461,6 +464,13 @@
     <div style="text-align:center;margin:-0.8rem 0 1rem"><button type="button" class="btn-ghost" style="font-size:12px;padding:5px 10px" onclick="showNameModal(true)">Change swimmer</button></div>
     
     <div class="home-options">
+      <button class="home-card guest-only-card" onclick="enterGuestMode()">
+        <span class="home-card-icon">👀</span>
+        <span class="home-card-text">
+          <span class="home-card-title">Browse as Guest</span>
+          <span class="home-card-sub">View skill tables and rankings without entering a name or opening a personal results profile</span>
+        </span>
+      </button>
       <button class="home-card" onclick="showScreen('leaderboard')">
         <span class="home-card-icon">🏆</span>
         <span class="home-card-text">
@@ -1805,6 +1815,15 @@ function renderHomeGreeting() {
 }
 
 let pendingSavedSwimmerName = '';
+let guestBrowsing = false;
+
+function enterGuestMode() {
+  guestBrowsing = true;
+  const modal = document.getElementById('swimmer-name-modal');
+  if (modal) modal.classList.remove('open');
+  renderHomeGreeting();
+  showScreen('home');
+}
 
 function renderSavedSwimmerOptions(query) {
   const wrap = document.getElementById('saved-swimmer-name-options');
@@ -1837,6 +1856,8 @@ function chooseSavedSwimmer(name) {
 }
 
 function showNameModal(changeName) {
+  guestBrowsing = false;
+  document.body.classList.remove('guest-mode');
   const modal = document.getElementById('swimmer-name-modal');
   const input = document.getElementById('saved-swimmer-name-input');
   const error = document.getElementById('saved-swimmer-name-error');
