@@ -1905,7 +1905,7 @@ function openSavedSwimmerProfile() {
   }
   const match = ATHLETES.find(a => a.name.toLocaleLowerCase() === saved.toLocaleLowerCase());
   if (match) {
-    renderProfile(match.name, 'pbs-profile-area');
+    renderProfile(match.name, 'pbs-profile-area', true);
     return true;
   }
   if (area) area.innerHTML = '<div class="card"><p class="compare-help">The saved swimmer could not be found in the current roster.</p></div>';
@@ -2238,9 +2238,9 @@ function categoryBreakdownHtml(a) {
     <div class="skills-grid">${chips}</div>`;
 }
 
-function renderProfile(nameOverride) {
+function renderProfile(nameOverride, targetAreaId = 'profile-area', compact = false) {
   const sel = document.getElementById('swimmer-select');
-  const area = document.getElementById('profile-area');
+  const area = document.getElementById(targetAreaId);
   if (nameOverride) {
     sel.value = nameOverride;
     const searchInput = document.getElementById('profile-swimmer-search');
@@ -2295,7 +2295,7 @@ function renderProfile(nameOverride) {
     : `<div class="profile-name">${a.name}</div>`;
   const statusTxt = a.active === false ? ' · ⏸️ Inactive' : '';
   area.innerHTML = `<div class="card">
-    <div class="profile-header">
+    ${compact ? '' : `<div class="profile-header">
       <div class="avatar${isFemale?' female':''}">${initials(a.name)}</div>
       <div>
         ${nameBlock}
@@ -2304,9 +2304,9 @@ function renderProfile(nameOverride) {
       <div class="total-badge" id="total-badge-${a.name.replace(/\s/g,'_')}">Overall Score: ${a.total.toFixed(1)}</div>
       <button class="coach-only" onclick="openDetailsModal('${escapeAttr(a.name)}')" title="Edit details" style="background:none;border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:11px;color:var(--text-muted);cursor:pointer">✏️ Details</button>
       <button class="coach-only" onclick="resetAthlete('${a.name}')" title="Reset to original data" style="background:none;border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:11px;color:var(--text-muted);cursor:pointer">↺ Reset</button>
-    </div>
+    </div>`}
     <div class="skills-grid">${skillsHtml}</div>
-    ${categoryBreakdownHtml(a)}
+    ${compact ? '' : categoryBreakdownHtml(a)}
   </div>`;
 }
 
