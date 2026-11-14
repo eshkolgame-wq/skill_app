@@ -335,18 +335,12 @@
 <div class="modal-backdrop" id="swimmer-name-modal">
   <div class="modal-card">
     <h2>Welcome to SkillWave</h2>
-    <p class="sub">What is your name? We’ll remember your swimmer profile on this device and open it automatically next time.</p>
-    <label for="saved-swimmer-name-input">Your name</label>
-    <input type="search" id="saved-swimmer-name-input" autocomplete="off" placeholder="Start typing your name..." oninput="renderSavedSwimmerOptions(this.value)" onkeydown="if(event.key===\'Enter\'){event.preventDefault();saveSwimmerName()}">
+    <p class="sub">Choose your swimmer profile to continue. Your selection will be remembered on this device.</p>
+    <label for="saved-swimmer-name-input">Swimmer name</label>
+    <input type="search" id="saved-swimmer-name-input" autocomplete="off" placeholder="Search for your swimmer..." oninput="renderSavedSwimmerOptions(this.value)" onkeydown="if(event.key===\'Enter\'){event.preventDefault();saveSwimmerName()}">
     <div id="saved-swimmer-name-options" class="pbs-search-results"></div>
     <div class="modal-err" id="saved-swimmer-name-error"></div>
-    <div class="modal-actions"><button class="btn-primary" onclick="saveSwimmerName()">Save name</button></div>
-    <div style="text-align:center;margin-top:10px">
-      <button type="button" class="btn-ghost" onclick="skipSwimmerName()">Continue without saving</button>
-    </div>
-    <div style="text-align:center;margin-top:14px">
-      <button type="button" class="btn-ghost" onclick="openCoachLoginFromWelcome()">I’m a coach — Sign in</button>
-    </div>
+    <div class="modal-actions"><button class="btn-primary" onclick="saveSwimmerName()">Continue as Swimmer</button></div>
   </div>
 </div>
 
@@ -617,8 +611,8 @@
 <script>
 const UI_TRANSLATIONS = {
 "Welcome to SkillWave":"ברוכים הבאים ל-SkillWave",
-"What is your name? We’ll remember your swimmer profile on this device and open it automatically next time.":"מה שמך? נשמור את פרופיל השחיין במכשיר הזה ונפתח אותו אוטומטית בפעם הבאה.",
-"Your name":"השם שלך","Start typing your name...":"התחל להקליד את שמך...","Save name":"שמור שם","Continue without saving":"המשך בלי לשמור","I’m a coach — Sign in":"אני מאמן — התחברות",
+"Choose your swimmer profile to continue. Your selection will be remembered on this device.":"בחרו את פרופיל השחיין כדי להמשיך. הבחירה תישמר במכשיר הזה.",
+"Swimmer name":"שם השחיין","Search for your swimmer...":"חיפוש שחיין...","Continue as Swimmer":"המשך כשחיין",
 "Coach Login":"התחברות מאמן","Choose your coach profile, then sign in with its approved email and password.":"בחר את פרופיל המאמן שלך, ואז התחבר באמצעות כתובת הדוא״ל והסיסמה המאושרות.",
 "Coach":"מאמן","Email":"דוא״ל","Password":"סיסמה","Sign In":"התחבר","Cancel":"ביטול",
 "Edit Swimmer Details":"עריכת פרטי שחיין","Update the swimmer’s name, gender, region, and status. Only coaches can make changes.":"עדכון שם השחיין, המגדר, האזור והסטטוס. רק מאמנים יכולים לבצע שינויים.",
