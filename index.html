@@ -555,10 +555,6 @@
   <!-- SCREEN: My Best Results by Skill -->
   <div class="panel" id="panel-pbs">
     <button class="back-btn" onclick="showScreen('home')">🏠 Back to Main Menu</button>
-    <div class="card">
-      <div class="card-title">🥇 My Best Results by Skill</div>
-      <div style="margin-top:8px;font-size:15px;color:var(--text-muted)">Select a swimmer: <strong id="pbs-selected-name" style="color:var(--text)">—</strong></div>
-    </div>
     <div id="pbs-profile-area"></div>
   </div>
 
@@ -1902,9 +1898,7 @@ function saveSwimmerName() {
 
 function openSavedSwimmerProfile() {
   const saved = getSavedSwimmerName();
-  const heading = document.getElementById('pbs-selected-name');
   const area = document.getElementById('pbs-profile-area');
-  if (heading) heading.textContent = saved || 'No swimmer selected';
   if (!saved) {
     if (area) area.innerHTML = '<div class="card"><p class="compare-help">Choose a swimmer profile from the home screen to view personal results.</p></div>';
     return false;
