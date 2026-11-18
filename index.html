@@ -684,6 +684,8 @@ const uiTranslationObserver = new MutationObserver(records => {
 });
 uiTranslationObserver.observe(document.body,{subtree:true,childList:true,characterData:true});
 
+let CUSTOM_SKILLS = [];
+
 const SKILLS = [
   { key:'s1', label:'10m Push & Glide' },
   { key:'s2', label:'10m Dive & Glide' },
@@ -1181,6 +1183,7 @@ function applyOverrides(overrides) {
       }
     });
   }
+  if (Array.isArray(overrides.customSkills)) CUSTOM_SKILLS = JSON.parse(JSON.stringify(overrides.customSkills));
 }
 
 function collectOverrides() {
@@ -1200,11 +1203,12 @@ function collectOverrides() {
     META_FIELDS.forEach(k => { if (a[k] !== base[k]) diff[k] = a[k]; });
     if (a.total !== base.total) diff.total = a.total;
     if (a.history && Object.keys(a.history).length) diff.history = a.history;
+    if (a.customSkillResults && Object.keys(a.customSkillResults).length) diff.customSkillResults = a.customSkillResults;
     if (Object.keys(diff).length) edits[i] = diff;
   }
   // Any athletes beyond BASE_ATHLETES.length were added at runtime; store them in full
   const newAthletes = ATHLETES.slice(BASE_ATHLETES.length).map(a => JSON.parse(JSON.stringify(a)));
-  return { edits, newAthletes };
+  return { edits, newAthletes, customSkills: JSON.parse(JSON.stringify(CUSTOM_SKILLS)) };
 }
 
 // Human-readable category label (matches the category bar)
@@ -2238,6 +2242,99 @@ function categoryBreakdownHtml(a) {
     <div class="skills-grid">${chips}</div>`;
 }
 
+function toggleAddCustomSkillForm() {
+  const form = document.getElementById('add-custom-skill-form');
+  if (!form) return;
+  form.style.display = form.style.display === 'none' ? 'block' : 'none';
+}
+
+async function createCustomSkill(swimmerName) {
+  const stroke = document.getElementById('custom-skill-stroke')?.value;
+  const distance = document.getElementById('custom-skill-distance')?.value;
+  const start = document.getElementById('custom-skill-start')?.value;
+  if (!stroke || !distance || !start) { showToast('⚠️ Complete all skill fields.'); return; }
+  const label = distance + ' ' + stroke + ' (' + start + ')';
+  if (CUSTOM_SKILLS.some(s => s.label.toLowerCase() === label.toLowerCase())) {
+    showToast('⚠️ This custom skill already exists.'); return;
+  }
+  const skill = { id: 'custom_' + Date.now(), stroke, distance, start, label };
+  CUSTOM_SKILLS.push(skill);
+  const a = ATHLETES.find(x => x.name === swimmerName);
+  if (a) {
+    if (!a.customSkillResults) a.customSkillResults = {};
+    const time = parseFloat(document.getElementById('custom-skill-initial-time')?.value || '');
+    if (Number.isFinite(time) && time > 0) {
+      a.customSkillResults[skill.id] = { time, history: [{ date: new Date().toLocaleDateString('he-IL'), time }] };
+    }
+  }
+  try {
+    await saveOverrides(collectOverrides());
+    showToast('✅ New skill added for all swimmers.');
+  } catch (e) {
+    showToast('⚠️ Skill was added locally but could not be synced.');
+  }
+  renderProfile(swimmerName);
+}
+
+async function saveCustomSkillResult(swimmerName, skillId) {
+  const input = document.getElementById('custom-result-' + skillId);
+  const time = parseFloat(input?.value || '');
+  if (!Number.isFinite(time) || time <= 0) { showToast('⚠️ Enter a valid time in seconds.'); return; }
+  const a = ATHLETES.find(x => x.name === swimmerName);
+  if (!a) return;
+  if (!a.customSkillResults) a.customSkillResults = {};
+  if (!a.customSkillResults[skillId]) a.customSkillResults[skillId] = { time: 0, history: [] };
+  a.customSkillResults[skillId].time = time;
+  a.customSkillResults[skillId].history = a.customSkillResults[skillId].history || [];
+  a.customSkillResults[skillId].history.push({ date: new Date().toLocaleDateString('he-IL'), time });
+  try {
+    await saveOverrides(collectOverrides());
+    showToast('✅ Custom skill result saved.');
+  } catch (e) {
+    showToast('⚠️ Result was updated locally but could not be synced.');
+  }
+  renderProfile(swimmerName);
+}
+
+function renderCustomSkills(a) {
+  const cards = CUSTOM_SKILLS.map(skill => {
+    const result = a.customSkillResults && a.customSkillResults[skill.id];
+    const hasResult = result && Number(result.time) > 0;
+    return `<div class="skill-item">
+      <div class="skill-name">${skill.label}</div>
+      <div class="skill-val" style="${hasResult ? '' : 'color:var(--text-muted);font-size:14px'}">${hasResult ? Number(result.time).toFixed(2) + ' sec' : 'No result yet'}</div>
+      <div class="coach-only" style="display:flex;gap:6px;margin-top:8px">
+        <input type="number" step="0.01" min="0" id="custom-result-${skill.id}" placeholder="Time (seconds)" style="min-width:0;width:130px;padding:8px;border:1px solid var(--border);border-radius:8px">
+        <button class="btn-save" onclick="saveCustomSkillResult('${escapeAttr(a.name)}','${skill.id}')">✓</button>
+      </div>
+    </div>`;
+  }).join('');
+  const form = `<div id="add-custom-skill-form" class="card coach-only" style="display:none;margin-top:12px;background:var(--surface2)">
+    <div class="card-title">Create a new skill</div>
+    <label class="add-athlete-label">Stroke</label>
+    <select id="custom-skill-stroke" class="add-athlete-input"><option>Breast</option><option>Fly</option><option>Back</option><option>Freestyle</option></select>
+    <label class="add-athlete-label">Distance</label>
+    <select id="custom-skill-distance" class="add-athlete-input"><option>5+10m</option><option>10m</option><option>15m</option><option>10m Mid</option></select>
+    <label class="add-athlete-label">Start</label>
+    <select id="custom-skill-start" class="add-athlete-input"><option>With dive</option><option>Without dive</option></select>
+    <label class="add-athlete-label">Initial result for ${a.name} (seconds, optional)</label>
+    <input type="number" step="0.01" min="0" id="custom-skill-initial-time" class="add-athlete-input" placeholder="Time in seconds">
+    <div style="display:flex;gap:8px">
+      <button class="btn-save" onclick="createCustomSkill('${escapeAttr(a.name)}')">Create Skill</button>
+      <button class="btn-cancel" onclick="toggleAddCustomSkillForm()">Cancel</button>
+    </div>
+  </div>`;
+  if (!CUSTOM_SKILLS.length && !isCoach) return '';
+  return `<div style="margin-top:1.5rem">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px">
+      <div class="card-title" style="margin:0">New Skills</div>
+      <button class="edit-btn coach-only" onclick="toggleAddCustomSkillForm()">＋ Add New Skill</button>
+    </div>
+    ${form}
+    ${cards ? '<div class="skills-grid">' + cards + '</div>' : '<div style="color:var(--text-muted);font-size:13px">No custom skills yet.</div>'}
+  </div>`;
+}
+
 function renderProfile(nameOverride, targetAreaId = 'profile-area', compact = false) {
   const sel = document.getElementById('swimmer-select');
   const area = document.getElementById(targetAreaId);
@@ -2306,6 +2403,7 @@ function renderProfile(nameOverride, targetAreaId = 'profile-area', compact = fa
       <button class="coach-only" onclick="resetAthlete('${a.name}')" title="Reset to original data" style="background:none;border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:11px;color:var(--text-muted);cursor:pointer">↺ Reset</button>
     </div>`}
     <div class="skills-grid">${skillsHtml}</div>
+    ${renderCustomSkills(a)}
     ${compact ? '' : categoryBreakdownHtml(a)}
   </div>`;
 }
