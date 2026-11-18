@@ -2263,13 +2263,11 @@ async function createCustomSkill(swimmerName) {
   if (a) {
     if (!a.customSkillResults) a.customSkillResults = {};
     const time = parseFloat(document.getElementById('custom-skill-initial-time')?.value || '');
-    if (Number.isFinite(time) && time > 0) {
-      a.customSkillResults[skill.id] = { time, history: [{ date: new Date().toLocaleDateString('he-IL'), time }] };
-    }
+    a.customSkillResults[skill.id] = { time: Number.isFinite(time) && time > 0 ? time : 0, history: Number.isFinite(time) && time > 0 ? [{ date: new Date().toLocaleDateString('he-IL'), time }] : [] };
   }
   try {
     await saveOverrides(collectOverrides());
-    showToast('✅ New skill added for all swimmers.');
+    showToast('✅ Skill created and added to this swimmer.');
   } catch (e) {
     showToast('⚠️ Skill was added locally but could not be synced.');
   }
@@ -2296,9 +2294,28 @@ async function saveCustomSkillResult(swimmerName, skillId) {
   renderProfile(swimmerName);
 }
 
+async function addExistingCustomSkill(swimmerName) {
+  const select = document.getElementById('existing-custom-skill');
+  const skillId = select?.value;
+  if (!skillId) { showToast('⚠️ Choose a skill first.'); return; }
+  const a = ATHLETES.find(x => x.name === swimmerName);
+  if (!a) return;
+  if (!a.customSkillResults) a.customSkillResults = {};
+  if (a.customSkillResults[skillId]) { showToast('This skill is already assigned to this swimmer.'); return; }
+  a.customSkillResults[skillId] = { time: 0, history: [] };
+  try {
+    await saveOverrides(collectOverrides());
+    showToast('✅ Existing skill added to this swimmer.');
+  } catch (e) {
+    showToast('⚠️ Skill was added locally but could not be synced.');
+  }
+  renderProfile(swimmerName);
+}
+
 function renderCustomSkills(a) {
-  const cards = CUSTOM_SKILLS.map(skill => {
-    const result = a.customSkillResults && a.customSkillResults[skill.id];
+  const assigned = a.customSkillResults || {};
+  const cards = CUSTOM_SKILLS.filter(skill => Object.prototype.hasOwnProperty.call(assigned, skill.id)).map(skill => {
+    const result = assigned[skill.id];
     const hasResult = result && Number(result.time) > 0;
     return `<div class="skill-item">
       <div class="skill-name">${skill.label}</div>
@@ -2309,8 +2326,11 @@ function renderCustomSkills(a) {
       </div>
     </div>`;
   }).join('');
+  const availableSkills = CUSTOM_SKILLS.filter(skill => !Object.prototype.hasOwnProperty.call(assigned, skill.id));
   const form = `<div id="add-custom-skill-form" class="card coach-only" style="display:none;margin-top:12px;background:var(--surface2)">
-    <div class="card-title">Create a new skill</div>
+    <div class="card-title">Add an existing skill</div>
+    ${availableSkills.length ? `<select id="existing-custom-skill" class="add-athlete-input">${availableSkills.map(skill => `<option value="${skill.id}">${skill.label}</option>`).join('')}</select><button class="btn-save" onclick="addExistingCustomSkill('${escapeAttr(a.name)}')">Add Selected Skill</button>` : '<div style="color:var(--text-muted);font-size:13px">No other skills available in the catalog.</div>'}
+    <div class="card-title" style="margin-top:18px">Or create a new skill</div>
     <label class="add-athlete-label">Stroke</label>
     <select id="custom-skill-stroke" class="add-athlete-input"><option>Breast</option><option>Fly</option><option>Back</option><option>Freestyle</option></select>
     <label class="add-athlete-label">Distance</label>
@@ -2325,13 +2345,14 @@ function renderCustomSkills(a) {
     </div>
   </div>`;
   if (!CUSTOM_SKILLS.length && !isCoach) return '';
+  if (!cards && !isCoach) return '';
   return `<div style="margin-top:1.5rem">
     <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px">
       <div class="card-title" style="margin:0">New Skills</div>
       <button class="edit-btn coach-only" onclick="toggleAddCustomSkillForm()">＋ Add New Skill</button>
     </div>
     ${form}
-    ${cards ? '<div class="skills-grid">' + cards + '</div>' : '<div style="color:var(--text-muted);font-size:13px">No custom skills yet.</div>'}
+    ${cards ? '<div class="skills-grid">' + cards + '</div>' : (isCoach ? '<div style="color:var(--text-muted);font-size:13px">No skills assigned to this swimmer yet.</div>' : '')}
   </div>`;
 }
 
